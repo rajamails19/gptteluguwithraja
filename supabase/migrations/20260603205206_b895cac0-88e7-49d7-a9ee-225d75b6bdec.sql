@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Public read story-audio" ON storage.objects;
