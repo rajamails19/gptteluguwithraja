@@ -35,6 +35,76 @@ import mr1 from "@/assets/stories/moonlight-rhymes/slide1.png";
 import mr2 from "@/assets/stories/moonlight-rhymes/slide2.png";
 import mr3 from "@/assets/stories/moonlight-rhymes/slide3.png";
 import mr4 from "@/assets/stories/moonlight-rhymes/slide4.png";
+import ud1 from "@/assets/stories/ugly-duckling/slide1.png";
+import ud2 from "@/assets/stories/ugly-duckling/slide2.png";
+import ud3 from "@/assets/stories/ugly-duckling/slide3.png";
+import ud4 from "@/assets/stories/ugly-duckling/slide4.png";
+import ud5 from "@/assets/stories/ugly-duckling/slide5.png";
+import ud6 from "@/assets/stories/ugly-duckling/slide6.png";
+import mc1 from "@/assets/stories/monkey-crocodile/slide1.png";
+import mc2 from "@/assets/stories/monkey-crocodile/slide2.png";
+import mc3 from "@/assets/stories/monkey-crocodile/slide3.png";
+import mc4 from "@/assets/stories/monkey-crocodile/slide4.png";
+import mc5 from "@/assets/stories/monkey-crocodile/slide5.png";
+import mc6 from "@/assets/stories/monkey-crocodile/slide6.png";
+import tcm1 from "@/assets/stories/two-cats-monkey/slide1.png";
+import tcm2 from "@/assets/stories/two-cats-monkey/slide2.png";
+import tcm3 from "@/assets/stories/two-cats-monkey/slide3.png";
+import tcm4 from "@/assets/stories/two-cats-monkey/slide4.png";
+import tcm5 from "@/assets/stories/two-cats-monkey/slide5.png";
+import ag1 from "@/assets/stories/ant-grasshopper/slide1.png";
+import ag2 from "@/assets/stories/ant-grasshopper/slide2.png";
+import ag3 from "@/assets/stories/ant-grasshopper/slide3.png";
+import ag4 from "@/assets/stories/ant-grasshopper/slide4.png";
+import ag5 from "@/assets/stories/ant-grasshopper/slide5.png";
+import ag6 from "@/assets/stories/ant-grasshopper/slide6.png";
+import mp1 from "@/assets/stories/magic-pot/slide1.png";
+import mp2 from "@/assets/stories/magic-pot/slide2.png";
+import mp3 from "@/assets/stories/magic-pot/slide3.png";
+import mp4 from "@/assets/stories/magic-pot/slide4.png";
+import mp5 from "@/assets/stories/magic-pot/slide5.png";
+import sw1 from "@/assets/stories/sun-wind/slide1.png";
+import sw2 from "@/assets/stories/sun-wind/slide2.png";
+import sw3 from "@/assets/stories/sun-wind/slide3.png";
+import sw4 from "@/assets/stories/sun-wind/slide4.png";
+import sw5 from "@/assets/stories/sun-wind/slide5.png";
+import sw6 from "@/assets/stories/sun-wind/slide6.png";
+import ls1 from "@/assets/stories/little-star/slide1.png";
+import ls2 from "@/assets/stories/little-star/slide2.png";
+import ls3 from "@/assets/stories/little-star/slide3.png";
+import ls4 from "@/assets/stories/little-star/slide4.png";
+import ls5 from "@/assets/stories/little-star/slide5.png";
+import rb1 from "@/assets/stories/rainbow/slide1.png";
+import rb2 from "@/assets/stories/rainbow/slide2.png";
+import rb3 from "@/assets/stories/rainbow/slide3.png";
+import rb4 from "@/assets/stories/rainbow/slide4.png";
+import fam1 from "@/assets/stories/my-family/slide1.png";
+import fam2 from "@/assets/stories/my-family/slide2.png";
+import fam3 from "@/assets/stories/my-family/slide3.png";
+import fam4 from "@/assets/stories/my-family/slide4.png";
+import fam5 from "@/assets/stories/my-family/slide5.png";
+import fam6 from "@/assets/stories/my-family/slide6.png";
+import body1 from "@/assets/stories/my-body/slide1.png";
+import body2 from "@/assets/stories/my-body/slide2.png";
+import body3 from "@/assets/stories/my-body/slide3.png";
+import body4 from "@/assets/stories/my-body/slide4.png";
+import body5 from "@/assets/stories/my-body/slide5.png";
+import body6 from "@/assets/stories/my-body/slide6.png";
+import body7 from "@/assets/stories/my-body/slide7.png";
+import tl1 from "@/assets/stories/telugu-letters/slide1.png";
+import tl2 from "@/assets/stories/telugu-letters/slide2.png";
+import tl3 from "@/assets/stories/telugu-letters/slide3.png";
+import tl4 from "@/assets/stories/telugu-letters/slide4.png";
+import tl5 from "@/assets/stories/telugu-letters/slide5.png";
+import tl6 from "@/assets/stories/telugu-letters/slide6.png";
+import tl7 from "@/assets/stories/telugu-letters/slide7.png";
+import tl8 from "@/assets/stories/telugu-letters/slide8.png";
+import tl9 from "@/assets/stories/telugu-letters/slide9.png";
+import tl10 from "@/assets/stories/telugu-letters/slide10.png";
+import tl11 from "@/assets/stories/telugu-letters/slide11.png";
+import tl12 from "@/assets/stories/telugu-letters/slide12.png";
+import tl13 from "@/assets/stories/telugu-letters/slide13.png";
+import tl14 from "@/assets/stories/telugu-letters/slide14.png";
 import placeholder from "@/assets/placeholder.png";
 import rs1 from "@/assets/stories/rain-song/slide1.png";
 import rs2 from "@/assets/stories/rain-song/slide2.png";
@@ -351,12 +421,12 @@ export const stories: Story[] = [
     minutes: 4,
     tagline: "Stay clever and stay safe.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/cartoon,monkey,tree?lock=3201", telugu: "కోతి చెట్టుపై ఉంది.", english: "Monkey lived on a tree." },
-      { image: "https://loremflickr.com/1200/800/cartoon,crocodile,river?lock=3202", telugu: "మొసలి స్నేహితుడయ్యాడు.", english: "Crocodile became its friend." },
-      { image: "https://loremflickr.com/1200/800/cartoon,crocodile,sneaky?lock=3203", telugu: "మొసలి కోతిని తీసుకెళ్ళాలనుకుంది.", english: "Crocodile planned to trick it." },
-      { image: "https://loremflickr.com/1200/800/cartoon,monkey,smart?lock=3204", telugu: '"నా గుండె చెట్టుపై ఉంది!"', english: '"My heart is on the tree!"' },
-      { image: "https://loremflickr.com/1200/800/cartoon,monkey,running?lock=3205", telugu: "కోతి వేగంగా పారిపోయింది.", english: "Monkey quickly ran away." },
-      { image: "https://loremflickr.com/1200/800/cartoon,monkey,safe,happy?lock=3206", telugu: "తెలివి ప్రాణం కాపాడింది.", english: "Wit saved its life." },
+      { image: mc1, telugu: "కోతి చెట్టుపై ఉంది.", english: "Monkey lived on a tree." },
+      { image: mc2, telugu: "మొసలి స్నేహితుడయ్యాడు.", english: "Crocodile became its friend." },
+      { image: mc3, telugu: "మొసలి కోతిని తీసుకెళ్ళాలనుకుంది.", english: "Crocodile planned to trick it." },
+      { image: mc4, telugu: '"నా గుండె చెట్టుపై ఉంది!"', english: '"My heart is on the tree!"' },
+      { image: mc5, telugu: "కోతి వేగంగా పారిపోయింది.", english: "Monkey quickly ran away." },
+      { image: mc6, telugu: "తెలివి ప్రాణం కాపాడింది.", english: "Wit saved its life." },
     ],
   },
   {
@@ -369,12 +439,12 @@ export const stories: Story[] = [
     minutes: 4,
     tagline: "You are beautiful just as you are.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/cartoon,egg,nest?lock=3301", telugu: "ఒక పెద్ద గుడ్డు పగిలింది.", english: "A big egg cracked open." },
-      { image: "https://loremflickr.com/1200/800/cartoon,duckling,different?lock=3302", telugu: "పిల్ల వేరేగా కనిపించింది.", english: "The duckling looked different." },
-      { image: "https://loremflickr.com/1200/800/cartoon,ducks,laughing?lock=3303", telugu: "అందరూ నవ్వారు.", english: "Everyone laughed at it." },
-      { image: "https://loremflickr.com/1200/800/cartoon,duckling,sad?lock=3304", telugu: "అది చాలా విచారించింది.", english: "It felt very sad." },
-      { image: "https://loremflickr.com/1200/800/cartoon,swan,beautiful?lock=3305", telugu: "పెద్దయ్యాక హంస అయింది!", english: "It grew into a swan!" },
-      { image: "https://loremflickr.com/1200/800/cartoon,swan,happy?lock=3306", telugu: "అందరూ మెచ్చుకున్నారు!", english: "Everyone admired it!" },
+      { image: ud1, telugu: "ఒక పెద్ద గుడ్డు పగిలింది.", english: "A big egg cracked open." },
+      { image: ud2, telugu: "పిల్ల వేరేగా కనిపించింది.", english: "The duckling looked different." },
+      { image: ud3, telugu: "అందరూ నవ్వారు.", english: "Everyone laughed at it." },
+      { image: ud4, telugu: "అది చాలా విచారించింది.", english: "It felt very sad." },
+      { image: ud5, telugu: "పెద్దయ్యాక హంస అయింది!", english: "It grew into a swan!" },
+      { image: ud6, telugu: "అందరూ మెచ్చుకున్నారు!", english: "Everyone admired it!" },
     ],
   },
   {
@@ -387,11 +457,11 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Fighting always helps someone else.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/cartoon,two,cats?lock=3401", telugu: "రెండు పిల్లులు గొడవ పడ్డాయి.", english: "Two cats were fighting." },
-      { image: "https://loremflickr.com/1200/800/cartoon,bread,food?lock=3402", telugu: "రొట్టె కోసం తగువు.", english: "They fought over bread." },
-      { image: "https://loremflickr.com/1200/800/cartoon,monkey,judge?lock=3403", telugu: "కోతి న్యాయం చెప్పింది.", english: "Monkey said it would help." },
-      { image: "https://loremflickr.com/1200/800/cartoon,monkey,eating?lock=3404", telugu: "కోతి రొట్టె తినేసింది!", english: "Monkey ate all the bread!" },
-      { image: "https://loremflickr.com/1200/800/cartoon,cats,shocked?lock=3405", telugu: "గొడవ పడితే నష్టం.", english: "Fighting brings only loss." },
+      { image: tcm1, telugu: "రెండు పిల్లులు గొడవ పడ్డాయి.", english: "Two cats were fighting." },
+      { image: tcm2, telugu: "రొట్టె కోసం తగువు.", english: "They fought over bread." },
+      { image: tcm3, telugu: "కోతి న్యాయం చెప్పింది.", english: "Monkey said it would help." },
+      { image: tcm4, telugu: "కోతి రొట్టె తినేసింది!", english: "Monkey ate all the bread!" },
+      { image: tcm5, telugu: "గొడవ పడితే నష్టం.", english: "Fighting brings only loss." },
     ],
   },
 
@@ -406,12 +476,12 @@ export const stories: Story[] = [
     minutes: 4,
     tagline: "Work today, rest tomorrow.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/cartoon,ant,working?lock=3501", telugu: "చీమ రోజూ పని చేసింది.", english: "Ant worked every single day." },
-      { image: "https://loremflickr.com/1200/800/cartoon,grasshopper,singing?lock=3502", telugu: "మిడత పాటలు పాడింది.", english: "Grasshopper sang and played." },
-      { image: "https://loremflickr.com/1200/800/cartoon,snow,winter?lock=3503", telugu: "చలి కాలం వచ్చింది.", english: "Winter came at last." },
-      { image: "https://loremflickr.com/1200/800/cartoon,grasshopper,hungry?lock=3504", telugu: "మిడతకు తిండి లేదు.", english: "Grasshopper had no food." },
-      { image: "https://loremflickr.com/1200/800/cartoon,ant,food,stored?lock=3505", telugu: "చీమ దగ్గర తిండి ఉంది.", english: "Ant had food stored safe." },
-      { image: "https://loremflickr.com/1200/800/cartoon,ant,lesson?lock=3506", telugu: "కష్టం ఫలితం ఇస్తుంది.", english: "Hard work always pays off." },
+      { image: ag1, telugu: "చీమ రోజూ పని చేసింది.", english: "Ant worked every single day." },
+      { image: ag2, telugu: "మిడత పాటలు పాడింది.", english: "Grasshopper sang and played." },
+      { image: ag3, telugu: "చలి కాలం వచ్చింది.", english: "Winter came at last." },
+      { image: ag4, telugu: "మిడతకు తిండి లేదు.", english: "Grasshopper had no food." },
+      { image: ag5, telugu: "చీమ దగ్గర తిండి ఉంది.", english: "Ant had food stored safe." },
+      { image: ag6, telugu: "కష్టం ఫలితం ఇస్తుంది.", english: "Hard work always pays off." },
     ],
   },
   {
@@ -424,11 +494,11 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Be careful with magic gifts.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/cartoon,girl,pot?lock=3601", telugu: "అమ్మాయికి కుండ దొరికింది.", english: "A girl found a magic pot." },
-      { image: "https://loremflickr.com/1200/800/cartoon,pot,cooking,magic?lock=3602", telugu: "కుండ వంట చేసింది!", english: "The pot cooked by itself!" },
-      { image: "https://loremflickr.com/1200/800/cartoon,girl,food,happy?lock=3603", telugu: '"ఆగు కుండా!" అంటే ఆగింది.', english: '"Stop, pot!" — it stopped.' },
-      { image: "https://loremflickr.com/1200/800/cartoon,pot,overflow,food?lock=3604", telugu: "ఒకరోజు మాట మర్చింది.", english: "One day she forgot the words." },
-      { image: "https://loremflickr.com/1200/800/cartoon,village,food,everywhere?lock=3605", telugu: "ఊరంతా అన్నం నిండింది!", english: "Food flooded the whole village!" },
+      { image: mp1, telugu: "అమ్మాయికి కుండ దొరికింది.", english: "A girl found a magic pot." },
+      { image: mp2, telugu: "కుండ వంట చేసింది!", english: "The pot cooked by itself!" },
+      { image: mp3, telugu: '"ఆగు కుండా!" అంటే ఆగింది.', english: '"Stop, pot!" — it stopped.' },
+      { image: mp4, telugu: "ఒకరోజు మాట మర్చింది.", english: "One day she forgot the words." },
+      { image: mp5, telugu: "ఊరంతా అన్నం నిండింది!", english: "Food flooded the whole village!" },
     ],
   },
   {
@@ -441,12 +511,12 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Kindness is stronger than force.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/cartoon,sun,wind?lock=3701", telugu: "సూర్యుడు, గాలి పోటీ పడ్డారు.", english: "Sun and wind had a contest." },
-      { image: "https://loremflickr.com/1200/800/cartoon,traveller,coat?lock=3702", telugu: "కోటు తీయించాలి!", english: "Make him remove his coat!" },
-      { image: "https://loremflickr.com/1200/800/cartoon,wind,blowing,strong?lock=3703", telugu: "గాలి గట్టిగా వీచింది.", english: "Wind blew very, very hard." },
-      { image: "https://loremflickr.com/1200/800/cartoon,man,holding,coat?lock=3704", telugu: "మనిషి కోటు పట్టుకున్నాడు.", english: "The man held his coat tight." },
-      { image: "https://loremflickr.com/1200/800/cartoon,sun,warm,shining?lock=3705", telugu: "సూర్యుడు వెచ్చగా నవ్వాడు.", english: "Sun smiled warm and bright." },
-      { image: "https://loremflickr.com/1200/800/cartoon,man,coat,off?lock=3706", telugu: "మనిషి కోటు తీశాడు!", english: "The man took his coat off!" },
+      { image: sw1, telugu: "సూర్యుడు, గాలి పోటీ పడ్డారు.", english: "Sun and wind had a contest." },
+      { image: sw2, telugu: "కోటు తీయించాలి!", english: "Make him remove his coat!" },
+      { image: sw3, telugu: "గాలి గట్టిగా వీచింది.", english: "Wind blew very, very hard." },
+      { image: sw4, telugu: "మనిషి కోటు పట్టుకున్నాడు.", english: "The man held his coat tight." },
+      { image: sw5, telugu: "సూర్యుడు వెచ్చగా నవ్వాడు.", english: "Sun smiled warm and bright." },
+      { image: sw6, telugu: "మనిషి కోటు తీశాడు!", english: "The man took his coat off!" },
     ],
   },
 
@@ -461,11 +531,11 @@ export const stories: Story[] = [
     minutes: 2,
     tagline: "A soft bedtime rhyme.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/cartoon,star,night,cute?lock=3801", telugu: "చిన్న నక్షత్రం మెరిసింది.", english: "Little star began to shine." },
-      { image: "https://loremflickr.com/1200/800/cartoon,stars,sky,twinkle?lock=3802", telugu: "రాత్రి ఆకాశం వెలిగింది.", english: "Night sky lit up bright." },
-      { image: "https://loremflickr.com/1200/800/cartoon,star,child,looking?lock=3803", telugu: "పిల్లలు పైకి చూశారు.", english: "Children looked up with wonder." },
-      { image: "https://loremflickr.com/1200/800/cartoon,child,sleeping,moon?lock=3804", telugu: "నక్షత్రం పాట పాడింది.", english: "The star sang them a song." },
-      { image: "https://loremflickr.com/1200/800/cartoon,child,sleeping,peaceful?lock=3805", telugu: "నిద్రపో చిన్నారీ!", english: "Sleep well, little one!" },
+      { image: ls1, telugu: "చిన్న నక్షత్రం మెరిసింది.", english: "Little star began to shine." },
+      { image: ls2, telugu: "రాత్రి ఆకాశం వెలిగింది.", english: "Night sky lit up bright." },
+      { image: ls3, telugu: "పిల్లలు పైకి చూశారు.", english: "Children looked up with wonder." },
+      { image: ls4, telugu: "నక్షత్రం పాట పాడింది.", english: "The star sang them a song." },
+      { image: ls5, telugu: "నిద్రపో చిన్నారీ!", english: "Sleep well, little one!" },
     ],
   },
 
@@ -480,10 +550,10 @@ export const stories: Story[] = [
     minutes: 2,
     tagline: "Colors of the sky.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/cartoon,rain,clouds?lock=3901", telugu: "వర్షం పడింది.", english: "The rain came down." },
-      { image: "https://loremflickr.com/1200/800/cartoon,rainbow,sky?lock=3902", telugu: "ఆకాశంలో రంగులు వచ్చాయి.", english: "Colors filled the sky." },
-      { image: "https://loremflickr.com/1200/800/cartoon,rainbow,colorful?lock=3903", telugu: "ఎరుపు, పచ్చ, నీలం.", english: "Red, green and blue." },
-      { image: "https://loremflickr.com/1200/800/cartoon,children,rainbow,happy?lock=3904", telugu: "పిల్లలు సంతోషించారు!", english: "The children were so happy!" },
+      { image: rb1, telugu: "వర్షం పడింది.", english: "The rain came down." },
+      { image: rb2, telugu: "ఆకాశంలో రంగులు వచ్చాయి.", english: "Colors filled the sky." },
+      { image: rb3, telugu: "ఎరుపు, పచ్చ, నీలం.", english: "Red, green and blue." },
+      { image: rb4, telugu: "పిల్లలు సంతోషించారు!", english: "The children were so happy!" },
     ],
   },
 
@@ -498,12 +568,12 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Meet your family in Telugu.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/mother,indian?lock=701", telugu: "అమ్మ", english: "Amma — Mother" },
-      { image: "https://loremflickr.com/1200/800/father,indian?lock=702", telugu: "నాన్న", english: "Naanna — Father" },
-      { image: "https://loremflickr.com/1200/800/sister,children?lock=703", telugu: "అక్క", english: "Akka — Elder sister" },
-      { image: "https://loremflickr.com/1200/800/brother,children?lock=704", telugu: "అన్న", english: "Anna — Elder brother" },
-      { image: "https://loremflickr.com/1200/800/grandfather,family?lock=705", telugu: "తాత", english: "Thaatha — Grandfather" },
-      { image: "https://loremflickr.com/1200/800/grandmother,family?lock=706", telugu: "నానమ్మ", english: "Naanamma — Grandmother" },
+      { image: fam1, telugu: "అమ్మ", english: "Amma — Mother" },
+      { image: fam2, telugu: "నాన్న", english: "Naanna — Father" },
+      { image: fam3, telugu: "అక్క", english: "Akka — Elder sister" },
+      { image: fam4, telugu: "అన్న", english: "Anna — Elder brother" },
+      { image: fam5, telugu: "తాత", english: "Thaatha — Grandfather" },
+      { image: fam6, telugu: "నానమ్మ", english: "Naanamma — Grandmother" },
     ],
   },
   {
@@ -534,13 +604,13 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Learn parts of the body.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/head,child?lock=801", telugu: "తల", english: "Thala — Head" },
-      { image: "https://loremflickr.com/1200/800/eyes,child?lock=802", telugu: "కళ్ళు", english: "Kallu — Eyes" },
-      { image: "https://loremflickr.com/1200/800/ears,child?lock=803", telugu: "చెవులు", english: "Chevulu — Ears" },
-      { image: "https://loremflickr.com/1200/800/nose,child?lock=804", telugu: "ముక్కు", english: "Mukku — Nose" },
-      { image: "https://loremflickr.com/1200/800/mouth,child?lock=805", telugu: "నోరు", english: "Noru — Mouth" },
-      { image: "https://loremflickr.com/1200/800/hands,child?lock=806", telugu: "చేతులు", english: "Chethulu — Hands" },
-      { image: "https://loremflickr.com/1200/800/legs,child?lock=807", telugu: "కాళ్ళు", english: "Kallu — Legs" },
+      { image: body1, telugu: "తల", english: "Thala — Head" },
+      { image: body2, telugu: "కళ్ళు", english: "Kallu — Eyes" },
+      { image: body3, telugu: "చెవులు", english: "Chevulu — Ears" },
+      { image: body4, telugu: "ముక్కు", english: "Mukku — Nose" },
+      { image: body5, telugu: "నోరు", english: "Noru — Mouth" },
+      { image: body6, telugu: "చేతులు", english: "Chethulu — Hands" },
+      { image: body7, telugu: "కాళ్ళు", english: "Kallu — Legs" },
     ],
   },
 
@@ -555,20 +625,20 @@ export const stories: Story[] = [
     minutes: 6,
     tagline: "Meet the friendly vowels of Telugu.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/mother,colorful?lock=901", telugu: "అ — అమ్మ", english: "A — Amma (Mother)" },
-      { image: "https://loremflickr.com/1200/800/cow,farm?lock=902", telugu: "ఆ — ఆవు", english: "Aa — Aavu (Cow)" },
-      { image: "https://loremflickr.com/1200/800/house,village?lock=903", telugu: "ఇ — ఇల్లు", english: "I — Illu (House)" },
-      { image: "https://loremflickr.com/1200/800/fly,insect?lock=904", telugu: "ఈ — ఈగ", english: "Ee — Eega (Fly)" },
-      { image: "https://loremflickr.com/1200/800/squirrel,tree?lock=905", telugu: "ఉ — ఉడుత", english: "U — Uduta (Squirrel)" },
-      { image: "https://loremflickr.com/1200/800/swing,playground?lock=906", telugu: "ఊ — ఊయల", english: "Oo — Ooyala (Swing)" },
-      { image: "https://loremflickr.com/1200/800/mouse,cute?lock=907", telugu: "ఎ — ఎలుక", english: "E — Eluka (Mouse)" },
-      { image: "https://loremflickr.com/1200/800/elephant,wild?lock=908", telugu: "ఏ — ఏనుగు", english: "Ae — Aenugu (Elephant)" },
-      { image: "https://loremflickr.com/1200/800/number,five?lock=909", telugu: "ఐ — ఐదు", english: "Ai — Aidu (Five)" },
-      { image: "https://loremflickr.com/1200/800/camel,desert?lock=910", telugu: "ఒ — ఒంటె", english: "O — Onte (Camel)" },
-      { image: "https://loremflickr.com/1200/800/boat,river?lock=911", telugu: "ఓ — ఓడ", english: "Oh — Oda (Boat)" },
-      { image: "https://loremflickr.com/1200/800/medicine,herbs?lock=912", telugu: "ఔ — ఔషధం", english: "Au — Aushadham (Medicine)" },
-      { image: "https://loremflickr.com/1200/800/market,shop?lock=913", telugu: "అం — అంగడి", english: "Am — Angadi (Shop)" },
-      { image: "https://loremflickr.com/1200/800/life,nature?lock=914", telugu: "అః — ప్రాణాః", english: "Ah — Praanaah (Life)" },
+      { image: tl1, telugu: "అ — అమ్మ", english: "A — Amma (Mother)" },
+      { image: tl2, telugu: "ఆ — ఆవు", english: "Aa — Aavu (Cow)" },
+      { image: tl3, telugu: "ఇ — ఇల్లు", english: "I — Illu (House)" },
+      { image: tl4, telugu: "ఈ — ఈగ", english: "Ee — Eega (Fly)" },
+      { image: tl5, telugu: "ఉ — ఉడుత", english: "U — Uduta (Squirrel)" },
+      { image: tl6, telugu: "ఊ — ఊయల", english: "Oo — Ooyala (Swing)" },
+      { image: tl7, telugu: "ఎ — ఎలుక", english: "E — Eluka (Mouse)" },
+      { image: tl8, telugu: "ఏ — ఏనుగు", english: "Ae — Aenugu (Elephant)" },
+      { image: tl9, telugu: "ఐ — ఐదు", english: "Ai — Aidu (Five)" },
+      { image: tl10, telugu: "ఒ — ఒంటె", english: "O — Onte (Camel)" },
+      { image: tl11, telugu: "ఓ — ఓడ", english: "Oh — Oda (Boat)" },
+      { image: tl12, telugu: "ఔ — ఔషధం", english: "Au — Aushadham (Medicine)" },
+      { image: tl13, telugu: "అం — అంగడి", english: "Am — Angadi (Shop)" },
+      { image: tl14, telugu: "అః — ప్రాణాః", english: "Ah — Praanaah (Life)" },
     ],
   },
 

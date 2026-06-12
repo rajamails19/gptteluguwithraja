@@ -41,8 +41,8 @@ export function StoryReaderModal({ story, onClose }: Props) {
   // true when playing a single tapped word — skip highlight
   const isTapPlayRef = useRef(false);
 
-  // Monkey position (relative to text container)
-  const [monkeyLeft, setMonkeyLeft] = useState<number | null>(null);
+  // Reading guide position (relative to text container)
+  const [readingGuideLeft, setReadingGuideLeft] = useState<number | null>(null);
   const wordSpanRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const textContainerRef = useRef<HTMLDivElement>(null);
 
@@ -74,21 +74,21 @@ export function StoryReaderModal({ story, onClose }: Props) {
       highlightRafRef.current = null;
     }
     setActiveWordIndex(-1);
-    setMonkeyLeft(null);
+    setReadingGuideLeft(null);
   }, []);
 
-  // Move monkey to match active word
+  // Move the reading guide to match active word
   useEffect(() => {
     if (activeWordIndex < 0 || isTapPlayRef.current) {
-      setMonkeyLeft(null);
+      setReadingGuideLeft(null);
       return;
     }
     const span = wordSpanRefs.current[activeWordIndex];
     const container = textContainerRef.current;
-    if (!span || !container) { setMonkeyLeft(null); return; }
+    if (!span || !container) { setReadingGuideLeft(null); return; }
     const sr = span.getBoundingClientRect();
     const cr = container.getBoundingClientRect();
-    setMonkeyLeft(sr.left - cr.left + sr.width / 2);
+    setReadingGuideLeft(sr.left - cr.left + sr.width / 2);
   }, [activeWordIndex]);
 
   // Reset when story changes
@@ -262,15 +262,46 @@ export function StoryReaderModal({ story, onClose }: Props) {
 
     return (
       <div ref={isCurrentPage ? textContainerRef : undefined} className="relative inline-block">
-        {/* Monkey mascot */}
-        {isCurrentPage && monkeyLeft !== null && (
+        {isCurrentPage && readingGuideLeft !== null && (
           <motion.div
-            className="pointer-events-none absolute -top-8 z-10 text-2xl"
-            animate={{ left: monkeyLeft - 14 }}
-            transition={{ type: "spring", stiffness: 380, damping: 28 }}
-            style={{ left: monkeyLeft - 14 }}
+            className="pointer-events-none absolute -top-[4.6rem] z-20"
+            initial={{ opacity: 0, scale: 0.82, y: 8 }}
+            animate={{
+              left: readingGuideLeft,
+              opacity: 1,
+              scale: 1,
+              y: 0,
+            }}
+            exit={{ opacity: 0, scale: 0.82, y: 8 }}
+            transition={{
+              left: { type: "spring", stiffness: 420, damping: 31 },
+              opacity: { duration: 0.16 },
+              scale: { duration: 0.18 },
+              y: { duration: 0.18 },
+            }}
+            style={{ left: readingGuideLeft, x: "-50%" }}
           >
-            🐒
+            <motion.div
+              className="relative grid h-16 w-16 place-items-center rounded-full border border-white/70 bg-paper/95 shadow-[0_14px_34px_oklch(0.28_0.05_80_/_0.24)] backdrop-blur"
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 1.15, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <span
+                aria-hidden
+                className="absolute inset-1 rounded-full bg-[radial-gradient(circle_at_48%_22%,oklch(0.94_0.08_88_/_0.75),transparent_52%)]"
+              />
+              <span
+                aria-hidden
+                className="absolute -inset-2 rounded-full bg-primary/15 blur-xl"
+              />
+              <span className="relative z-10 -mb-1 block">
+                <MeenuCharacter expression="reading" size={50} />
+              </span>
+              <span
+                aria-hidden
+                className="absolute -bottom-1.5 h-4 w-4 rotate-45 border-b border-r border-white/70 bg-paper/95"
+              />
+            </motion.div>
           </motion.div>
         )}
 
@@ -313,7 +344,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
   const renderPage = (p: { telugu: string; english: string; image: string }, withButton: boolean, isCurrentPage = false) => (
     <div className="flex w-full max-w-6xl flex-col items-center">
       {/* Image */}
-      <div className="relative w-full h-[42vh] sm:h-[52vh]">
+      <div className="relative aspect-[16/7] w-full">
         <div className="absolute inset-0 overflow-hidden rounded-2xl bg-paper shadow-book">
           <img src={p.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
         </div>
