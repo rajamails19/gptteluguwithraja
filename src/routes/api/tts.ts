@@ -3,6 +3,33 @@ import { createFileRoute } from "@tanstack/react-router";
 const MAX_TEXT_LENGTH = 500;
 const BUCKET = "story-audio";
 const VOICE_TAG = "roopa-bulbul-v3-p075"; // include in hash so voice changes bust cache
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Max-Age": "86400",
+};
+const ALLOW_HEADER = "POST, OPTIONS";
+
+function jsonError(body: Record<string, unknown>, status: number) {
+  return Response.json(body, {
+    status,
+    headers: CORS_HEADERS,
+  });
+}
+
+function audioResponse(
+  body: BodyInit,
+  headers: Record<string, string>,
+) {
+  return new Response(body, {
+    status: 200,
+    headers: {
+      ...headers,
+      ...CORS_HEADERS,
+    },
+  });
+}
 
 async function sha256Hex(text: string): Promise<string> {
   const buf = new TextEncoder().encode(text);
@@ -15,12 +42,32 @@ async function sha256Hex(text: string): Promise<string> {
 export const Route = createFileRoute("/api/tts")({
   server: {
     handlers: {
+      GET: async () => Response.json(
+        {
+          error: "Method not allowed.",
+          message: "Use POST /api/tts with a JSON body: { \"text\": \"...\" }.",
+        },
+        {
+          status: 405,
+          headers: {
+            ...CORS_HEADERS,
+            Allow: ALLOW_HEADER,
+          },
+        },
+      ),
+      OPTIONS: async () => new Response(null, {
+        status: 204,
+        headers: {
+          ...CORS_HEADERS,
+          Allow: ALLOW_HEADER,
+        },
+      }),
       POST: async ({ request }) => {
         const apiKey = process.env.SARVAM_API_KEY;
         if (!apiKey) {
-          return Response.json(
+          return jsonError(
             { error: "Text-to-speech is not configured.", reason: "missing_api_key" },
-            { status: 500 },
+            500,
           );
         }
 
@@ -28,7 +75,7 @@ export const Route = createFileRoute("/api/tts")({
         try {
           body = await request.json();
         } catch {
-          return Response.json({ error: "Invalid JSON body." }, { status: 400 });
+          return jsonError({ error: "Invalid JSON body." }, 400);
         }
 
         const text =
@@ -37,15 +84,15 @@ export const Route = createFileRoute("/api/tts")({
             : undefined;
 
         if (typeof text !== "string" || text.trim().length === 0) {
-          return Response.json(
+          return jsonError(
             { error: "Field 'text' is required." },
-            { status: 400 },
+            400,
           );
         }
         if (text.length > MAX_TEXT_LENGTH) {
-          return Response.json(
+          return jsonError(
             { error: `Text exceeds ${MAX_TEXT_LENGTH} characters.` },
-            { status: 400 },
+            400,
           );
         }
 
@@ -64,13 +111,10 @@ export const Route = createFileRoute("/api/tts")({
             if (head.ok) {
               const cached = await fetch(publicUrl);
               if (cached.ok && cached.body) {
-                return new Response(cached.body, {
-                  status: 200,
-                  headers: {
-                    "Content-Type": "audio/wav",
-                    "Cache-Control": "public, max-age=86400, immutable",
-                    "X-Cache": "supabase",
-                  },
+                return audioResponse(cached.body, {
+                  "Content-Type": "audio/wav",
+                  "Cache-Control": "public, max-age=86400, immutable",
+                  "X-Cache": "supabase",
                 });
               }
             }
@@ -97,27 +141,27 @@ export const Route = createFileRoute("/api/tts")({
           });
         } catch (err) {
           console.error("Sarvam fetch threw:", err);
-          return Response.json(
+          return jsonError(
             {
               error: "TTS upstream request failed",
               reason: "fetch_threw",
               detail: err instanceof Error ? err.message : String(err),
             },
-            { status: 502 },
+            502,
           );
         }
 
         if (!ttsRes.ok) {
           const errText = await ttsRes.text().catch(() => "");
           console.error("Sarvam TTS failed:", ttsRes.status, errText);
-          return Response.json(
+          return jsonError(
             {
               error: "Failed to generate audio.",
               reason: "upstream_error",
               status: ttsRes.status,
               detail: errText.slice(0, 500),
             },
-            { status: 502 },
+            502,
           );
         }
 
@@ -126,9 +170,9 @@ export const Route = createFileRoute("/api/tts")({
           json = (await ttsRes.json()) as { audios?: unknown };
         } catch (err) {
           console.error("Sarvam returned non-JSON:", err);
-          return Response.json(
+          return jsonError(
             { error: "Invalid TTS response.", reason: "bad_upstream_json" },
-            { status: 502 },
+            502,
           );
         }
 
@@ -139,9 +183,9 @@ export const Route = createFileRoute("/api/tts")({
             : null;
         if (!b64) {
           console.error("Sarvam response missing audios[0]:", json);
-          return Response.json(
+          return jsonError(
             { error: "TTS response missing audio.", reason: "no_audio" },
-            { status: 502 },
+            502,
           );
         }
 
@@ -176,13 +220,10 @@ export const Route = createFileRoute("/api/tts")({
           }
         }
 
-        return new Response(bytes, {
-          status: 200,
-          headers: {
-            "Content-Type": "audio/wav",
-            "Cache-Control": "public, max-age=86400, immutable",
-            "X-Cache": "miss",
-          },
+        return audioResponse(bytes, {
+          "Content-Type": "audio/wav",
+          "Cache-Control": "public, max-age=86400, immutable",
+          "X-Cache": "miss",
         });
       },
     },

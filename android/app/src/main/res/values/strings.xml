@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Telugu Tales</string>
+    <string name="title_activity_main">Telugu Tales</string>
+    <string name="package_name">com.raseklabs.telugutales</string>
+    <string name="custom_url_scheme">com.raseklabs.telugutales</string>
+</resources>

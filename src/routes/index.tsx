@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-function Index() {
+export function Index() {
   const [active, setActive] = useState<Category | "All">("All");
   const [open, setOpen] = useState<Story | null>(null);
   const libraryRef = useRef<HTMLDivElement>(null);
@@ -43,9 +43,9 @@ function Index() {
   };
 
   return (
-    <div className="min-h-screen">
-      <header className="sticky top-0 z-30 border-b border-border/50 bg-cream/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3.5 sm:px-8">
+    <div className="min-h-dvh">
+      <header className="sticky top-0 z-30 border-b border-border/50 bg-cream/85 backdrop-blur-md">
+        <div className="safe-x safe-top mx-auto flex max-w-7xl items-center justify-between pb-3 sm:px-8 sm:py-3.5">
           <a href="/" className="flex items-center gap-2">
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground font-display text-lg">
               త
@@ -84,9 +84,9 @@ function Index() {
         <section
           id="library"
           ref={libraryRef}
-          className="mx-auto max-w-7xl px-5 pb-24 sm:px-8"
+          className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24"
         >
-          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div className="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
             <div>
               <p className="text-[11px] uppercase tracking-[0.18em] text-primary">
                 The Library
@@ -101,7 +101,7 @@ function Index() {
             </p>
           </div>
 
-          <div className="mb-10">
+          <div className="mb-7 sm:mb-10">
             <CategoryFilter active={active} onChange={setActive} />
           </div>
 

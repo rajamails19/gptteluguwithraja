@@ -14,10 +14,10 @@ export function StoryShelf({ stories, onOpen }: Props) {
   }
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-10 sm:space-y-16">
       {shelves.map((row, i) => (
         <div key={i}>
-          <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 md:grid-cols-4 md:gap-x-10">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-8 md:grid-cols-4 md:gap-x-10">
             {row.map((story, idx) => (
               <BookCover
                 key={story.id}
@@ -27,7 +27,7 @@ export function StoryShelf({ stories, onOpen }: Props) {
               />
             ))}
           </div>
-          <div className="shelf-plank mt-6 h-3 w-full" />
+          <div className="shelf-plank mt-4 h-2.5 w-full sm:mt-6 sm:h-3" />
           <div className="mx-auto -mt-1 h-2 w-[92%] rounded-full bg-foreground/5 blur-sm" />
         </div>
       ))}
