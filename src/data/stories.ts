@@ -105,12 +105,34 @@ import tl11 from "@/assets/stories/telugu-letters/slide11.png";
 import tl12 from "@/assets/stories/telugu-letters/slide12.png";
 import tl13 from "@/assets/stories/telugu-letters/slide13.png";
 import tl14 from "@/assets/stories/telugu-letters/slide14.png";
+import cf1 from "@/assets/stories/counting-friends/slide1.png";
+import cf2 from "@/assets/stories/counting-friends/slide2.png";
+import cf3 from "@/assets/stories/counting-friends/slide3.png";
+import cf4 from "@/assets/stories/counting-friends/slide4.png";
+import cf5 from "@/assets/stories/counting-friends/slide5.png";
+import cf6 from "@/assets/stories/counting-friends/slide6.png";
+import cf7 from "@/assets/stories/counting-friends/slide7.png";
+import cf8 from "@/assets/stories/counting-friends/slide8.png";
+import cf9 from "@/assets/stories/counting-friends/slide9.png";
+import cf10 from "@/assets/stories/counting-friends/slide10.png";
 import placeholder from "@/assets/placeholder.png";
 import rs1 from "@/assets/stories/rain-song/slide1.png";
 import rs2 from "@/assets/stories/rain-song/slide2.png";
 import rs3 from "@/assets/stories/rain-song/slide3.png";
 import rs4 from "@/assets/stories/rain-song/slide4.png";
 import rs5 from "@/assets/stories/rain-song/slide5.png";
+import gm1 from "@/assets/stories/gorumuddha/slide1.png";
+import gm2 from "@/assets/stories/gorumuddha/slide2.png";
+import gm3 from "@/assets/stories/gorumuddha/slide3.png";
+import gm4 from "@/assets/stories/gorumuddha/slide4.png";
+import rk1 from "@/assets/stories/raara-krishna/slide1.png";
+import rk2 from "@/assets/stories/raara-krishna/slide2.png";
+import rk3 from "@/assets/stories/raara-krishna/slide3.png";
+import rk4 from "@/assets/stories/raara-krishna/slide4.png";
+import bb1 from "@/assets/stories/bala-balu/slide1.png";
+import bb2 from "@/assets/stories/bala-balu/slide2.png";
+import bb3 from "@/assets/stories/bala-balu/slide3.png";
+import bb4 from "@/assets/stories/bala-balu/slide4.png";
 import myFamilyCover from "@/assets/covers/my-family.jpg";
 import colorsCover from "@/assets/covers/colors-around.jpg";
 import myBodyCover from "@/assets/covers/my-body.jpg";
@@ -118,6 +140,22 @@ import rainSongCover from "@/assets/covers/rain-song.jpg";
 import parrotSongCover from "@/assets/covers/parrot-song.jpg";
 import morningCover from "@/assets/covers/morning-routine.jpg";
 import marketCover from "@/assets/covers/market.jpg";
+import ps1 from "@/assets/stories/parrot-song/slide1.png";
+import ps2 from "@/assets/stories/parrot-song/slide2.png";
+import ps3 from "@/assets/stories/parrot-song/slide3.png";
+import ps4 from "@/assets/stories/parrot-song/slide4.png";
+import ps5 from "@/assets/stories/parrot-song/slide5.png";
+import morn1 from "@/assets/stories/morning-routine/slide1.png";
+import morn2 from "@/assets/stories/morning-routine/slide2.png";
+import morn3 from "@/assets/stories/morning-routine/slide3.png";
+import morn4 from "@/assets/stories/morning-routine/slide4.png";
+import morn5 from "@/assets/stories/morning-routine/slide5.png";
+import market1 from "@/assets/stories/market/slide1.png";
+import market2 from "@/assets/stories/market/slide2.png";
+import market3 from "@/assets/stories/market/slide3.png";
+import market4 from "@/assets/stories/market/slide4.png";
+import market5 from "@/assets/stories/market/slide5.png";
+import market6 from "@/assets/stories/market/slide6.png";
 
 // Story scenes
 import rt1 from "@/assets/stories/rat-tortoise/slide1.jpg";
@@ -151,9 +189,25 @@ import fc1 from "@/assets/stories/fox-crow/slide1.jpg";
 import fc2 from "@/assets/stories/fox-crow/slide2.jpg";
 import fc3 from "@/assets/stories/fox-crow/slide3.jpg";
 
-import wc1 from "@/assets/stories/woodcutter/slide1.jpg";
-import wc2 from "@/assets/stories/woodcutter/slide2.jpg";
-import wc3 from "@/assets/stories/woodcutter/slide3.jpg";
+import wc1 from "@/assets/stories/woodcutter/slide1.png";
+import wc2 from "@/assets/stories/woodcutter/slide2.png";
+import wc3 from "@/assets/stories/woodcutter/slide3.png";
+import wc4 from "@/assets/stories/woodcutter/slide4.png";
+import wc5 from "@/assets/stories/woodcutter/slide5.png";
+import wc6 from "@/assets/stories/woodcutter/slide6.png";
+
+import gd1 from "@/assets/stories/greedy-dog/slide1.png";
+import gd2 from "@/assets/stories/greedy-dog/slide2.png";
+import gd3 from "@/assets/stories/greedy-dog/slide3.png";
+import gd4 from "@/assets/stories/greedy-dog/slide4.png";
+import gd5 from "@/assets/stories/greedy-dog/slide5.png";
+import gd6 from "@/assets/stories/greedy-dog/slide6.png";
+
+import fg1 from "@/assets/stories/fox-grapes/slide1.png";
+import fg2 from "@/assets/stories/fox-grapes/slide2.png";
+import fg3 from "@/assets/stories/fox-grapes/slide3.png";
+import fg4 from "@/assets/stories/fox-grapes/slide4.png";
+import fg5 from "@/assets/stories/fox-grapes/slide5.png";
 
 import tf1 from "@/assets/stories/two-friends/slide1.jpg";
 import tf2 from "@/assets/stories/two-friends/slide2.jpg";
@@ -303,9 +357,9 @@ export const stories: Story[] = [
       { image: wc1, telugu: "ఒక కట్టెలవాడు నది ఒడ్డున కట్టెలు కొడుతున్నాడు.", english: "A woodcutter was chopping wood by the river." },
       { image: wc2, telugu: "అతని గొడ్డలి జారి నదిలో పడిపోయింది.", english: "His axe slipped and fell into the river." },
       { image: wc3, telugu: "నది దేవత బంగారు గొడ్డలి చూపించింది, 'ఇది నీదా?'", english: "The river goddess showed a golden axe, 'Is this yours?'" },
-      { image: "https://loremflickr.com/1200/800/river,gold?lock=401", telugu: "'కాదు' అని అతను నిజాయితీగా చెప్పాడు.", english: "'No,' he answered honestly." },
-      { image: "https://loremflickr.com/1200/800/river,silver?lock=402", telugu: "చివరికి అతని పాత ఇనుప గొడ్డలి చూపించింది — 'అవును!'", english: "Finally she showed his iron axe — 'Yes, that is mine!'" },
-      { image: "https://loremflickr.com/1200/800/reward,forest?lock=403", telugu: "దేవత అతని నిజాయితీకి మూడు గొడ్డళ్లనూ బహుమతిగా ఇచ్చింది.", english: "The goddess gave him all three axes for his honesty." },
+      { image: wc4, telugu: "'కాదు' అని అతను నిజాయితీగా చెప్పాడు.", english: "'No,' he answered honestly." },
+      { image: wc5, telugu: "చివరికి అతని పాత ఇనుప గొడ్డలి చూపించింది — 'అవును!'", english: "Finally she showed his iron axe — 'Yes, that is mine!'" },
+      { image: wc6, telugu: "దేవత అతని నిజాయితీకి మూడు గొడ్డళ్లనూ బహుమతిగా ఇచ్చింది.", english: "The goddess gave him all three axes for his honesty." },
     ],
   },
   {
@@ -367,12 +421,12 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Greed makes you lose what you already have.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/cartoon,dog,cute?lock=2001", telugu: "కుక్కకు ఎముక దొరికింది.", english: "A dog found a bone." },
-      { image: "https://loremflickr.com/1200/800/cartoon,dog,walking?lock=2002", telugu: "అది సంతోషంగా నడిచింది.", english: "It walked away happily." },
-      { image: "https://loremflickr.com/1200/800/cartoon,bridge,river?lock=2003", telugu: "వంతెన మీద నీడ కనిపించింది.", english: "It saw a shadow below." },
-      { image: "https://loremflickr.com/1200/800/cartoon,dog,surprise?lock=2004", telugu: "అది మరో కుక్క అనుకుంది!", english: "It thought — another dog!" },
-      { image: "https://loremflickr.com/1200/800/cartoon,dog,barking?lock=2005", telugu: "మొరిగింది — ఎముక పడింది!", english: "It barked — bone fell down!" },
-      { image: "https://loremflickr.com/1200/800/cartoon,sad,dog?lock=2006", telugu: "అత్యాశ చెడు చేసింది.", english: "Greed caused the loss." },
+      { image: gd1, telugu: "కుక్కకు ఎముక దొరికింది.", english: "A dog found a bone." },
+      { image: gd2, telugu: "అది సంతోషంగా నడిచింది.", english: "It walked away happily." },
+      { image: gd3, telugu: "వంతెన మీద నీడ కనిపించింది.", english: "It saw a shadow below." },
+      { image: gd4, telugu: "అది మరో కుక్క అనుకుంది!", english: "It thought — another dog!" },
+      { image: gd5, telugu: "మొరిగింది — ఎముక పడింది!", english: "It barked — bone fell down!" },
+      { image: gd6, telugu: "అత్యాశ చెడు చేసింది.", english: "Greed caused the loss." },
     ],
   },
 
@@ -404,11 +458,11 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Don't make excuses — try your best.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/cartoon,fox,cute?lock=3101", telugu: "నక్కకు పండ్లు కనిపించాయి.", english: "Fox saw some grapes." },
-      { image: "https://loremflickr.com/1200/800/cartoon,fox,jumping?lock=3102", telugu: "అది పైకి దుమికింది.", english: "It jumped up high." },
-      { image: "https://loremflickr.com/1200/800/cartoon,fox,trying?lock=3103", telugu: "మళ్ళీ మళ్ళీ దుమికింది.", english: "It jumped again, again." },
-      { image: "https://loremflickr.com/1200/800/cartoon,fox,sad?lock=3104", telugu: "పండ్లు అందలేదు.", english: "Could not reach the grapes." },
-      { image: "https://loremflickr.com/1200/800/cartoon,fox,walking?lock=3105", telugu: '"పుల్లగా ఉంటాయి!" అంది.', english: '"They must be sour!" it said.' },
+      { image: fg1, telugu: "నక్కకు పండ్లు కనిపించాయి.", english: "Fox saw some grapes." },
+      { image: fg2, telugu: "అది పైకి దుమికింది.", english: "It jumped up high." },
+      { image: fg3, telugu: "మళ్ళీ మళ్ళీ దుమికింది.", english: "It jumped again, again." },
+      { image: fg4, telugu: "పండ్లు అందలేదు.", english: "Could not reach the grapes." },
+      { image: fg5, telugu: '"పుల్లగా ఉంటాయి!" అంది.', english: '"They must be sour!" it said.' },
     ],
   },
   {
@@ -653,16 +707,16 @@ export const stories: Story[] = [
     minutes: 4,
     tagline: "Count along with little friends.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/elephant,one?lock=1001", telugu: "౧ — ఒకటి", english: "1 — One elephant" },
-      { image: "https://loremflickr.com/1200/800/butterfly,two?lock=1002", telugu: "౨ — రెండు", english: "2 — Two butterflies" },
-      { image: "https://loremflickr.com/1200/800/fish,three?lock=1003", telugu: "౩ — మూడు", english: "3 — Three fish" },
-      { image: "https://loremflickr.com/1200/800/birds,four?lock=1004", telugu: "౪ — నాలుగు", english: "4 — Four birds" },
-      { image: "https://loremflickr.com/1200/800/flowers,five?lock=1005", telugu: "౫ — అయిదు", english: "5 — Five flowers" },
-      { image: "https://loremflickr.com/1200/800/stars,six?lock=1006", telugu: "౬ — ఆరు", english: "6 — Six stars" },
-      { image: "https://loremflickr.com/1200/800/frog,seven?lock=1007", telugu: "౭ — ఏడు", english: "7 — Seven frogs" },
-      { image: "https://loremflickr.com/1200/800/mango,eight?lock=1008", telugu: "౮ — ఎనిమిది", english: "8 — Eight mangoes" },
-      { image: "https://loremflickr.com/1200/800/clouds,nine?lock=1009", telugu: "౯ — తొమ్మిది", english: "9 — Nine clouds" },
-      { image: "https://loremflickr.com/1200/800/firefly,ten?lock=1010", telugu: "౧౦ — పది", english: "10 — Ten fireflies" },
+      { image: cf1, telugu: "౧ — ఒకటి", english: "1 — One elephant" },
+      { image: cf2, telugu: "౨ — రెండు", english: "2 — Two butterflies" },
+      { image: cf3, telugu: "౩ — మూడు", english: "3 — Three fish" },
+      { image: cf4, telugu: "౪ — నాలుగు", english: "4 — Four birds" },
+      { image: cf5, telugu: "౫ — అయిదు", english: "5 — Five flowers" },
+      { image: cf6, telugu: "౬ — ఆరు", english: "6 — Six stars" },
+      { image: cf7, telugu: "౭ — ఏడు", english: "7 — Seven frogs" },
+      { image: cf8, telugu: "౮ — ఎనిమిది", english: "8 — Eight mangoes" },
+      { image: cf9, telugu: "౯ — తొమ్మిది", english: "9 — Nine clouds" },
+      { image: cf10, telugu: "౧౦ — పది", english: "10 — Ten fireflies" },
     ],
   },
 
@@ -710,10 +764,10 @@ export const stories: Story[] = [
     minutes: 2,
     tagline: "A classic Telugu lullaby about a loving mother.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/mother,baby,india,cartoon?lock=2002", telugu: "గోరుముద్ద తినిపించేది అమ్మ.", english: "Amma feeds me a morsel with love." },
-      { image: "https://loremflickr.com/1200/800/lullaby,moon,baby,cartoon?lock=2003", telugu: "జోలపాట పాడేది అమ్మ.", english: "Amma sings a lullaby to sleep." },
-      { image: "https://loremflickr.com/1200/800/hug,mother,child,cartoon?lock=2004", telugu: "గుండెకు హత్తుకుంటుంది అమ్మ.", english: "Amma holds me close to her heart." },
-      { image: "https://loremflickr.com/1200/800/love,family,india,cartoon?lock=2005", telugu: "అమ్మ ప్రేమ అన్నిటికంటే గొప్పది.", english: "Amma's love is the greatest of all." },
+      { image: gm1, telugu: "గోరుముద్ద తినిపించేది అమ్మ.", english: "Amma feeds me a morsel with love." },
+      { image: gm2, telugu: "జోలపాట పాడేది అమ్మ.", english: "Amma sings a lullaby to sleep." },
+      { image: gm3, telugu: "గుండెకు హత్తుకుంటుంది అమ్మ.", english: "Amma holds me close to her heart." },
+      { image: gm4, telugu: "అమ్మ ప్రేమ అన్నిటికంటే గొప్పది.", english: "Amma's love is the greatest of all." },
     ],
   },
   {
@@ -726,10 +780,10 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "A beloved Telugu rhyme calling little Krishna.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/krishna,flute,cartoon?lock=2011", telugu: "రారా చిన్ని కృష్ణా, ముద్దు కృష్ణా.", english: "Come, little Krishna, sweet dear Krishna." },
-      { image: "https://loremflickr.com/1200/800/butter,krishna,cartoon?lock=2012", telugu: "వెన్న ముద్దలు తినవా, నవ్వుల కృష్ణా.", english: "Will you eat the butter balls, smiling Krishna?" },
-      { image: "https://loremflickr.com/1200/800/peacock,feather,cartoon?lock=2013", telugu: "నెమలి పింఛం పెట్టావే, అందమైన కృష్ణా.", english: "You wore the peacock feather, beautiful Krishna." },
-      { image: "https://loremflickr.com/1200/800/flute,music,cartoon?lock=2014", telugu: "వేణువు పాడు, మా కృష్ణా.", english: "Play your flute for us, our dear Krishna." },
+      { image: rk1, telugu: "రారా చిన్ని కృష్ణా, ముద్దు కృష్ణా.", english: "Come, little Krishna, sweet dear Krishna." },
+      { image: rk2, telugu: "వెన్న ముద్దలు తినవా, నవ్వుల కృష్ణా.", english: "Will you eat the butter balls, smiling Krishna?" },
+      { image: rk3, telugu: "నెమలి పింఛం పెట్టావే, అందమైన కృష్ణా.", english: "You wore the peacock feather, beautiful Krishna." },
+      { image: rk4, telugu: "వేణువు పాడు, మా కృష్ణా.", english: "Play your flute for us, our dear Krishna." },
     ],
   },
   {
@@ -742,10 +796,10 @@ export const stories: Story[] = [
     minutes: 2,
     tagline: "A playful rhyme about a happy child.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/child,run,happy,cartoon?lock=2021", telugu: "బాలూ బాలూ పరిగెత్తాడు.", english: "Balu, Balu ran and ran." },
-      { image: "https://loremflickr.com/1200/800/mango,tree,cartoon?lock=2022", telugu: "మామిడి చెట్టు ఎక్కాడు.", english: "He climbed the mango tree." },
-      { image: "https://loremflickr.com/1200/800/mango,fruit,cartoon?lock=2023", telugu: "పండిన మామిడి తిన్నాడు.", english: "He ate the ripe sweet mango." },
-      { image: "https://loremflickr.com/1200/800/child,happy,cartoon?lock=2024", telugu: "ఆనందంగా పాట పాడాడు.", english: "And sang a happy song." },
+      { image: bb1, telugu: "బాలూ బాలూ పరిగెత్తాడు.", english: "Balu, Balu ran and ran." },
+      { image: bb2, telugu: "మామిడి చెట్టు ఎక్కాడు.", english: "He climbed the mango tree." },
+      { image: bb3, telugu: "పండిన మామిడి తిన్నాడు.", english: "He ate the ripe sweet mango." },
+      { image: bb4, telugu: "ఆనందంగా పాట పాడాడు.", english: "And sang a happy song." },
     ],
   },
   {
@@ -758,11 +812,11 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Learn words with a singing parrot.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/parrot,green?lock=1201", telugu: "చిలుక చిలుక పచ్చ చిలుక.", english: "Parrot, parrot, green little parrot." },
-      { image: "https://loremflickr.com/1200/800/mango,fruit?lock=1202", telugu: "మామిడి పండు తీపి పండు.", english: "Mango fruit, oh sweetest fruit." },
-      { image: "https://loremflickr.com/1200/800/parrot,beak?lock=1203", telugu: "ఎరుపు ముక్కు, నీలి తోక.", english: "Red, red beak and a blue, blue tail." },
-      { image: "https://loremflickr.com/1200/800/parrot,singing?lock=1204", telugu: "పాట పాడు, పాట పాడు.", english: "Sing a song, oh sing a song." },
-      { image: "https://loremflickr.com/1200/800/parrot,child?lock=1205", telugu: "నాతో ఆడు, నాతో పాడు.", english: "Come play with me, come sing along." },
+      { image: ps1, telugu: "చిలుక చిలుక పచ్చ చిలుక.", english: "Parrot, parrot, green little parrot." },
+      { image: ps2, telugu: "మామిడి పండు తీపి పండు.", english: "Mango fruit, oh sweetest fruit." },
+      { image: ps3, telugu: "ఎరుపు ముక్కు, నీలి తోక.", english: "Red, red beak and a blue, blue tail." },
+      { image: ps4, telugu: "పాట పాడు, పాట పాడు.", english: "Sing a song, oh sing a song." },
+      { image: ps5, telugu: "నాతో ఆడు, నాతో పాడు.", english: "Come play with me, come sing along." },
     ],
   },
 
@@ -777,11 +831,11 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Arjun's morning, step by step.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/morning,child?lock=1301", telugu: "అర్జున్ ఉదయం లేస్తాడు.", english: "Arjun wakes up in the morning." },
-      { image: "https://loremflickr.com/1200/800/toothbrush,child?lock=1302", telugu: "అతను పళ్లు తోముకుంటాడు.", english: "He brushes his teeth." },
-      { image: "https://loremflickr.com/1200/800/bath,child?lock=1303", telugu: "స్నానం చేస్తాడు.", english: "He takes a bath." },
-      { image: "https://loremflickr.com/1200/800/breakfast,child?lock=1304", telugu: "అమ్మ ఇచ్చిన టిఫిన్ తింటాడు.", english: "He eats the breakfast Amma made." },
-      { image: "https://loremflickr.com/1200/800/school,backpack?lock=1305", telugu: "బ్యాగ్ తీసుకుని స్కూల్‌కు వెళ్తాడు.", english: "He takes his bag and goes to school." },
+      { image: morn1, telugu: "అర్జున్ ఉదయం లేస్తాడు.", english: "Arjun wakes up in the morning." },
+      { image: morn2, telugu: "అతను పళ్లు తోముకుంటాడు.", english: "He brushes his teeth." },
+      { image: morn3, telugu: "స్నానం చేస్తాడు.", english: "He takes a bath." },
+      { image: morn4, telugu: "అమ్మ ఇచ్చిన టిఫిన్ తింటాడు.", english: "He eats the breakfast Amma made." },
+      { image: morn5, telugu: "బ్యాగ్ తీసుకుని స్కూల్‌కు వెళ్తాడు.", english: "He takes his bag and goes to school." },
     ],
   },
   {
@@ -794,12 +848,12 @@ export const stories: Story[] = [
     minutes: 4,
     tagline: "A morning walk to the bazaar.",
     pages: [
-      { image: "https://loremflickr.com/1200/800/market,india?lock=1401", telugu: "నేను నానమ్మతో బజారుకు వెళ్తాను.", english: "I go to the market with my grandmother." },
-      { image: "https://loremflickr.com/1200/800/tomato,market?lock=1402", telugu: "మేము టమాటాలు కొంటాము.", english: "We buy tomatoes — Tamaatalu." },
-      { image: "https://loremflickr.com/1200/800/mango,market?lock=1403", telugu: "మామిడి పండ్లు తీసుకుంటాము.", english: "We pick mangoes — Maamidi pandlu." },
-      { image: "https://loremflickr.com/1200/800/vegetables,fresh?lock=1404", telugu: "పచ్చి కూరగాయలు కూడా.", english: "Fresh vegetables too — Pacchi kooragayalu." },
-      { image: "https://loremflickr.com/1200/800/marigold,flowers?lock=1405", telugu: "బంతిపూల దండ కొనుక్కుంటాము.", english: "We buy a marigold garland — Banthi poola danda." },
-      { image: "https://loremflickr.com/1200/800/happy,family?lock=1406", telugu: "ఇంటికి ఆనందంగా తిరిగి వస్తాము.", english: "We return home happily." },
+      { image: market1, telugu: "నేను నానమ్మతో బజారుకు వెళ్తాను.", english: "I go to the market with my grandmother." },
+      { image: market2, telugu: "మేము టమాటాలు కొంటాము.", english: "We buy tomatoes — Tamaatalu." },
+      { image: market3, telugu: "మామిడి పండ్లు తీసుకుంటాము.", english: "We pick mangoes — Maamidi pandlu." },
+      { image: market4, telugu: "పచ్చి కూరగాయలు కూడా.", english: "Fresh vegetables too — Pacchi kooragayalu." },
+      { image: market5, telugu: "బంతిపూల దండ కొనుక్కుంటాము.", english: "We buy a marigold garland — Banthi poola danda." },
+      { image: market6, telugu: "ఇంటికి ఆనందంగా తిరిగి వస్తాము.", english: "We return home happily." },
     ],
   },
 ];

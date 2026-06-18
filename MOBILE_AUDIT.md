@@ -194,6 +194,7 @@ Remaining recommendation:
 Issue found:
 
 - In the Capacitor Android app, tapping read-aloud showed `Couldn't load audio. Try again.`
+- After audio was fixed, Android playback could start and the play/pause UI worked, but word highlighting and the Meenu reading guide stayed mostly static.
 
 Root cause:
 
@@ -201,12 +202,17 @@ Root cause:
 - The first native check was too narrow for this app: Android is configured with `androidScheme: "https"`, so the WebView runs as `https://localhost`, not `capacitor://...`. That meant the reader still used the website-relative `/api/tts` path in Android.
 - Android then calls the deployed Vercel route from a different origin, so `/api/tts` also needed explicit CORS headers and an `OPTIONS` handler.
 - Browser address-bar tests use `GET /api/tts`, but TTS playback uses `POST /api/tts`. Without an explicit `GET` handler, TanStack SSR rendered the route document, which made the API look like it was returning the React app.
+- The word tracker only advanced when `audio.duration` was available and positive. Android WebView can delay or fail reliable duration metadata for blob audio, so the requestAnimationFrame loop ran without assigning a new `activeWordIndex`.
+- After word highlighting was restored, the mini Meenu reading guide still used the desktop coordinate system: an animated absolute `left` with a fixed top offset. That failed for wrapped Telugu lines on Android, so the PNG guide could drift away from the currently highlighted word.
 
 Fix applied:
 
 - Changed the Capacitor TTS URL resolver to use `Capacitor.isNativePlatform()` so Android reliably calls `VITE_TTS_API_ORIGIN/api/tts`.
 - Added CORS support to `/api/tts` for Android WebView requests from `https://localhost`.
 - Added an explicit `GET /api/tts` 405 JSON response so manual browser checks no longer receive the app shell.
+- Added native-safe word tracking fallback: Sarvam audio still plays normally, but if Android does not expose usable `audio.duration` yet, the reader estimates timing from Telugu word count/text length and advances `activeWordIndex` continuously with requestAnimationFrame.
+- Split the mini Meenu guide positioning: desktop/web keeps the original container-relative behavior, while Android/Capacitor uses active-word `getBoundingClientRect()` measurements converted into local Telugu text-container X/Y coordinates. This keeps the PNG guide above the actual highlighted word, including wrapped second-line words.
+- Added temporary native debug logs for platform detection, audio duration/currentTime, active word index, Meenu target position, and whether estimated timing is being used.
 - Added a device/browser speech fallback for Capacitor. Sarvam remains the primary path when `VITE_TTS_API_ORIGIN` is configured; if that is missing or unreachable, Android can still read the Telugu text through `speechSynthesis` when available.
 - Kept word highlighting active during the fallback using an estimated word timing path.
 - Added `.env.example` and updated `CAPACITOR_SETUP.md` with the required Android TTS origin.

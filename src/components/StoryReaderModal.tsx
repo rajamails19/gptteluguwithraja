@@ -13,6 +13,11 @@ interface Props {
   onClose: () => void;
 }
 
+type GuidePosition = {
+  left: number;
+  top: number;
+};
+
 // Rainbow palette for word highlights
 const RAINBOW = [
   { bg: "#FF6B6B", text: "#7a0000" },
@@ -27,6 +32,7 @@ const RAINBOW = [
 const TTS_API_ORIGIN = import.meta.env.VITE_TTS_API_ORIGIN?.replace(/\/$/, "") ?? "";
 const OFFLINE_ERROR = "OFFLINE";
 const CAPACITOR_TTS_CONFIG_ERROR = "CAPACITOR_TTS_CONFIG";
+const DEBUG_NATIVE_TTS_TRACKING = true;
 
 function isCapacitorRuntime() {
   return Capacitor.isNativePlatform();
@@ -45,6 +51,23 @@ function supportsBrowserSpeech() {
     "speechSynthesis" in window &&
     "SpeechSynthesisUtterance" in window
   );
+}
+
+function getWords(text: string) {
+  return text.split(/\s+/).filter(Boolean);
+}
+
+function isUsableDuration(duration: number) {
+  return Number.isFinite(duration) && duration > 0;
+}
+
+function estimateSpeechDurationSeconds(text: string, wordCount: number) {
+  return Math.max(1.4, wordCount * 0.62, text.length * 0.082);
+}
+
+function logNativeTracking(message: string, data: Record<string, unknown>) {
+  if (!DEBUG_NATIVE_TTS_TRACKING || !isCapacitorRuntime()) return;
+  console.debug(`[TeluguTales:TTS] ${message}`, data);
 }
 
 export function StoryReaderModal({ story, onClose }: Props) {
@@ -66,8 +89,9 @@ export function StoryReaderModal({ story, onClose }: Props) {
   // true when playing a single tapped word — skip highlight
   const isTapPlayRef = useRef(false);
 
-  // Reading guide position (relative to text container)
+  // Reading guide position (relative to the Telugu text container)
   const [readingGuideLeft, setReadingGuideLeft] = useState<number | null>(null);
+  const [nativeGuidePosition, setNativeGuidePosition] = useState<GuidePosition | null>(null);
   const wordSpanRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const textContainerRef = useRef<HTMLDivElement>(null);
 
@@ -100,20 +124,39 @@ export function StoryReaderModal({ story, onClose }: Props) {
     }
     setActiveWordIndex(-1);
     setReadingGuideLeft(null);
+    setNativeGuidePosition(null);
   }, []);
 
   // Move the reading guide to match active word
   useEffect(() => {
     if (activeWordIndex < 0 || isTapPlayRef.current) {
       setReadingGuideLeft(null);
+      setNativeGuidePosition(null);
       return;
     }
     const span = wordSpanRefs.current[activeWordIndex];
     const container = textContainerRef.current;
-    if (!span || !container) { setReadingGuideLeft(null); return; }
+    if (!span || !container) {
+      setReadingGuideLeft(null);
+      setNativeGuidePosition(null);
+      return;
+    }
     const sr = span.getBoundingClientRect();
     const cr = container.getBoundingClientRect();
-    setReadingGuideLeft(sr.left - cr.left + sr.width / 2);
+    const nextLeft = sr.left - cr.left + sr.width / 2;
+    const nextNativePosition = {
+      left: nextLeft,
+      top: sr.top - cr.top - 66,
+    };
+
+    setReadingGuideLeft(nextLeft);
+    setNativeGuidePosition(isCapacitorRuntime() ? nextNativePosition : null);
+    logNativeTracking("Meenu target word position", {
+      activeWordIndex,
+      relativeTargetLeft: Math.round(nextLeft),
+      relativeTargetTop: Math.round(nextNativePosition.top),
+      wordWidth: Math.round(sr.width),
+    });
   }, [activeWordIndex]);
 
   // Reset when story changes
@@ -251,24 +294,65 @@ export function StoryReaderModal({ story, onClose }: Props) {
 
   const startWordHighlight = useCallback((audio: HTMLAudioElement, text: string) => {
     if (isTapPlayRef.current) return; // no highlight for word taps
-    const words = text.split(/\s+/).filter(Boolean);
+    if (highlightRafRef.current !== null) {
+      cancelAnimationFrame(highlightRafRef.current);
+      highlightRafRef.current = null;
+    }
+
+    const isNative = isCapacitorRuntime();
+    const words = getWords(text);
     if (words.length === 0) return;
     const totalChars = words.reduce((s, w) => s + w.length, 0);
     const cumChars: number[] = [];
     let acc = 0;
     for (const w of words) { acc += w.length; cumChars.push(acc); }
+    const estimatedDuration = estimateSpeechDurationSeconds(text, words.length);
+    const startedAt = performance.now();
+    let lastLoggedAt = 0;
+    let lastIndex = -1;
+
+    logNativeTracking("word tracking started", {
+      isNativePlatform: isNative,
+      wordCount: words.length,
+      audioDuration: audio.duration,
+      estimatedDuration,
+      usingEstimatedTimingFallback: !isUsableDuration(audio.duration),
+    });
 
     const tick = () => {
       if (!audio || audio.paused || audio.ended) { setActiveWordIndex(-1); return; }
       const dur = audio.duration;
-      if (dur && dur > 0) {
-        const progress = audio.currentTime / dur;
-        let idx = words.length - 1;
-        for (let i = 0; i < cumChars.length; i++) {
-          if (progress <= cumChars[i] / totalChars) { idx = i; break; }
-        }
-        setActiveWordIndex(idx);
+      const hasRealDuration = isUsableDuration(dur);
+      const elapsed = (performance.now() - startedAt) / 1000;
+      const timingDuration = hasRealDuration ? dur : estimatedDuration;
+      const currentTime =
+        audio.currentTime > 0
+          ? audio.currentTime
+          : isNative
+            ? elapsed
+            : audio.currentTime;
+      const progress = Math.max(0, Math.min(1, currentTime / timingDuration));
+      let idx = words.length - 1;
+      for (let i = 0; i < cumChars.length; i++) {
+        if (progress <= cumChars[i] / totalChars) { idx = i; break; }
       }
+
+      setActiveWordIndex(idx);
+
+      const now = performance.now();
+      if (isNative && (idx !== lastIndex || now - lastLoggedAt > 700)) {
+        lastIndex = idx;
+        lastLoggedAt = now;
+        logNativeTracking("word tracking tick", {
+          isNativePlatform: isNative,
+          audioDuration: dur,
+          currentTime: audio.currentTime,
+          elapsed,
+          activeWordIndex: idx,
+          usingEstimatedTimingFallback: !hasRealDuration,
+        });
+      }
+
       highlightRafRef.current = requestAnimationFrame(tick);
     };
     highlightRafRef.current = requestAnimationFrame(tick);
@@ -276,7 +360,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
 
   const startEstimatedWordHighlight = useCallback((text: string, durationMs: number) => {
     if (isTapPlayRef.current) return;
-    const words = text.split(/\s+/).filter(Boolean);
+    const words = getWords(text);
     if (words.length === 0) return;
 
     const start = performance.now();
@@ -436,17 +520,64 @@ export function StoryReaderModal({ story, onClose }: Props) {
     void playText(word);
   };
 
+  const renderReadingGuideBubble = () => (
+    <motion.div
+      className="relative grid h-14 w-14 place-items-center rounded-full border border-white/70 bg-paper/95 shadow-[0_14px_34px_oklch(0.28_0.05_80_/_0.24)] backdrop-blur sm:h-16 sm:w-16"
+      animate={{ y: [0, -4, 0] }}
+      transition={{ duration: 1.15, repeat: Infinity, ease: "easeInOut" }}
+    >
+      <span
+        aria-hidden
+        className="absolute inset-1 rounded-full bg-[radial-gradient(circle_at_48%_22%,oklch(0.94_0.08_88_/_0.75),transparent_52%)]"
+      />
+      <span
+        aria-hidden
+        className="absolute -inset-2 rounded-full bg-primary/15 blur-xl"
+      />
+      <span className="relative z-10 -mb-1 block">
+        <MeenuCharacter expression="reading" size={44} />
+      </span>
+      <span
+        aria-hidden
+        className="absolute -bottom-1.5 h-4 w-4 rotate-45 border-b border-r border-white/70 bg-paper/95"
+      />
+    </motion.div>
+  );
+
   const renderTeluguWords = (text: string, isCurrentPage: boolean) => {
     const words = text.split(/\s+/).filter(Boolean);
     // Reset refs array length
     wordSpanRefs.current = wordSpanRefs.current.slice(0, words.length);
+    const useNativeGuide = isCapacitorRuntime() && nativeGuidePosition !== null;
 
     return (
       <div
         ref={isCurrentPage ? textContainerRef : undefined}
         className="relative inline-block max-w-full"
       >
-        {isCurrentPage && readingGuideLeft !== null && (
+        {isCurrentPage && useNativeGuide && (
+          <motion.div
+            className="pointer-events-none absolute left-0 top-0 z-30"
+            initial={{ opacity: 0, scale: 0.82, y: 8 }}
+            animate={{
+              x: nativeGuidePosition.left - 28,
+              y: nativeGuidePosition.top,
+              opacity: 1,
+              scale: 1,
+            }}
+            exit={{ opacity: 0, scale: 0.82, y: 8 }}
+            transition={{
+              x: { type: "spring", stiffness: 420, damping: 31 },
+              y: { type: "spring", stiffness: 420, damping: 31 },
+              opacity: { duration: 0.16 },
+              scale: { duration: 0.18 },
+            }}
+          >
+            {renderReadingGuideBubble()}
+          </motion.div>
+        )}
+
+        {isCurrentPage && !useNativeGuide && readingGuideLeft !== null && (
           <motion.div
             className="pointer-events-none absolute -top-16 z-20 sm:-top-[4.6rem]"
             initial={{ opacity: 0, scale: 0.82, y: 8 }}
@@ -465,27 +596,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
             }}
             style={{ left: readingGuideLeft, x: "-50%" }}
           >
-            <motion.div
-              className="relative grid h-14 w-14 place-items-center rounded-full border border-white/70 bg-paper/95 shadow-[0_14px_34px_oklch(0.28_0.05_80_/_0.24)] backdrop-blur sm:h-16 sm:w-16"
-              animate={{ y: [0, -4, 0] }}
-              transition={{ duration: 1.15, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <span
-                aria-hidden
-                className="absolute inset-1 rounded-full bg-[radial-gradient(circle_at_48%_22%,oklch(0.94_0.08_88_/_0.75),transparent_52%)]"
-              />
-              <span
-                aria-hidden
-                className="absolute -inset-2 rounded-full bg-primary/15 blur-xl"
-              />
-              <span className="relative z-10 -mb-1 block">
-                <MeenuCharacter expression="reading" size={44} />
-              </span>
-              <span
-                aria-hidden
-                className="absolute -bottom-1.5 h-4 w-4 rotate-45 border-b border-r border-white/70 bg-paper/95"
-              />
-            </motion.div>
+            {renderReadingGuideBubble()}
           </motion.div>
         )}
 
