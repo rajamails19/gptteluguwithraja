@@ -291,10 +291,16 @@ import colBlack from "@/assets/stories/colors/black-night.jpg";
 import ht1 from "@/assets/stories/hare-tortoise/slide1.jpg";
 import ht2 from "@/assets/stories/hare-tortoise/slide2.jpg";
 import ht3 from "@/assets/stories/hare-tortoise/slide3.jpg";
+import htAudio1 from "@/assets/audio/hare-tortoise/page-1.mp3";
+import htAudio2 from "@/assets/audio/hare-tortoise/page-2.mp3";
+import htAudio3 from "@/assets/audio/hare-tortoise/page-3.mp3";
 
 import fc1 from "@/assets/stories/fox-crow/slide1.jpg";
 import fc2 from "@/assets/stories/fox-crow/slide2.jpg";
 import fc3 from "@/assets/stories/fox-crow/slide3.jpg";
+import fcAudio1 from "@/assets/audio/fox-crow/page-1.mp3";
+import fcAudio2 from "@/assets/audio/fox-crow/page-2.mp3";
+import fcAudio3 from "@/assets/audio/fox-crow/page-3.mp3";
 
 import wc1 from "@/assets/stories/woodcutter/slide1.png";
 import wc2 from "@/assets/stories/woodcutter/slide2.png";
@@ -336,6 +342,10 @@ import fgAudio5 from "@/assets/audio/fox-grapes/page-5.mp3";
 import tf1 from "@/assets/stories/two-friends/slide1.jpg";
 import tf2 from "@/assets/stories/two-friends/slide2.jpg";
 import tf3 from "@/assets/stories/two-friends/slide3.jpg";
+import tfAudio1 from "@/assets/audio/two-friends/page-1.mp3";
+import tfAudio2 from "@/assets/audio/two-friends/page-2.mp3";
+import tfAudio3 from "@/assets/audio/two-friends/page-3.mp3";
+import tfAudio4 from "@/assets/audio/two-friends/page-4.mp3";
 
 import ge1 from "@/assets/stories/golden-egg/slide1.jpg";
 import ge2 from "@/assets/stories/golden-egg/slide2.jpg";
@@ -457,9 +467,9 @@ export const stories: Story[] = [
     minutes: 4,
     tagline: "Slow and steady wins the race.",
     pages: [
-      { image: ht1, telugu: "కుందేలు, తాబేలు పందెం వేశాయి.", english: "The hare and the tortoise made a race." },
-      { image: ht2, telugu: "కుందేలు చాలా వేగంగా పరిగెత్తింది.", english: "The hare ran very fast." },
-      { image: ht3, telugu: "కుందేలు చెట్టు కింద నిద్రపోయింది.", english: "The hare slept under a tree." },
+      { image: ht1, audio: htAudio1, telugu: "కుందేలు మరియు తాబేలు ఒక పందెం వేశాయి.", english: "The hare and the tortoise made a race." },
+      { image: ht2, audio: htAudio2, telugu: "కుందేలు చాలా వేగంగా పరిగెత్తింది.", english: "The hare ran very fast." },
+      { image: ht3, audio: htAudio3, telugu: "తాను గెలిచానని అనుకుని, కుందేలు చెట్టు కింద నిద్రపోయింది.", english: "Thinking it had already won, the hare slept under a tree." },
     ],
   },
   {
@@ -472,9 +482,9 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Beware of flattery.",
     pages: [
-      { image: fc1, telugu: "కాకి నోటిలో ఒక చీజ్ పట్టుకుని కొమ్మపై కూర్చుంది.", english: "A crow sat on a branch with cheese in its beak." },
-      { image: fc2, telugu: "నక్క కిందికి వచ్చి, 'మీ గొంతు ఎంత మధురం!' అని పొగిడింది.", english: "The fox came below and said, 'What a sweet voice you have!'" },
-      { image: fc3, telugu: "కాకి సంతోషంగా పాడడానికి నోరు తెరిచింది — చీజ్ పడిపోయింది!", english: "The crow opened its beak to sing — the cheese fell down!" },
+      { image: fc1, audio: fcAudio1, telugu: "కాకి నోటిలో ఒక చీజ్ పట్టుకుని కొమ్మపై కూర్చుంది.", english: "A crow sat on a branch with cheese in its beak." },
+      { image: fc2, audio: fcAudio2, telugu: "నక్క కిందికి వచ్చి, నీ గొంతు ఎంత మధురంగా ఉంటుంది అని కాకిని పొగిడింది.", english: "The fox came below and praised the crow's sweet voice." },
+      { image: fc3, audio: fcAudio3, telugu: "కాకి సంతోషంగా పాడడానికి నోరు తెరిచింది, వెంటనే చీజ్ కింద పడిపోయింది.", english: "The crow opened its beak to sing, and the cheese fell down." },
     ],
   },
 
@@ -507,10 +517,10 @@ export const stories: Story[] = [
     minutes: 4,
     tagline: "A true friend never leaves you.",
     pages: [
-      { image: tf1, telugu: "ఇద్దరు స్నేహితులు అడవి గుండా నడుస్తున్నారు.", english: "Two friends were walking through the forest." },
-      { image: tf2, telugu: "ఉన్నట్టుండి ఒక పెద్ద ఎలుగుబంటి వచ్చింది.", english: "Suddenly a big bear appeared." },
-      { image: tf3, telugu: "ఒక స్నేహితుడు చెట్టు ఎక్కాడు; మరొకడు చనిపోయినట్టు పడుకున్నాడు.", english: "One friend climbed a tree; the other lay still as if dead." },
-      { image: "https://loremflickr.com/1200/800/friends,forest?lock=501", telugu: "'కష్టంలో వదిలి పారిపోయే వారు నిజమైన స్నేహితులు కాదు.'", english: "'Those who leave you in trouble are not true friends.'" },
+      { image: tf1, audio: tfAudio1, telugu: "ఇద్దరు స్నేహితులు అడవి గుండా నడుస్తున్నారు.", english: "Two friends were walking through the forest." },
+      { image: tf2, audio: tfAudio2, telugu: "ఉన్నట్టుండి ఒక పెద్ద ఎలుగుబంటి వారి దగ్గరకు వచ్చింది.", english: "Suddenly, a big bear came near them." },
+      { image: tf3, audio: tfAudio3, telugu: "ఒక స్నేహితుడు చెట్టు ఎక్కాడు, మరొకడు చనిపోయినట్టు నేలపై పడుకున్నాడు.", english: "One friend climbed a tree, and the other lay still on the ground as if dead." },
+      { image: "https://loremflickr.com/1200/800/friends,forest?lock=501", audio: tfAudio4, telugu: "కష్టంలో వదిలి పారిపోయేవారు నిజమైన స్నేహితులు కాదని అతను తెలుసుకున్నాడు.", english: "He learned that those who run away in trouble are not true friends." },
     ],
   },
   {
