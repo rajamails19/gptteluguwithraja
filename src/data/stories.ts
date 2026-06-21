@@ -35,12 +35,22 @@ import mr1 from "@/assets/stories/moonlight-rhymes/slide1.png";
 import mr2 from "@/assets/stories/moonlight-rhymes/slide2.png";
 import mr3 from "@/assets/stories/moonlight-rhymes/slide3.png";
 import mr4 from "@/assets/stories/moonlight-rhymes/slide4.png";
+import mrAudio1 from "@/assets/audio/moonlight-rhymes/page-1.mp3";
+import mrAudio2 from "@/assets/audio/moonlight-rhymes/page-2.mp3";
+import mrAudio3 from "@/assets/audio/moonlight-rhymes/page-3.mp3";
+import mrAudio4 from "@/assets/audio/moonlight-rhymes/page-4.mp3";
 import ud1 from "@/assets/stories/ugly-duckling/slide1.png";
 import ud2 from "@/assets/stories/ugly-duckling/slide2.png";
 import ud3 from "@/assets/stories/ugly-duckling/slide3.png";
 import ud4 from "@/assets/stories/ugly-duckling/slide4.png";
 import ud5 from "@/assets/stories/ugly-duckling/slide5.png";
 import ud6 from "@/assets/stories/ugly-duckling/slide6.png";
+import udAudio1 from "@/assets/audio/ugly-duckling/page-1.mp3";
+import udAudio2 from "@/assets/audio/ugly-duckling/page-2.mp3";
+import udAudio3 from "@/assets/audio/ugly-duckling/page-3.mp3";
+import udAudio4 from "@/assets/audio/ugly-duckling/page-4.mp3";
+import udAudio5 from "@/assets/audio/ugly-duckling/page-5.mp3";
+import udAudio6 from "@/assets/audio/ugly-duckling/page-6.mp3";
 import mc1 from "@/assets/stories/monkey-crocodile/slide1.png";
 import mc2 from "@/assets/stories/monkey-crocodile/slide2.png";
 import mc3 from "@/assets/stories/monkey-crocodile/slide3.png";
@@ -58,6 +68,11 @@ import tcm2 from "@/assets/stories/two-cats-monkey/slide2.png";
 import tcm3 from "@/assets/stories/two-cats-monkey/slide3.png";
 import tcm4 from "@/assets/stories/two-cats-monkey/slide4.png";
 import tcm5 from "@/assets/stories/two-cats-monkey/slide5.png";
+import tcmAudio1 from "@/assets/audio/two-cats-monkey/page-1.mp3";
+import tcmAudio2 from "@/assets/audio/two-cats-monkey/page-2.mp3";
+import tcmAudio3 from "@/assets/audio/two-cats-monkey/page-3.mp3";
+import tcmAudio4 from "@/assets/audio/two-cats-monkey/page-4.mp3";
+import tcmAudio5 from "@/assets/audio/two-cats-monkey/page-5.mp3";
 import ag1 from "@/assets/stories/ant-grasshopper/slide1.png";
 import ag2 from "@/assets/stories/ant-grasshopper/slide2.png";
 import ag3 from "@/assets/stories/ant-grasshopper/slide3.png";
@@ -75,21 +90,41 @@ import mp2 from "@/assets/stories/magic-pot/slide2.png";
 import mp3 from "@/assets/stories/magic-pot/slide3.png";
 import mp4 from "@/assets/stories/magic-pot/slide4.png";
 import mp5 from "@/assets/stories/magic-pot/slide5.png";
+import mpAudio1 from "@/assets/audio/magic-pot/page-1.mp3";
+import mpAudio2 from "@/assets/audio/magic-pot/page-2.mp3";
+import mpAudio3 from "@/assets/audio/magic-pot/page-3.mp3";
+import mpAudio4 from "@/assets/audio/magic-pot/page-4.mp3";
+import mpAudio5 from "@/assets/audio/magic-pot/page-5.mp3";
 import sw1 from "@/assets/stories/sun-wind/slide1.png";
 import sw2 from "@/assets/stories/sun-wind/slide2.png";
 import sw3 from "@/assets/stories/sun-wind/slide3.png";
 import sw4 from "@/assets/stories/sun-wind/slide4.png";
 import sw5 from "@/assets/stories/sun-wind/slide5.png";
 import sw6 from "@/assets/stories/sun-wind/slide6.png";
+import swAudio1 from "@/assets/audio/sun-wind/page-1.mp3";
+import swAudio2 from "@/assets/audio/sun-wind/page-2.mp3";
+import swAudio3 from "@/assets/audio/sun-wind/page-3.mp3";
+import swAudio4 from "@/assets/audio/sun-wind/page-4.mp3";
+import swAudio5 from "@/assets/audio/sun-wind/page-5.mp3";
+import swAudio6 from "@/assets/audio/sun-wind/page-6.mp3";
 import ls1 from "@/assets/stories/little-star/slide1.png";
 import ls2 from "@/assets/stories/little-star/slide2.png";
 import ls3 from "@/assets/stories/little-star/slide3.png";
 import ls4 from "@/assets/stories/little-star/slide4.png";
 import ls5 from "@/assets/stories/little-star/slide5.png";
+import lsAudio1 from "@/assets/audio/little-star/page-1.mp3";
+import lsAudio2 from "@/assets/audio/little-star/page-2.mp3";
+import lsAudio3 from "@/assets/audio/little-star/page-3.mp3";
+import lsAudio4 from "@/assets/audio/little-star/page-4.mp3";
+import lsAudio5 from "@/assets/audio/little-star/page-5.mp3";
 import rb1 from "@/assets/stories/rainbow/slide1.png";
 import rb2 from "@/assets/stories/rainbow/slide2.png";
 import rb3 from "@/assets/stories/rainbow/slide3.png";
 import rb4 from "@/assets/stories/rainbow/slide4.png";
+import rbAudio1 from "@/assets/audio/rainbow/page-1.mp3";
+import rbAudio2 from "@/assets/audio/rainbow/page-2.mp3";
+import rbAudio3 from "@/assets/audio/rainbow/page-3.mp3";
+import rbAudio4 from "@/assets/audio/rainbow/page-4.mp3";
 import fam1 from "@/assets/stories/my-family/slide1.png";
 import fam2 from "@/assets/stories/my-family/slide2.png";
 import fam3 from "@/assets/stories/my-family/slide3.png";
@@ -109,6 +144,13 @@ import body4 from "@/assets/stories/my-body/slide4.png";
 import body5 from "@/assets/stories/my-body/slide5.png";
 import body6 from "@/assets/stories/my-body/slide6.png";
 import body7 from "@/assets/stories/my-body/slide7.png";
+import bodyAudio1 from "@/assets/audio/my-body/page-1.mp3";
+import bodyAudio2 from "@/assets/audio/my-body/page-2.mp3";
+import bodyAudio3 from "@/assets/audio/my-body/page-3.mp3";
+import bodyAudio4 from "@/assets/audio/my-body/page-4.mp3";
+import bodyAudio5 from "@/assets/audio/my-body/page-5.mp3";
+import bodyAudio6 from "@/assets/audio/my-body/page-6.mp3";
+import bodyAudio7 from "@/assets/audio/my-body/page-7.mp3";
 import tl1 from "@/assets/stories/telugu-letters/slide1.png";
 import tl2 from "@/assets/stories/telugu-letters/slide2.png";
 import tl3 from "@/assets/stories/telugu-letters/slide3.png";
@@ -139,18 +181,35 @@ import rs2 from "@/assets/stories/rain-song/slide2.png";
 import rs3 from "@/assets/stories/rain-song/slide3.png";
 import rs4 from "@/assets/stories/rain-song/slide4.png";
 import rs5 from "@/assets/stories/rain-song/slide5.png";
+import rsAudio1 from "@/assets/audio/rain-song/page-1.mp3";
+import rsAudio2 from "@/assets/audio/rain-song/page-2.mp3";
+import rsAudio3 from "@/assets/audio/rain-song/page-3.mp3";
+import rsAudio4 from "@/assets/audio/rain-song/page-4.mp3";
+import rsAudio5 from "@/assets/audio/rain-song/page-5.mp3";
 import gm1 from "@/assets/stories/gorumuddha/slide1.png";
 import gm2 from "@/assets/stories/gorumuddha/slide2.png";
 import gm3 from "@/assets/stories/gorumuddha/slide3.png";
 import gm4 from "@/assets/stories/gorumuddha/slide4.png";
+import gmAudio1 from "@/assets/audio/gorumuddha/page-1.mp3";
+import gmAudio2 from "@/assets/audio/gorumuddha/page-2.mp3";
+import gmAudio3 from "@/assets/audio/gorumuddha/page-3.mp3";
+import gmAudio4 from "@/assets/audio/gorumuddha/page-4.mp3";
 import rk1 from "@/assets/stories/raara-krishna/slide1.png";
 import rk2 from "@/assets/stories/raara-krishna/slide2.png";
 import rk3 from "@/assets/stories/raara-krishna/slide3.png";
 import rk4 from "@/assets/stories/raara-krishna/slide4.png";
+import rkAudio1 from "@/assets/audio/raara-krishna/page-1.mp3";
+import rkAudio2 from "@/assets/audio/raara-krishna/page-2.mp3";
+import rkAudio3 from "@/assets/audio/raara-krishna/page-3.mp3";
+import rkAudio4 from "@/assets/audio/raara-krishna/page-4.mp3";
 import bb1 from "@/assets/stories/bala-balu/slide1.png";
 import bb2 from "@/assets/stories/bala-balu/slide2.png";
 import bb3 from "@/assets/stories/bala-balu/slide3.png";
 import bb4 from "@/assets/stories/bala-balu/slide4.png";
+import bbAudio1 from "@/assets/audio/bala-balu/page-1.mp3";
+import bbAudio2 from "@/assets/audio/bala-balu/page-2.mp3";
+import bbAudio3 from "@/assets/audio/bala-balu/page-3.mp3";
+import bbAudio4 from "@/assets/audio/bala-balu/page-4.mp3";
 import myFamilyCover from "@/assets/covers/my-family.jpg";
 import colorsCover from "@/assets/covers/colors-around.jpg";
 import myBodyCover from "@/assets/covers/my-body.jpg";
@@ -163,26 +222,49 @@ import ps2 from "@/assets/stories/parrot-song/slide2.png";
 import ps3 from "@/assets/stories/parrot-song/slide3.png";
 import ps4 from "@/assets/stories/parrot-song/slide4.png";
 import ps5 from "@/assets/stories/parrot-song/slide5.png";
+import psAudio1 from "@/assets/audio/parrot-song/page-1.mp3";
+import psAudio2 from "@/assets/audio/parrot-song/page-2.mp3";
+import psAudio3 from "@/assets/audio/parrot-song/page-3.mp3";
+import psAudio4 from "@/assets/audio/parrot-song/page-4.mp3";
+import psAudio5 from "@/assets/audio/parrot-song/page-5.mp3";
 import morn1 from "@/assets/stories/morning-routine/slide1.png";
 import morn2 from "@/assets/stories/morning-routine/slide2.png";
 import morn3 from "@/assets/stories/morning-routine/slide3.png";
 import morn4 from "@/assets/stories/morning-routine/slide4.png";
 import morn5 from "@/assets/stories/morning-routine/slide5.png";
+import mornAudio1 from "@/assets/audio/morning-routine/page-1.mp3";
+import mornAudio2 from "@/assets/audio/morning-routine/page-2.mp3";
+import mornAudio3 from "@/assets/audio/morning-routine/page-3.mp3";
+import mornAudio4 from "@/assets/audio/morning-routine/page-4.mp3";
+import mornAudio5 from "@/assets/audio/morning-routine/page-5.mp3";
 import market1 from "@/assets/stories/market/slide1.png";
 import market2 from "@/assets/stories/market/slide2.png";
 import market3 from "@/assets/stories/market/slide3.png";
 import market4 from "@/assets/stories/market/slide4.png";
 import market5 from "@/assets/stories/market/slide5.png";
 import market6 from "@/assets/stories/market/slide6.png";
+import marketAudio1 from "@/assets/audio/market/page-1.mp3";
+import marketAudio2 from "@/assets/audio/market/page-2.mp3";
+import marketAudio3 from "@/assets/audio/market/page-3.mp3";
+import marketAudio4 from "@/assets/audio/market/page-4.mp3";
+import marketAudio5 from "@/assets/audio/market/page-5.mp3";
+import marketAudio6 from "@/assets/audio/market/page-6.mp3";
 
 // Story scenes
 import rt1 from "@/assets/stories/rat-tortoise/slide1.jpg";
 import rt2 from "@/assets/stories/rat-tortoise/slide2.jpg";
 import rt3 from "@/assets/stories/rat-tortoise/slide3.jpg";
 import rt4 from "@/assets/stories/rat-tortoise/slide4.jpg";
+import rtAudio1 from "@/assets/audio/rat-tortoise/page-1.mp3";
+import rtAudio2 from "@/assets/audio/rat-tortoise/page-2.mp3";
+import rtAudio3 from "@/assets/audio/rat-tortoise/page-3.mp3";
+import rtAudio4 from "@/assets/audio/rat-tortoise/page-4.mp3";
 
 import tc2 from "@/assets/stories/thirsty-crow/slide2.jpg";
 import tc3 from "@/assets/stories/thirsty-crow/slide3.jpg";
+import tcAudio1 from "@/assets/audio/thirsty-crow/page-1.mp3";
+import tcAudio2 from "@/assets/audio/thirsty-crow/page-2.mp3";
+import tcAudio3 from "@/assets/audio/thirsty-crow/page-3.mp3";
 
 import lm1 from "@/assets/stories/lion-mouse/slide1.jpg";
 import lm2 from "@/assets/stories/lion-mouse/slide2.jpg";
@@ -191,6 +273,13 @@ import lmBeg from "@/assets/stories/lion-mouse/slide-beg.jpg";
 import lmFree from "@/assets/stories/lion-mouse/slide-free.jpg";
 import lmChew from "@/assets/stories/lion-mouse/slide-chew.jpg";
 import lmFriends from "@/assets/stories/lion-mouse/slide-friends.jpg";
+import lmAudio1 from "@/assets/audio/lion-mouse/page-1.mp3";
+import lmAudio2 from "@/assets/audio/lion-mouse/page-2.mp3";
+import lmAudio3 from "@/assets/audio/lion-mouse/page-3.mp3";
+import lmAudio4 from "@/assets/audio/lion-mouse/page-4.mp3";
+import lmAudio5 from "@/assets/audio/lion-mouse/page-5.mp3";
+import lmAudio6 from "@/assets/audio/lion-mouse/page-6.mp3";
+import lmAudio7 from "@/assets/audio/lion-mouse/page-7.mp3";
 
 import colRed from "@/assets/stories/colors/red-apple.jpg";
 import colGreen from "@/assets/stories/colors/green-leaf.jpg";
@@ -318,10 +407,10 @@ export const stories: Story[] = [
     minutes: 4,
     tagline: "A small friend can save the day.",
     pages: [
-      { image: rt1, telugu: "ఎలుక, తాబేలు మంచి స్నేహితులు.", english: "The rat and the tortoise were good friends." },
-      { image: rt2, telugu: "ప్రతిరోజూ వారు కలిసి పండ్లు పంచుకునేవారు.", english: "Every day they shared fruits together." },
-      { image: rt3, telugu: "ఒకరోజు తాబేలు వేటగాడి వలలో చిక్కింది.", english: "One day the tortoise was caught in a hunter's net." },
-      { image: rt4, telugu: "ఎలుక వలను కొరికి స్నేహితుడిని కాపాడింది.", english: "The rat chewed the net and saved its friend." },
+      { image: rt1, audio: rtAudio1, telugu: "ఎలుక మరియు తాబేలు మంచి స్నేహితులు.", english: "The rat and the tortoise were good friends." },
+      { image: rt2, audio: rtAudio2, telugu: "ప్రతిరోజూ వారు కలిసి పండ్లు పంచుకునేవారు.", english: "Every day they shared fruits together." },
+      { image: rt3, audio: rtAudio3, telugu: "ఒకరోజు తాబేలు వేటగాడి వలలో చిక్కుకుంది.", english: "One day the tortoise was caught in a hunter's net." },
+      { image: rt4, audio: rtAudio4, telugu: "ఎలుక వలను కొరికి తన స్నేహితుడిని కాపాడింది.", english: "The rat chewed the net and saved its friend." },
     ],
   },
   {
@@ -334,9 +423,9 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Where there is a will, there is a way.",
     pages: [
-      { image: thirstyCrowCover, telugu: "ఒక కాకికి చాలా దాహం వేసింది.", english: "A crow was very thirsty." },
-      { image: tc2, telugu: "కుండలో నీళ్లు తక్కువగా ఉన్నాయి. కాకి రాళ్లు వేసింది.", english: "There was little water in the pot. The crow dropped pebbles in." },
-      { image: tc3, telugu: "నీళ్లు పైకి వచ్చాయి. కాకి హాయిగా త్రాగింది.", english: "The water rose up. The crow drank happily." },
+      { image: thirstyCrowCover, audio: tcAudio1, telugu: "ఒక కాకికి చాలా దాహం వేసింది.", english: "A crow was very thirsty." },
+      { image: tc2, audio: tcAudio2, telugu: "కుండలో నీళ్లు తక్కువగా ఉన్నాయి, అందుకే కాకి చిన్న రాళ్లు వేసింది.", english: "There was little water in the pot, so the crow dropped small pebbles in." },
+      { image: tc3, audio: tcAudio3, telugu: "నీళ్లు పైకి వచ్చాయి, కాకి హాయిగా త్రాగింది.", english: "The water rose up, and the crow drank happily." },
     ],
   },
   {
@@ -349,13 +438,13 @@ export const stories: Story[] = [
     minutes: 5,
     tagline: "Kindness is never wasted.",
     pages: [
-      { image: lm1, telugu: "ఒక సింహం చెట్టు కింద నిద్రపోతోంది.", english: "A lion was sleeping under a tree." },
-      { image: lm2, telugu: "ఒక చిన్న ఎలుక సింహం మీద పరిగెత్తింది. సింహం ఎలుకను పట్టుకుంది.", english: "A little mouse ran over the lion. The lion caught the mouse." },
-      { image: lmBeg, telugu: "ఎలుక బ్రతిమాలింది, 'నన్ను వదిలేయండి. ఏదో ఒక రోజు నేను మీకు సహాయం చేస్తాను.'", english: "The mouse begged, 'Let me go. One day I will help you.'" },
-      { image: lmFree, telugu: "సింహం నవ్వి ఎలుకను వదిలేసింది.", english: "The lion laughed and set the mouse free." },
-      { image: lm3, telugu: "ఒక రోజు సింహం వేటగాడి వలలో చిక్కుకుంది.", english: "One day the lion was caught in a hunter's net." },
-      { image: lmChew, telugu: "ఎలుక వచ్చి తాళ్లను కొరికింది. సింహం బయటపడింది.", english: "The mouse came and chewed the ropes. The lion was free." },
-      { image: lmFriends, telugu: "సింహం, ఎలుక నిజమైన స్నేహితులు అయ్యారు.", english: "The lion and the mouse became true friends." },
+      { image: lm1, audio: lmAudio1, telugu: "ఒక సింహం చెట్టు కింద నిద్రపోతోంది.", english: "A lion was sleeping under a tree." },
+      { image: lm2, audio: lmAudio2, telugu: "ఒక చిన్న ఎలుక సింహం మీద పరిగెత్తింది, వెంటనే సింహం ఎలుకను పట్టుకుంది.", english: "A little mouse ran over the lion, and the lion quickly caught it." },
+      { image: lmBeg, audio: lmAudio3, telugu: "ఎలుక దయచేసి నన్ను వదిలేయండి, ఒక రోజు నేను మీకు సహాయం చేస్తాను అని బ్రతిమాలింది.", english: "The mouse begged the lion to let it go, promising to help one day." },
+      { image: lmFree, audio: lmAudio4, telugu: "సింహం నవ్వి చిన్న ఎలుకను వదిలేసింది.", english: "The lion laughed and set the little mouse free." },
+      { image: lm3, audio: lmAudio5, telugu: "ఒక రోజు సింహం వేటగాడి వలలో చిక్కుకుంది.", english: "One day the lion was caught in a hunter's net." },
+      { image: lmChew, audio: lmAudio6, telugu: "ఎలుక వచ్చి తాళ్లను కొరికి, సింహాన్ని బయటకు విడిపించింది.", english: "The mouse came, chewed the ropes, and freed the lion." },
+      { image: lmFriends, audio: lmAudio7, telugu: "ఆ రోజు నుంచి సింహం మరియు ఎలుక నిజమైన స్నేహితులు అయ్యారు.", english: "From that day, the lion and the mouse became true friends." },
     ],
   },
   {
@@ -539,12 +628,12 @@ export const stories: Story[] = [
     minutes: 4,
     tagline: "You are beautiful just as you are.",
     pages: [
-      { image: ud1, telugu: "ఒక పెద్ద గుడ్డు పగిలింది.", english: "A big egg cracked open." },
-      { image: ud2, telugu: "పిల్ల వేరేగా కనిపించింది.", english: "The duckling looked different." },
-      { image: ud3, telugu: "అందరూ నవ్వారు.", english: "Everyone laughed at it." },
-      { image: ud4, telugu: "అది చాలా విచారించింది.", english: "It felt very sad." },
-      { image: ud5, telugu: "పెద్దయ్యాక హంస అయింది!", english: "It grew into a swan!" },
-      { image: ud6, telugu: "అందరూ మెచ్చుకున్నారు!", english: "Everyone admired it!" },
+      { image: ud1, audio: udAudio1, telugu: "ఒక పెద్ద గుడ్డు మెల్లగా పగిలి, చిన్న బాతు పిల్ల బయటకు వచ్చింది.", english: "A big egg slowly cracked open, and a little duckling came out." },
+      { image: ud2, audio: udAudio2, telugu: "ఆ పిల్ల మిగతా బాతు పిల్లలకంటే కొంచెం వేరేగా కనిపించింది.", english: "The duckling looked a little different from the others." },
+      { image: ud3, audio: udAudio3, telugu: "దాన్ని చూసి కొందరు నవ్వారు, అందుకే అది చాలా బాధపడింది.", english: "Some laughed when they saw it, so the duckling felt very sad." },
+      { image: ud4, audio: udAudio4, telugu: "బాతు పిల్ల ఒంటరిగా నడుస్తూ, తాను అందంగా లేనని అనుకుంది.", english: "The duckling walked alone and thought it was not beautiful." },
+      { image: ud5, audio: udAudio5, telugu: "కొన్ని రోజుల తర్వాత అది పెరిగి అందమైన హంసగా మారింది.", english: "After some days, it grew into a beautiful swan." },
+      { image: ud6, audio: udAudio6, telugu: "అప్పుడు అందరూ దాన్ని చూసి ఆశ్చర్యపడి, చాలా మెచ్చుకున్నారు.", english: "Then everyone saw it, felt amazed, and admired it." },
     ],
   },
   {
@@ -557,11 +646,11 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Fighting always helps someone else.",
     pages: [
-      { image: tcm1, telugu: "రెండు పిల్లులు గొడవ పడ్డాయి.", english: "Two cats were fighting." },
-      { image: tcm2, telugu: "రొట్టె కోసం తగువు.", english: "They fought over bread." },
-      { image: tcm3, telugu: "కోతి న్యాయం చెప్పింది.", english: "Monkey said it would help." },
-      { image: tcm4, telugu: "కోతి రొట్టె తినేసింది!", english: "Monkey ate all the bread!" },
-      { image: tcm5, telugu: "గొడవ పడితే నష్టం.", english: "Fighting brings only loss." },
+      { image: tcm1, audio: tcmAudio1, telugu: "రెండు పిల్లులు ఒక రొట్టె ముక్క కోసం గొడవ పడ్డాయి.", english: "Two cats fought over a piece of bread." },
+      { image: tcm2, audio: tcmAudio2, telugu: "రొట్టెను సమంగా పంచుకోవాలని ఇద్దరూ అనుకున్నాయి.", english: "Both wanted to divide the bread equally." },
+      { image: tcm3, audio: tcmAudio3, telugu: "అప్పుడు ఒక తెలివైన కోతి వచ్చి, నేను న్యాయం చెబుతాను అంది.", english: "Then a clever monkey came and said it would judge fairly." },
+      { image: tcm4, audio: tcmAudio4, telugu: "కోతి ఒక్కో ముక్కను కొంచెం కొంచెంగా తింటూ, రొట్టె అంతా తినేసింది.", english: "The monkey kept nibbling each piece until it ate all the bread." },
+      { image: tcm5, audio: tcmAudio5, telugu: "గొడవ పడితే మనకే నష్టం అని పిల్లులు తెలుసుకున్నాయి.", english: "The cats learned that fighting only brings loss." },
     ],
   },
 
@@ -594,11 +683,11 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Be careful with magic gifts.",
     pages: [
-      { image: mp1, telugu: "అమ్మాయికి కుండ దొరికింది.", english: "A girl found a magic pot." },
-      { image: mp2, telugu: "కుండ వంట చేసింది!", english: "The pot cooked by itself!" },
-      { image: mp3, telugu: '"ఆగు కుండా!" అంటే ఆగింది.', english: '"Stop, pot!" — it stopped.' },
-      { image: mp4, telugu: "ఒకరోజు మాట మర్చింది.", english: "One day she forgot the words." },
-      { image: mp5, telugu: "ఊరంతా అన్నం నిండింది!", english: "Food flooded the whole village!" },
+      { image: mp1, audio: mpAudio1, telugu: "ఒక చిన్న అమ్మాయికి అడవిలో ఒక మంత్ర కుండ దొరికింది.", english: "A little girl found a magic pot in the forest." },
+      { image: mp2, audio: mpAudio2, telugu: "ఆ కుండ తనంతట తానే రుచికరమైన భోజనం వండింది.", english: "The pot cooked tasty food all by itself." },
+      { image: mp3, audio: mpAudio3, telugu: "ఆగు కుండా అని చెప్పగానే, కుండ వెంటనే ఆగిపోయింది.", english: "When she said, stop pot, the pot stopped at once." },
+      { image: mp4, audio: mpAudio4, telugu: "ఒక రోజు అమ్మాయి ఆగమని చెప్పే మాట మర్చిపోయింది.", english: "One day, the girl forgot the words to make it stop." },
+      { image: mp5, audio: mpAudio5, telugu: "అప్పుడు ఊరంతా అన్నంతో నిండిపోయింది, అందరూ ఆశ్చర్యపోయారు.", english: "Then the whole village filled with rice, and everyone was amazed." },
     ],
   },
   {
@@ -611,12 +700,12 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Kindness is stronger than force.",
     pages: [
-      { image: sw1, telugu: "సూర్యుడు, గాలి పోటీ పడ్డారు.", english: "Sun and wind had a contest." },
-      { image: sw2, telugu: "కోటు తీయించాలి!", english: "Make him remove his coat!" },
-      { image: sw3, telugu: "గాలి గట్టిగా వీచింది.", english: "Wind blew very, very hard." },
-      { image: sw4, telugu: "మనిషి కోటు పట్టుకున్నాడు.", english: "The man held his coat tight." },
-      { image: sw5, telugu: "సూర్యుడు వెచ్చగా నవ్వాడు.", english: "Sun smiled warm and bright." },
-      { image: sw6, telugu: "మనిషి కోటు తీశాడు!", english: "The man took his coat off!" },
+      { image: sw1, audio: swAudio1, telugu: "ఒక రోజు సూర్యుడు మరియు గాలి ఎవరు బలవంతులో చూడాలని పోటీ పడ్డారు.", english: "One day, the sun and the wind competed to see who was stronger." },
+      { image: sw2, audio: swAudio2, telugu: "దారిలో నడుస్తున్న మనిషి కోటు తీయిస్తే గెలిచినట్టని నిర్ణయించారు.", english: "They decided that whoever made the traveler remove his coat would win." },
+      { image: sw3, audio: swAudio3, telugu: "గాలి చాలా గట్టిగా వీచింది, కానీ మనిషి కోటును మరింత గట్టిగా పట్టుకున్నాడు.", english: "The wind blew very hard, but the man held his coat even tighter." },
+      { image: sw4, audio: swAudio4, telugu: "ఎంత వీచినా మనిషి తన కోటును విడిచిపెట్టలేదు.", english: "No matter how hard it blew, the man did not let go of his coat." },
+      { image: sw5, audio: swAudio5, telugu: "తర్వాత సూర్యుడు మెల్లగా వెచ్చగా ప్రకాశించాడు.", english: "Then the sun gently shone with warmth." },
+      { image: sw6, audio: swAudio6, telugu: "వెచ్చదనంతో మనిషి కోటు తీసేశాడు, దయ బలానికి మించినది అని తెలిసింది.", english: "With the warmth, the man removed his coat, showing kindness is stronger than force." },
     ],
   },
 
@@ -631,11 +720,11 @@ export const stories: Story[] = [
     minutes: 2,
     tagline: "A soft bedtime rhyme.",
     pages: [
-      { image: ls1, telugu: "చిన్న నక్షత్రం మెరిసింది.", english: "Little star began to shine." },
-      { image: ls2, telugu: "రాత్రి ఆకాశం వెలిగింది.", english: "Night sky lit up bright." },
-      { image: ls3, telugu: "పిల్లలు పైకి చూశారు.", english: "Children looked up with wonder." },
-      { image: ls4, telugu: "నక్షత్రం పాట పాడింది.", english: "The star sang them a song." },
-      { image: ls5, telugu: "నిద్రపో చిన్నారీ!", english: "Sleep well, little one!" },
+      { image: ls1, audio: lsAudio1, telugu: "చిన్న నక్షత్రం రాత్రి ఆకాశంలో మెల్లగా మెరిసింది.", english: "A little star gently shone in the night sky." },
+      { image: ls2, audio: lsAudio2, telugu: "ఆ వెలుగుతో చీకటి ఆకాశం అందంగా మెరుపులతో నిండిపోయింది.", english: "With that light, the dark sky filled with beautiful sparkles." },
+      { image: ls3, audio: lsAudio3, telugu: "పిల్లలు ఆనందంగా పైకి చూసి, ఆ నక్షత్రాన్ని ఆసక్తిగా చూశారు.", english: "The children happily looked up and watched the star with wonder." },
+      { image: ls4, audio: lsAudio4, telugu: "చిన్న నక్షత్రం మృదువుగా ఒక తీయని పాట పాడింది.", english: "The little star softly sang a sweet song." },
+      { image: ls5, audio: lsAudio5, telugu: "నిద్రపో చిన్నారి, రేపు మళ్లీ సంతోషంగా ఆడుకుందాం.", english: "Sleep, little one. Tomorrow we will play happily again." },
     ],
   },
 
@@ -650,10 +739,10 @@ export const stories: Story[] = [
     minutes: 2,
     tagline: "Colors of the sky.",
     pages: [
-      { image: rb1, telugu: "వర్షం పడింది.", english: "The rain came down." },
-      { image: rb2, telugu: "ఆకాశంలో రంగులు వచ్చాయి.", english: "Colors filled the sky." },
-      { image: rb3, telugu: "ఎరుపు, పచ్చ, నీలం.", english: "Red, green and blue." },
-      { image: rb4, telugu: "పిల్లలు సంతోషించారు!", english: "The children were so happy!" },
+      { image: rb1, audio: rbAudio1, telugu: "మెల్లగా వర్షం పడింది, భూమి చల్లగా మారింది.", english: "Soft rain fell, and the earth became cool." },
+      { image: rb2, audio: rbAudio2, telugu: "వర్షం ఆగిన తర్వాత ఆకాశంలో అందమైన రంగులు కనిపించాయి.", english: "After the rain stopped, beautiful colors appeared in the sky." },
+      { image: rb3, audio: rbAudio3, telugu: "ఎరుపు, పచ్చ, నీలం రంగులు కలిసి రంగుల వంపు అయ్యాయి.", english: "Red, green, and blue joined together to make a rainbow." },
+      { image: rb4, audio: rbAudio4, telugu: "రంగుల వంపు చూసి పిల్లలు చాలా సంతోషించారు.", english: "The children felt very happy when they saw the rainbow." },
     ],
   },
 
@@ -704,13 +793,13 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Learn parts of the body.",
     pages: [
-      { image: body1, telugu: "తల", english: "Thala — Head" },
-      { image: body2, telugu: "కళ్ళు", english: "Kallu — Eyes" },
-      { image: body3, telugu: "చెవులు", english: "Chevulu — Ears" },
-      { image: body4, telugu: "ముక్కు", english: "Mukku — Nose" },
-      { image: body5, telugu: "నోరు", english: "Noru — Mouth" },
-      { image: body6, telugu: "చేతులు", english: "Chethulu — Hands" },
-      { image: body7, telugu: "కాళ్ళు", english: "Kallu — Legs" },
+      { image: body1, audio: bodyAudio1, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "తల", english: "Thala — Head" },
+      { image: body2, audio: bodyAudio2, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "కళ్ళు", english: "Kallu — Eyes" },
+      { image: body3, audio: bodyAudio3, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "చెవులు", english: "Chevulu — Ears" },
+      { image: body4, audio: bodyAudio4, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "ముక్కు", english: "Mukku — Nose" },
+      { image: body5, audio: bodyAudio5, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "నోరు", english: "Noru — Mouth" },
+      { image: body6, audio: bodyAudio6, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "చేతులు", english: "Chethulu — Hands" },
+      { image: body7, audio: bodyAudio7, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "కాళ్ళు", english: "Kallu — Legs" },
     ],
   },
 
@@ -777,10 +866,30 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "A soft rhyme for bedtime.",
     pages: [
-      { image: mr1, telugu: "చందమామ రావే, జాబిల్లి రావే.", english: "Come, dear moon, come tonight." },
-      { image: mr2, telugu: "కొండెక్కి రావే, కోటి పూలు తేవే.", english: "Climb the hill and bring a million flowers." },
-      { image: mr3, telugu: "బంగారు పళ్లెంలో పాలు పోసేవే.", english: "Pour the milk into the golden plate." },
-      { image: mr4, telugu: "నా బాబుకు హాయిగా నిద్ర పుచ్చవే.", english: "And gently send my little one to sleep." },
+      {
+        image: mr1,
+        telugu: "చందమామ రావే, జాబిల్లి రావే, మా ఇంటికి వెలుగు తెచ్చావే.",
+        english: "Come, dear moon, come tonight and bring light to our home.",
+        audio: mrAudio1,
+      },
+      {
+        image: mr2,
+        telugu: "కొండెక్కి రావే, కోటి పూలు తీసుకువచ్చావే.",
+        english: "Climb the hill and bring a million flowers.",
+        audio: mrAudio2,
+      },
+      {
+        image: mr3,
+        telugu: "బంగారు పళ్లెంలో మెల్లగా పాలు పోసావే.",
+        english: "Gently pour milk into the golden plate.",
+        audio: mrAudio3,
+      },
+      {
+        image: mr4,
+        telugu: "నా బాబుకు హాయిగా నిద్ర పుచ్చావే.",
+        english: "Gently help my little one sleep.",
+        audio: mrAudio4,
+      },
     ],
   },
   {
@@ -793,11 +902,36 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "A joyful monsoon rhyme.",
     pages: [
-      { image: rs1, telugu: "వాన వాన వల్లప్ప,", english: "Rain, rain, dear rain," },
-      { image: rs2, telugu: "చేయి చాపి పిల్లప్ప.", english: "Stretch out your hand." },
-      { image: rs3, telugu: "నీళ్ల చుక్కలు పడుతున్నాయి.", english: "Little drops are falling down." },
-      { image: rs4, telugu: "కప్పలు బెకబెక అంటున్నాయి.", english: "Frogs are singing croak-croak." },
-      { image: rs5, telugu: "పిల్లలంతా గెంతుతున్నారు!", english: "All the children jump and play!" },
+      {
+        image: rs1,
+        telugu: "వాన వాన వల్లప్ప, మెల్లగా మా ఊరికి రావయ్యా.",
+        english: "Rain, rain, dear rain, gently come to our village.",
+        audio: rsAudio1,
+      },
+      {
+        image: rs2,
+        telugu: "పిల్లలు చేతులు చాపి వాన చినుకులను పట్టుకుంటున్నారు.",
+        english: "Children stretch their hands to catch the raindrops.",
+        audio: rsAudio2,
+      },
+      {
+        image: rs3,
+        telugu: "నీళ్ల చుక్కలు చినుకుల్లా మెల్లగా పడుతున్నాయి.",
+        english: "Tiny drops of water are softly falling.",
+        audio: rsAudio3,
+      },
+      {
+        image: rs4,
+        telugu: "కప్పలు బెక బెక అంటూ వాన పాట పాడుతున్నాయి.",
+        english: "The frogs croak and sing a rain song.",
+        audio: rsAudio4,
+      },
+      {
+        image: rs5,
+        telugu: "పిల్లలంతా ఆనందంగా గెంతుతూ ఆడుతున్నారు.",
+        english: "All the children jump and play with joy.",
+        audio: rsAudio5,
+      },
     ],
   },
   {
@@ -810,10 +944,30 @@ export const stories: Story[] = [
     minutes: 2,
     tagline: "A classic Telugu lullaby about a loving mother.",
     pages: [
-      { image: gm1, telugu: "గోరుముద్ద తినిపించేది అమ్మ.", english: "Amma feeds me a morsel with love." },
-      { image: gm2, telugu: "జోలపాట పాడేది అమ్మ.", english: "Amma sings a lullaby to sleep." },
-      { image: gm3, telugu: "గుండెకు హత్తుకుంటుంది అమ్మ.", english: "Amma holds me close to her heart." },
-      { image: gm4, telugu: "అమ్మ ప్రేమ అన్నిటికంటే గొప్పది.", english: "Amma's love is the greatest of all." },
+      {
+        image: gm1,
+        telugu: "అమ్మ ప్రేమగా గోరుముద్ద తినిపిస్తుంది.",
+        english: "Amma lovingly feeds me a warm morsel.",
+        audio: gmAudio1,
+      },
+      {
+        image: gm2,
+        telugu: "అమ్మ మెల్లగా జోలపాట పాడి నిద్రపుచ్చుతుంది.",
+        english: "Amma softly sings a lullaby and puts me to sleep.",
+        audio: gmAudio2,
+      },
+      {
+        image: gm3,
+        telugu: "అమ్మ నన్ను గుండెకు హత్తుకుని ముద్దాడుతుంది.",
+        english: "Amma holds me close to her heart and kisses me.",
+        audio: gmAudio3,
+      },
+      {
+        image: gm4,
+        telugu: "అమ్మ ప్రేమ అన్నిటికంటే గొప్పది.",
+        english: "Amma's love is greater than everything.",
+        audio: gmAudio4,
+      },
     ],
   },
   {
@@ -826,10 +980,10 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "A beloved Telugu rhyme calling little Krishna.",
     pages: [
-      { image: rk1, telugu: "రారా చిన్ని కృష్ణా, ముద్దు కృష్ణా.", english: "Come, little Krishna, sweet dear Krishna." },
-      { image: rk2, telugu: "వెన్న ముద్దలు తినవా, నవ్వుల కృష్ణా.", english: "Will you eat the butter balls, smiling Krishna?" },
-      { image: rk3, telugu: "నెమలి పింఛం పెట్టావే, అందమైన కృష్ణా.", english: "You wore the peacock feather, beautiful Krishna." },
-      { image: rk4, telugu: "వేణువు పాడు, మా కృష్ణా.", english: "Play your flute for us, our dear Krishna." },
+      { image: rk1, audio: rkAudio1, telugu: "రారా చిన్ని కృష్ణా, ముద్దు కృష్ణా.", english: "Come, little Krishna, sweet dear Krishna." },
+      { image: rk2, audio: rkAudio2, telugu: "వెన్న ముద్దలు తినవా, నవ్వుల కృష్ణా.", english: "Will you eat the butter balls, smiling Krishna?" },
+      { image: rk3, audio: rkAudio3, telugu: "నెమలి పింఛం పెట్టావే, అందమైన కృష్ణా.", english: "You wore the peacock feather, beautiful Krishna." },
+      { image: rk4, audio: rkAudio4, telugu: "వేణువు పాడు, మా కృష్ణా.", english: "Play your flute for us, our dear Krishna." },
     ],
   },
   {
@@ -842,10 +996,10 @@ export const stories: Story[] = [
     minutes: 2,
     tagline: "A playful rhyme about a happy child.",
     pages: [
-      { image: bb1, telugu: "బాలూ బాలూ పరిగెత్తాడు.", english: "Balu, Balu ran and ran." },
-      { image: bb2, telugu: "మామిడి చెట్టు ఎక్కాడు.", english: "He climbed the mango tree." },
-      { image: bb3, telugu: "పండిన మామిడి తిన్నాడు.", english: "He ate the ripe sweet mango." },
-      { image: bb4, telugu: "ఆనందంగా పాట పాడాడు.", english: "And sang a happy song." },
+      { image: bb1, audio: bbAudio1, telugu: "బాలూ బాలూ సంతోషంగా పరిగెత్తాడు.", english: "Balu, Balu ran happily." },
+      { image: bb2, audio: bbAudio2, telugu: "అతను మామిడి చెట్టు మెల్లగా ఎక్కాడు.", english: "He slowly climbed the mango tree." },
+      { image: bb3, audio: bbAudio3, telugu: "పండిన తియ్యని మామిడి పండు తిన్నాడు.", english: "He ate the ripe sweet mango." },
+      { image: bb4, audio: bbAudio4, telugu: "ఆనందంగా నవ్వుతూ ఒక చిన్న పాట పాడాడు.", english: "He smiled happily and sang a little song." },
     ],
   },
   {
@@ -858,11 +1012,11 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Learn words with a singing parrot.",
     pages: [
-      { image: ps1, telugu: "చిలుక చిలుక పచ్చ చిలుక.", english: "Parrot, parrot, green little parrot." },
-      { image: ps2, telugu: "మామిడి పండు తీపి పండు.", english: "Mango fruit, oh sweetest fruit." },
-      { image: ps3, telugu: "ఎరుపు ముక్కు, నీలి తోక.", english: "Red, red beak and a blue, blue tail." },
-      { image: ps4, telugu: "పాట పాడు, పాట పాడు.", english: "Sing a song, oh sing a song." },
-      { image: ps5, telugu: "నాతో ఆడు, నాతో పాడు.", english: "Come play with me, come sing along." },
+      { image: ps1, audio: psAudio1, telugu: "చిలుక చిలుక, పచ్చని చిలుక.", english: "Parrot, parrot, green little parrot." },
+      { image: ps2, audio: psAudio2, telugu: "మామిడి పండు తియ్యని పండు.", english: "Mango fruit, oh sweetest fruit." },
+      { image: ps3, audio: psAudio3, telugu: "ఎరుపు ముక్కు, నీలి తోక.", english: "A red beak and a blue tail." },
+      { image: ps4, audio: psAudio4, telugu: "పాట పాడు చిలుకా, మధురంగా పాడు.", english: "Sing a song, parrot, sing sweetly." },
+      { image: ps5, audio: psAudio5, telugu: "నాతో ఆడు, నాతో పాడు.", english: "Come play with me, come sing along." },
     ],
   },
 
@@ -877,11 +1031,11 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Arjun's morning, step by step.",
     pages: [
-      { image: morn1, telugu: "అర్జున్ ఉదయం లేస్తాడు.", english: "Arjun wakes up in the morning." },
-      { image: morn2, telugu: "అతను పళ్లు తోముకుంటాడు.", english: "He brushes his teeth." },
-      { image: morn3, telugu: "స్నానం చేస్తాడు.", english: "He takes a bath." },
-      { image: morn4, telugu: "అమ్మ ఇచ్చిన టిఫిన్ తింటాడు.", english: "He eats the breakfast Amma made." },
-      { image: morn5, telugu: "బ్యాగ్ తీసుకుని స్కూల్‌కు వెళ్తాడు.", english: "He takes his bag and goes to school." },
+      { image: morn1, audio: mornAudio1, telugu: "అర్జున్ ఉదయం సంతోషంగా లేస్తాడు.", english: "Arjun wakes up happily in the morning." },
+      { image: morn2, audio: mornAudio2, telugu: "అతను పళ్లు బాగా తోముకుంటాడు.", english: "He brushes his teeth well." },
+      { image: morn3, audio: mornAudio3, telugu: "తర్వాత అర్జున్ స్నానం చేస్తాడు.", english: "Then Arjun takes a bath." },
+      { image: morn4, audio: mornAudio4, telugu: "అమ్మ చేసిన టిఫిన్ ఆనందంగా తింటాడు.", english: "He happily eats the breakfast Amma made." },
+      { image: morn5, audio: mornAudio5, telugu: "బ్యాగ్ తీసుకుని స్కూల్‌కు వెళ్తాడు.", english: "He takes his bag and goes to school." },
     ],
   },
   {
@@ -894,12 +1048,12 @@ export const stories: Story[] = [
     minutes: 4,
     tagline: "A morning walk to the bazaar.",
     pages: [
-      { image: market1, telugu: "నేను నానమ్మతో బజారుకు వెళ్తాను.", english: "I go to the market with my grandmother." },
-      { image: market2, telugu: "మేము టమాటాలు కొంటాము.", english: "We buy tomatoes — Tamaatalu." },
-      { image: market3, telugu: "మామిడి పండ్లు తీసుకుంటాము.", english: "We pick mangoes — Maamidi pandlu." },
-      { image: market4, telugu: "పచ్చి కూరగాయలు కూడా.", english: "Fresh vegetables too — Pacchi kooragayalu." },
-      { image: market5, telugu: "బంతిపూల దండ కొనుక్కుంటాము.", english: "We buy a marigold garland — Banthi poola danda." },
-      { image: market6, telugu: "ఇంటికి ఆనందంగా తిరిగి వస్తాము.", english: "We return home happily." },
+      { image: market1, audio: marketAudio1, telugu: "నేను నానమ్మతో కలిసి బజారుకు వెళ్తాను.", english: "I go to the market with my grandmother." },
+      { image: market2, audio: marketAudio2, telugu: "మేము ఎర్రని టమాటాలు కొంటాము.", english: "We buy red tomatoes — Tamaatalu." },
+      { image: market3, audio: marketAudio3, telugu: "తియ్యని మామిడి పండ్లు తీసుకుంటాము.", english: "We pick sweet mangoes — Maamidi pandlu." },
+      { image: market4, audio: marketAudio4, telugu: "పచ్చి కూరగాయలు కూడా కొనుగోలు చేస్తాము.", english: "We buy fresh vegetables too — Pacchi kooragayalu." },
+      { image: market5, audio: marketAudio5, telugu: "అందమైన బంతిపూల దండ కొనుక్కుంటాము.", english: "We buy a beautiful marigold garland — Banthi poola danda." },
+      { image: market6, audio: marketAudio6, telugu: "చివరికి ఇంటికి ఆనందంగా తిరిగి వస్తాము.", english: "Finally, we return home happily." },
     ],
   },
 ];
