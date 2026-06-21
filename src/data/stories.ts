@@ -47,6 +47,12 @@ import mc3 from "@/assets/stories/monkey-crocodile/slide3.png";
 import mc4 from "@/assets/stories/monkey-crocodile/slide4.png";
 import mc5 from "@/assets/stories/monkey-crocodile/slide5.png";
 import mc6 from "@/assets/stories/monkey-crocodile/slide6.png";
+import mcAudio1 from "@/assets/audio/monkey-crocodile/page-1.mp3";
+import mcAudio2 from "@/assets/audio/monkey-crocodile/page-2.mp3";
+import mcAudio3 from "@/assets/audio/monkey-crocodile/page-3.mp3";
+import mcAudio4 from "@/assets/audio/monkey-crocodile/page-4.mp3";
+import mcAudio5 from "@/assets/audio/monkey-crocodile/page-5.mp3";
+import mcAudio6 from "@/assets/audio/monkey-crocodile/page-6.mp3";
 import tcm1 from "@/assets/stories/two-cats-monkey/slide1.png";
 import tcm2 from "@/assets/stories/two-cats-monkey/slide2.png";
 import tcm3 from "@/assets/stories/two-cats-monkey/slide3.png";
@@ -58,6 +64,12 @@ import ag3 from "@/assets/stories/ant-grasshopper/slide3.png";
 import ag4 from "@/assets/stories/ant-grasshopper/slide4.png";
 import ag5 from "@/assets/stories/ant-grasshopper/slide5.png";
 import ag6 from "@/assets/stories/ant-grasshopper/slide6.png";
+import agAudio1 from "@/assets/audio/ant-grasshopper/page-1.mp3";
+import agAudio2 from "@/assets/audio/ant-grasshopper/page-2.mp3";
+import agAudio3 from "@/assets/audio/ant-grasshopper/page-3.mp3";
+import agAudio4 from "@/assets/audio/ant-grasshopper/page-4.mp3";
+import agAudio5 from "@/assets/audio/ant-grasshopper/page-5.mp3";
+import agAudio6 from "@/assets/audio/ant-grasshopper/page-6.mp3";
 import mp1 from "@/assets/stories/magic-pot/slide1.png";
 import mp2 from "@/assets/stories/magic-pot/slide2.png";
 import mp3 from "@/assets/stories/magic-pot/slide3.png";
@@ -84,6 +96,12 @@ import fam3 from "@/assets/stories/my-family/slide3.png";
 import fam4 from "@/assets/stories/my-family/slide4.png";
 import fam5 from "@/assets/stories/my-family/slide5.png";
 import fam6 from "@/assets/stories/my-family/slide6.png";
+import famAudio1 from "@/assets/audio/my-family/page-1.mp3";
+import famAudio2 from "@/assets/audio/my-family/page-2.mp3";
+import famAudio3 from "@/assets/audio/my-family/page-3.mp3";
+import famAudio4 from "@/assets/audio/my-family/page-4.mp3";
+import famAudio5 from "@/assets/audio/my-family/page-5.mp3";
+import famAudio6 from "@/assets/audio/my-family/page-6.mp3";
 import body1 from "@/assets/stories/my-body/slide1.png";
 import body2 from "@/assets/stories/my-body/slide2.png";
 import body3 from "@/assets/stories/my-body/slide3.png";
@@ -195,6 +213,12 @@ import wc3 from "@/assets/stories/woodcutter/slide3.png";
 import wc4 from "@/assets/stories/woodcutter/slide4.png";
 import wc5 from "@/assets/stories/woodcutter/slide5.png";
 import wc6 from "@/assets/stories/woodcutter/slide6.png";
+import wcAudio1 from "@/assets/audio/woodcutter/page-1.mp3";
+import wcAudio2 from "@/assets/audio/woodcutter/page-2.mp3";
+import wcAudio3 from "@/assets/audio/woodcutter/page-3.mp3";
+import wcAudio4 from "@/assets/audio/woodcutter/page-4.mp3";
+import wcAudio5 from "@/assets/audio/woodcutter/page-5.mp3";
+import wcAudio6 from "@/assets/audio/woodcutter/page-6.mp3";
 
 import gd1 from "@/assets/stories/greedy-dog/slide1.png";
 import gd2 from "@/assets/stories/greedy-dog/slide2.png";
@@ -202,12 +226,23 @@ import gd3 from "@/assets/stories/greedy-dog/slide3.png";
 import gd4 from "@/assets/stories/greedy-dog/slide4.png";
 import gd5 from "@/assets/stories/greedy-dog/slide5.png";
 import gd6 from "@/assets/stories/greedy-dog/slide6.png";
+import gdAudio1 from "@/assets/audio/greedy-dog/page-1.mp3";
+import gdAudio2 from "@/assets/audio/greedy-dog/page-2.mp3";
+import gdAudio3 from "@/assets/audio/greedy-dog/page-3.mp3";
+import gdAudio4 from "@/assets/audio/greedy-dog/page-4.mp3";
+import gdAudio5 from "@/assets/audio/greedy-dog/page-5.mp3";
+import gdAudio6 from "@/assets/audio/greedy-dog/page-6.mp3";
 
 import fg1 from "@/assets/stories/fox-grapes/slide1.png";
 import fg2 from "@/assets/stories/fox-grapes/slide2.png";
 import fg3 from "@/assets/stories/fox-grapes/slide3.png";
 import fg4 from "@/assets/stories/fox-grapes/slide4.png";
 import fg5 from "@/assets/stories/fox-grapes/slide5.png";
+import fgAudio1 from "@/assets/audio/fox-grapes/page-1.mp3";
+import fgAudio2 from "@/assets/audio/fox-grapes/page-2.mp3";
+import fgAudio3 from "@/assets/audio/fox-grapes/page-3.mp3";
+import fgAudio4 from "@/assets/audio/fox-grapes/page-4.mp3";
+import fgAudio5 from "@/assets/audio/fox-grapes/page-5.mp3";
 
 import tf1 from "@/assets/stories/two-friends/slide1.jpg";
 import tf2 from "@/assets/stories/two-friends/slide2.jpg";
@@ -236,6 +271,17 @@ export interface StoryPage {
   image: string;
   telugu: string;
   english: string;
+  audio?: string;
+  audioSequence?: {
+    src: string;
+    pauseAfterMs?: number;
+    playbackRate?: number;
+    volume?: number;
+  }[];
+  audioRepeat?: {
+    count: number;
+    pauseMs: number;
+  };
 }
 
 export interface Story {
@@ -354,12 +400,12 @@ export const stories: Story[] = [
     minutes: 5,
     tagline: "Honesty is rewarded.",
     pages: [
-      { image: wc1, telugu: "ఒక కట్టెలవాడు నది ఒడ్డున కట్టెలు కొడుతున్నాడు.", english: "A woodcutter was chopping wood by the river." },
-      { image: wc2, telugu: "అతని గొడ్డలి జారి నదిలో పడిపోయింది.", english: "His axe slipped and fell into the river." },
-      { image: wc3, telugu: "నది దేవత బంగారు గొడ్డలి చూపించింది, 'ఇది నీదా?'", english: "The river goddess showed a golden axe, 'Is this yours?'" },
-      { image: wc4, telugu: "'కాదు' అని అతను నిజాయితీగా చెప్పాడు.", english: "'No,' he answered honestly." },
-      { image: wc5, telugu: "చివరికి అతని పాత ఇనుప గొడ్డలి చూపించింది — 'అవును!'", english: "Finally she showed his iron axe — 'Yes, that is mine!'" },
-      { image: wc6, telugu: "దేవత అతని నిజాయితీకి మూడు గొడ్డళ్లనూ బహుమతిగా ఇచ్చింది.", english: "The goddess gave him all three axes for his honesty." },
+      { image: wc1, audio: wcAudio1, telugu: "ఒక నిజాయితీగల కట్టెలవాడు నది ఒడ్డున కట్టెలు కొడుతున్నాడు.", english: "An honest woodcutter was chopping wood by the river." },
+      { image: wc2, audio: wcAudio2, telugu: "అचानक అతని గొడ్డలి చేతి నుంచి జారి నదిలో పడిపోయింది.", english: "Suddenly, his axe slipped from his hand and fell into the river." },
+      { image: wc3, audio: wcAudio3, telugu: "నది దేవత బంగారు గొడ్డలి చూపించి, ఇది నీదా అని అడిగింది.", english: "The river goddess showed a golden axe and asked if it was his." },
+      { image: wc4, audio: wcAudio4, telugu: "కాదు, అది నాది కాదు అని కట్టెలవాడు నిజాయితీగా చెప్పాడు.", english: "No, that is not mine, the woodcutter answered honestly." },
+      { image: wc5, audio: wcAudio5, telugu: "చివరికి దేవత అతని పాత ఇనుప గొడ్డలి చూపించగా, అవును ఇదే నాది అని అతను అన్నాడు.", english: "Finally, when she showed his old iron axe, he said, yes, this is mine." },
+      { image: wc6, audio: wcAudio6, telugu: "అతని నిజాయితీకి సంతోషించిన దేవత, మూడు గొడ్డళ్లనూ బహుమతిగా ఇచ్చింది.", english: "Pleased with his honesty, the goddess gave him all three axes as a gift." },
     ],
   },
   {
@@ -421,12 +467,12 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Greed makes you lose what you already have.",
     pages: [
-      { image: gd1, telugu: "కుక్కకు ఎముక దొరికింది.", english: "A dog found a bone." },
-      { image: gd2, telugu: "అది సంతోషంగా నడిచింది.", english: "It walked away happily." },
-      { image: gd3, telugu: "వంతెన మీద నీడ కనిపించింది.", english: "It saw a shadow below." },
-      { image: gd4, telugu: "అది మరో కుక్క అనుకుంది!", english: "It thought — another dog!" },
-      { image: gd5, telugu: "మొరిగింది — ఎముక పడింది!", english: "It barked — bone fell down!" },
-      { image: gd6, telugu: "అత్యాశ చెడు చేసింది.", english: "Greed caused the loss." },
+      { image: gd1, audio: gdAudio1, telugu: "ఒక కుక్కకు రుచికరమైన ఎముక దొరికింది.", english: "A dog found a tasty bone." },
+      { image: gd2, audio: gdAudio2, telugu: "అది ఎముకను నోటిలో పట్టుకొని సంతోషంగా నడిచింది.", english: "It carried the bone in its mouth and walked happily." },
+      { image: gd3, audio: gdAudio3, telugu: "వంతెన మీద నుంచి నీటిలో తన నీడ కనిపించింది.", english: "From the bridge, it saw its reflection in the water." },
+      { image: gd4, audio: gdAudio4, telugu: "అది మరో కుక్క దగ్గర ఇంకో ఎముక ఉందని అనుకుంది.", english: "It thought another dog had another bone." },
+      { image: gd5, audio: gdAudio5, telugu: "దానిని తీసుకోవాలని మొరిగింది. వెంటనే ఎముక నీటిలో పడిపోయింది.", english: "It barked to take it. At once, the bone fell into the water." },
+      { image: gd6, audio: gdAudio6, telugu: "అత్యాశ వల్ల కుక్క తన దగ్గర ఉన్న ఎముకను కూడా కోల్పోయింది.", english: "Because of greed, the dog lost even the bone it already had." },
     ],
   },
 
@@ -458,11 +504,11 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Don't make excuses — try your best.",
     pages: [
-      { image: fg1, telugu: "నక్కకు పండ్లు కనిపించాయి.", english: "Fox saw some grapes." },
-      { image: fg2, telugu: "అది పైకి దుమికింది.", english: "It jumped up high." },
-      { image: fg3, telugu: "మళ్ళీ మళ్ళీ దుమికింది.", english: "It jumped again, again." },
-      { image: fg4, telugu: "పండ్లు అందలేదు.", english: "Could not reach the grapes." },
-      { image: fg5, telugu: '"పుల్లగా ఉంటాయి!" అంది.', english: '"They must be sour!" it said.' },
+      { image: fg1, audio: fgAudio1, telugu: "ఒక నక్కకు చెట్టుపై తియ్యని ద్రాక్ష పండ్లు కనిపించాయి.", english: "A fox saw sweet grapes hanging on a tree." },
+      { image: fg2, audio: fgAudio2, telugu: "ఆ పండ్లు తినాలని నక్క పైకి ఎగిరింది.", english: "The fox jumped up to eat them." },
+      { image: fg3, audio: fgAudio3, telugu: "మళ్ళీ మళ్ళీ ఎగిరినా, పండ్లు అందలేదు.", english: "It jumped again and again, but could not reach the grapes." },
+      { image: fg4, audio: fgAudio4, telugu: "నక్క చాలా అలసిపోయి, అక్కడే ఆగిపోయింది.", english: "The fox became very tired and stopped there." },
+      { image: fg5, audio: fgAudio5, telugu: "అవి పుల్లగా ఉంటాయి అని చెప్పి నక్క వెళ్లిపోయింది.", english: "It said, 'They must be sour,' and walked away." },
     ],
   },
   {
@@ -475,12 +521,12 @@ export const stories: Story[] = [
     minutes: 4,
     tagline: "Stay clever and stay safe.",
     pages: [
-      { image: mc1, telugu: "కోతి చెట్టుపై ఉంది.", english: "Monkey lived on a tree." },
-      { image: mc2, telugu: "మొసలి స్నేహితుడయ్యాడు.", english: "Crocodile became its friend." },
-      { image: mc3, telugu: "మొసలి కోతిని తీసుకెళ్ళాలనుకుంది.", english: "Crocodile planned to trick it." },
-      { image: mc4, telugu: '"నా గుండె చెట్టుపై ఉంది!"', english: '"My heart is on the tree!"' },
-      { image: mc5, telugu: "కోతి వేగంగా పారిపోయింది.", english: "Monkey quickly ran away." },
-      { image: mc6, telugu: "తెలివి ప్రాణం కాపాడింది.", english: "Wit saved its life." },
+      { image: mc1, audio: mcAudio1, telugu: "ఒక కోతి నది ఒడ్డున ఉన్న చెట్టుపై నివసించేది.", english: "A monkey lived on a tree by the river." },
+      { image: mc2, audio: mcAudio2, telugu: "ఒక మొసలి ప్రతిరోజూ వచ్చి కోతితో స్నేహం చేసింది.", english: "A crocodile came every day and became friends with the monkey." },
+      { image: mc3, audio: mcAudio3, telugu: "ఒక రోజు మొసలి కోతిని మోసం చేసి తీసుకెళ్లాలని అనుకుంది.", english: "One day, the crocodile planned to trick the monkey and take it away." },
+      { image: mc4, audio: mcAudio4, telugu: "కోతి తెలివిగా, నా గుండె చెట్టుపైనే ఉంది అని చెప్పింది.", english: "The monkey cleverly said, my heart is still on the tree." },
+      { image: mc5, audio: mcAudio5, telugu: "చెట్టుకి చేరగానే కోతి వేగంగా పైకి ఎక్కి తప్పించుకుంది.", english: "As soon as they reached the tree, the monkey quickly climbed up and escaped." },
+      { image: mc6, audio: mcAudio6, telugu: "సమయానికి ఉపయోగించిన తెలివి కోతి ప్రాణాన్ని కాపాడింది.", english: "Quick thinking at the right time saved the monkey's life." },
     ],
   },
   {
@@ -530,12 +576,12 @@ export const stories: Story[] = [
     minutes: 4,
     tagline: "Work today, rest tomorrow.",
     pages: [
-      { image: ag1, telugu: "చీమ రోజూ పని చేసింది.", english: "Ant worked every single day." },
-      { image: ag2, telugu: "మిడత పాటలు పాడింది.", english: "Grasshopper sang and played." },
-      { image: ag3, telugu: "చలి కాలం వచ్చింది.", english: "Winter came at last." },
-      { image: ag4, telugu: "మిడతకు తిండి లేదు.", english: "Grasshopper had no food." },
-      { image: ag5, telugu: "చీమ దగ్గర తిండి ఉంది.", english: "Ant had food stored safe." },
-      { image: ag6, telugu: "కష్టం ఫలితం ఇస్తుంది.", english: "Hard work always pays off." },
+      { image: ag1, audio: agAudio1, telugu: "ఒక చీమ రోజూ కష్టపడి ఆహారం సేకరించేది.", english: "An ant worked hard every day to gather food." },
+      { image: ag2, audio: agAudio2, telugu: "మిడత మాత్రం పాటలు పాడుతూ ఆడుకుంటూ రోజులు గడిపింది.", english: "The grasshopper spent its days singing and playing." },
+      { image: ag3, audio: agAudio3, telugu: "కొన్ని రోజుల తర్వాత చలి కాలం వచ్చింది.", english: "After some days, winter arrived." },
+      { image: ag4, audio: agAudio4, telugu: "మిడత దగ్గర తినడానికి ఆహారం ఏమీ లేదు.", english: "The grasshopper had no food to eat." },
+      { image: ag5, audio: agAudio5, telugu: "కష్టపడి దాచుకున్న చీమ దగ్గర మాత్రం చాలానే ఆహారం ఉంది.", english: "But the hardworking ant had plenty of stored food." },
+      { image: ag6, audio: agAudio6, telugu: "సమయానికి చేసిన కష్టం ఎప్పుడూ మంచి ఫలితం ఇస్తుంది.", english: "Work done at the right time always brings good results." },
     ],
   },
   {
@@ -622,12 +668,12 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Meet your family in Telugu.",
     pages: [
-      { image: fam1, telugu: "అమ్మ", english: "Amma — Mother" },
-      { image: fam2, telugu: "నాన్న", english: "Naanna — Father" },
-      { image: fam3, telugu: "అక్క", english: "Akka — Elder sister" },
-      { image: fam4, telugu: "అన్న", english: "Anna — Elder brother" },
-      { image: fam5, telugu: "తాత", english: "Thaatha — Grandfather" },
-      { image: fam6, telugu: "నానమ్మ", english: "Naanamma — Grandmother" },
+      { image: fam1, audio: famAudio1, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "అమ్మ", english: "Amma — Mother" },
+      { image: fam2, audio: famAudio2, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "నాన్న", english: "Naanna — Father" },
+      { image: fam3, audio: famAudio3, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "అక్క", english: "Akka — Elder sister" },
+      { image: fam4, audio: famAudio4, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "అన్న", english: "Anna — Elder brother" },
+      { image: fam5, audio: famAudio5, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "తాత", english: "Thaatha — Grandfather" },
+      { image: fam6, audio: famAudio6, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "నానమ్మ", english: "Naanamma — Grandmother" },
     ],
   },
   {

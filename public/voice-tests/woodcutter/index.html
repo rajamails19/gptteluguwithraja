@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Woodcutter Voice Test</title>
+  <style>
+    :root { color-scheme: light; --ink: #26241f; --muted: #716d63; --paper: #fbf6e8; --line: #e7ddca; --green: #2f5d42; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    main { width: min(980px, calc(100% - 32px)); margin: 0 auto; padding: 34px 0 54px; }
+    h1 { margin: 0 0 8px; font: 700 34px/1.05 Georgia, serif; letter-spacing: 0; }
+    .note { margin: 0 0 24px; color: var(--muted); font-size: 15px; line-height: 1.5; }
+    .story { margin: 0 0 24px; padding: 20px; border: 1px solid var(--line); background: #fffaf0; border-radius: 8px; font-family: "Noto Sans Telugu", "Noto Serif Telugu", serif; font-size: 22px; line-height: 1.75; white-space: pre-line; }
+    .grid { display: grid; gap: 14px; }
+    .card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 420px); gap: 18px; align-items: center; padding: 18px; border: 1px solid var(--line); background: #fffdf7; border-radius: 8px; box-shadow: 0 12px 26px rgb(55 45 25 / 7%); }
+    h2 { margin: 0 0 5px; font-size: 18px; line-height: 1.2; }
+    h2 span { color: var(--green); font-size: 13px; font-weight: 700; }
+    .card p { margin: 0; color: var(--muted); font-size: 13px; }
+    audio { width: 100%; }
+    @media (max-width: 720px) { .card { grid-template-columns: 1fr; } h1 { font-size: 28px; } .story { font-size: 19px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Woodcutter Voice Test</h1>
+    <p class="note">Same full Telugu story text, generated with Eleven v3. Listen for Telugu pronunciation, household-natural tone, pacing, and kid friendliness.</p>
+    <section class="story">ఒక కట్టెలవాడు నది ఒడ్డున కట్టెలు కొడుతున్నాడు.
+అతని గొడ్డలి జారి నదిలో పడిపోయింది.
+నది దేవత బంగారు గొడ్డలి చూపించింది, &#39;ఇది నీదా?&#39;
+&#39;కాదు&#39; అని అతను నిజాయితీగా చెప్పాడు.
+చివరికి అతని పాత ఇనుప గొడ్డలి చూపించింది — &#39;అవును!&#39;
+దేవత అతని నిజాయితీకి మూడు గొడ్డళ్లనూ బహుమతిగా ఇచ్చింది.</section>
+    <section class="grid">
+    <article class="card">
+      <div>
+        <h2>Tara <span>Eleven v3</span></h2>
+        <p>tara-v3.mp3</p>
+      </div>
+      <audio controls preload="auto" src="./tara-v3.mp3"></audio>
+    </article>
+  
+
+    <article class="card">
+      <div>
+        <h2>Anvi <span>Eleven v3</span></h2>
+        <p>anvi-v3.mp3</p>
+      </div>
+      <audio controls preload="auto" src="./anvi-v3.mp3"></audio>
+    </article>
+  
+
+    <article class="card">
+      <div>
+        <h2>Lia <span>Eleven v3</span></h2>
+        <p>lia-v3.mp3</p>
+      </div>
+      <audio controls preload="auto" src="./lia-v3.mp3"></audio>
+    </article>
+  
+
+    <article class="card">
+      <div>
+        <h2>Charlie <span>Eleven v3</span></h2>
+        <p>charlie-v3.mp3</p>
+      </div>
+      <audio controls preload="auto" src="./charlie-v3.mp3"></audio>
+    </article>
+  
+
+    <article class="card">
+      <div>
+        <h2>Saanvik <span>Eleven v3</span></h2>
+        <p>saanvik-v3.mp3</p>
+      </div>
+      <audio controls preload="auto" src="./saanvik-v3.mp3"></audio>
+    </article>
+  
+
+    <article class="card">
+      <div>
+        <h2>Talethia <span>Eleven v3</span></h2>
+        <p>talethia-v3.mp3</p>
+      </div>
+      <audio controls preload="auto" src="./talethia-v3.mp3"></audio>
+    </article>
+  
+
+    <article class="card">
+      <div>
+        <h2>Guddu <span>Eleven v3</span></h2>
+        <p>guddu-v3.mp3</p>
+      </div>
+      <audio controls preload="auto" src="./guddu-v3.mp3"></audio>
+    </article>
+  </section>
+  </main>
+</body>
+</html>

@@ -13,6 +13,8 @@ interface Props {
   onClose: () => void;
 }
 
+type AudioSequenceSegment = NonNullable<Story["pages"][number]["audioSequence"]>[number];
+
 type GuidePosition = {
   left: number;
   top: number;
@@ -75,6 +77,8 @@ export function StoryReaderModal({ story, onClose }: Props) {
   const [dir, setDir] = useState<1 | -1>(1);
   const touchStart = useRef<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioPreloadRef = useRef<HTMLAudioElement[]>([]);
+  const audioRepeatTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
   const cacheRef = useRef<Map<string, string>>(new Map());
   const [audioState, setAudioState] = useState<"idle" | "loading" | "playing">("idle");
@@ -171,6 +175,10 @@ export function StoryReaderModal({ story, onClose }: Props) {
   const total = story?.pages.length ?? 0;
 
   const stopAudio = useCallback(() => {
+    if (audioRepeatTimerRef.current) {
+      clearTimeout(audioRepeatTimerRef.current);
+      audioRepeatTimerRef.current = null;
+    }
     const a = audioRef.current;
     if (a) { a.pause(); a.currentTime = 0; a.onended = null; a.onerror = null; }
     if (supportsBrowserSpeech()) {
@@ -215,9 +223,43 @@ export function StoryReaderModal({ story, onClose }: Props) {
   }, [page, story]);
 
   useEffect(() => {
+    audioPreloadRef.current.forEach((audio) => {
+      audio.pause();
+      audio.removeAttribute("src");
+      audio.load();
+    });
+    audioPreloadRef.current = [];
+
+    if (!story) return;
+
+    audioPreloadRef.current = story.pages
+      .flatMap((storyPage) => [
+        ...(storyPage.audio ? [storyPage.audio] : []),
+        ...(storyPage.audioSequence?.map((segment) => segment.src) ?? []),
+      ])
+      .filter((src): src is string => Boolean(src))
+      .map((src) => {
+        const audio = new Audio(src);
+        audio.preload = "auto";
+        audio.load();
+        return audio;
+      });
+  }, [story]);
+
+  useEffect(() => {
     return () => {
       audioRef.current?.pause();
       audioRef.current = null;
+      audioPreloadRef.current.forEach((audio) => {
+        audio.pause();
+        audio.removeAttribute("src");
+        audio.load();
+      });
+      audioPreloadRef.current = [];
+      if (audioRepeatTimerRef.current) {
+        clearTimeout(audioRepeatTimerRef.current);
+        audioRepeatTimerRef.current = null;
+      }
       cacheRef.current.forEach((url) => URL.revokeObjectURL(url));
       cacheRef.current.clear();
       clearAdvanceTimer();
@@ -421,10 +463,65 @@ export function StoryReaderModal({ story, onClose }: Props) {
   );
 
   const playText = useCallback(
-    async (text: string, onEnded?: () => void) => {
+    async (
+      text: string,
+      onEnded?: () => void,
+      audioSrc?: string,
+      audioRepeat?: { count: number; pauseMs: number },
+      audioSequence?: AudioSequenceSegment[],
+    ) => {
       setAudioError(null);
       try {
-        let url = cacheRef.current.get(text);
+        if (audioRepeatTimerRef.current) {
+          clearTimeout(audioRepeatTimerRef.current);
+          audioRepeatTimerRef.current = null;
+        }
+
+        if (audioSequence?.length) {
+          setAudioState("loading");
+          let segmentIndex = 0;
+
+          const playSegment = async () => {
+            const segment = audioSequence[segmentIndex];
+            const audio = new Audio(segment.src);
+            audio.preload = "auto";
+            audio.volume = Math.max(0, Math.min(1, segment.volume ?? 1));
+            audio.playbackRate = Math.max(0.5, Math.min(1.25, segment.playbackRate ?? 1));
+            audioRef.current = audio;
+
+            audio.onended = () => {
+              segmentIndex += 1;
+              clearHighlight();
+
+              if (segmentIndex < audioSequence.length) {
+                setAudioState("loading");
+                audioRepeatTimerRef.current = setTimeout(() => {
+                  audioRepeatTimerRef.current = null;
+                  void playSegment();
+                }, Math.max(0, segment.pauseAfterMs ?? 0));
+                return;
+              }
+
+              setAudioState("idle");
+              isTapPlayRef.current = false;
+              onEnded?.();
+            };
+            audio.onerror = () => {
+              setAudioState("idle");
+              clearHighlight();
+              isTapPlayRef.current = false;
+              setAudioError("Couldn't play audio.");
+            };
+            await audio.play();
+            setAudioState("playing");
+            startWordHighlight(audio, text);
+          };
+
+          await playSegment();
+          return;
+        }
+
+        let url = audioSrc ?? cacheRef.current.get(text);
         if (!url) {
           setAudioState("loading");
           let blob = await getCachedAudio(text);
@@ -453,23 +550,46 @@ export function StoryReaderModal({ story, onClose }: Props) {
           url = URL.createObjectURL(blob);
           cacheRef.current.set(text, url);
         }
-        const audio = new Audio(url);
-        audioRef.current = audio;
-        audio.onended = () => {
-          setAudioState("idle");
-          clearHighlight();
-          isTapPlayRef.current = false;
-          onEnded?.();
+
+        let remainingPlays =
+          audioSrc && audioRepeat
+            ? Math.max(1, audioRepeat.count)
+            : 1;
+        const pauseMs = Math.max(0, audioRepeat?.pauseMs ?? 0);
+
+        const playOnce = async () => {
+          const audio = new Audio(url);
+          audio.preload = "auto";
+          audioRef.current = audio;
+          audio.onended = () => {
+            remainingPlays -= 1;
+            clearHighlight();
+
+            if (remainingPlays > 0) {
+              setAudioState("loading");
+              audioRepeatTimerRef.current = setTimeout(() => {
+                audioRepeatTimerRef.current = null;
+                void playOnce();
+              }, pauseMs);
+              return;
+            }
+
+            setAudioState("idle");
+            isTapPlayRef.current = false;
+            onEnded?.();
+          };
+          audio.onerror = () => {
+            setAudioState("idle");
+            clearHighlight();
+            isTapPlayRef.current = false;
+            setAudioError("Couldn't play audio.");
+          };
+          await audio.play();
+          setAudioState("playing");
+          startWordHighlight(audio, text);
         };
-        audio.onerror = () => {
-          setAudioState("idle");
-          clearHighlight();
-          isTapPlayRef.current = false;
-          setAudioError("Couldn't play audio.");
-        };
-        await audio.play();
-        setAudioState("playing");
-        startWordHighlight(audio, text);
+
+        await playOnce();
       } catch (err) {
         console.error(err);
         if (isCapacitorRuntime()) {
@@ -511,7 +631,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
   const playTelugu = async () => {
     if (audioState === "playing") { stopAudio(); return; }
     isTapPlayRef.current = false;
-    await playText(current.telugu);
+    await playText(current.telugu, undefined, current.audio, current.audioRepeat, current.audioSequence);
   };
 
   const handleWordTap = (word: string) => {
@@ -697,7 +817,8 @@ export function StoryReaderModal({ story, onClose }: Props) {
   );
 
   const playAutoForPage = (pageIndex: number) => {
-    const text = story.pages[pageIndex].telugu;
+    const storyPage = story.pages[pageIndex];
+    const text = storyPage.telugu;
     void playText(text, () => {
       if (autoPlayRef.current !== "playing") return;
       clearAdvanceTimer();
@@ -717,7 +838,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
         setPage(nextIndex);
         playAutoForPage(nextIndex);
       }, 1000);
-    });
+    }, storyPage.audio, storyPage.audioRepeat);
   };
 
   const handleAutoPlay = () => {
