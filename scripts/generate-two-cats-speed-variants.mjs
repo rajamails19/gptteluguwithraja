@@ -84,26 +84,36 @@ function phrasePace(text, chunkPattern, pause) {
   return `${chunks.join(pause)}.`;
 }
 
+function strongPhrasePace(text, chunkPattern) {
+  return phrasePace(text, chunkPattern, ". ... ");
+}
+
+function adaptivePhrasePace(text, shortPattern, longPattern, pause) {
+  const parts = words(text);
+  return phrasePace(text, parts.length > 7 ? longPattern : shortPattern, pause);
+}
+
 function toddlerTeacherPace(text) {
-  return phrasePace(text, [2], "... ... ");
+  return strongPhrasePace(text, [2]);
 }
 
 function childTeacherPace(text) {
-  return phrasePace(text, [2, 3], "... ");
+  return adaptivePhrasePace(text, [2], [1, 2], ".\n\n");
 }
 
 function storytellerPace(text) {
-  return phrasePace(text, [2, 3], "... ");
+  return adaptivePhrasePace(text, [2], [1, 2], ".\n");
 }
 
-function gentleStorytellerPace(text) {
-  return phrasePace(text, [2, 3], "... ");
+function finalPageStorytellerPace(text) {
+  return adaptivePhrasePace(text, [1, 2], [1, 2], ".\n\n");
 }
 
 const variants = [
   { key: "025", label: "0.25x", speed: 0.72, transform: toddlerTeacherPace },
-  { key: "05", label: "0.5x", speed: 0.78, transform: childTeacherPace },
-  { key: "075", label: "0.75x", speed: 0.84, transform: storytellerPace },
+  { key: "05", label: "0.5x", speed: 0.66, transform: childTeacherPace },
+  { key: "075", label: "0.75x", speed: 0.74, transform: storytellerPace, pages: [1, 2, 3, 4] },
+  { key: "075", label: "0.75x page 5", speed: 0.72, transform: finalPageStorytellerPace, pages: [5] },
 ];
 
 const baseSettings = {
@@ -116,6 +126,7 @@ const baseSettings = {
 for (const variant of variants) {
   for (let index = 0; index < pages.length; index += 1) {
     const pageNumber = index + 1;
+    if (variant.pages && !variant.pages.includes(pageNumber)) continue;
     const outputPath =
       variant.key === "base"
         ? resolve(root, `src/assets/audio/two-cats-monkey/page-${pageNumber}.mp3`)

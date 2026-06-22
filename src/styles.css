@@ -51,6 +51,8 @@
   --font-display: "Fraunces", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-telugu: "Tiro Telugu", "Noto Sans Telugu", serif;
+  --font-young-telugu: "Noto Serif Telugu", "Noto Sans Telugu", serif;
+  --font-young-telugu-title: "Noto Sans Telugu", "Noto Serif Telugu", sans-serif;
 }
 
 :root {

@@ -103,6 +103,36 @@ import tcmAudio0752 from "@/assets/audio/two-cats-monkey/slow-075/page-2.mp3";
 import tcmAudio0753 from "@/assets/audio/two-cats-monkey/slow-075/page-3.mp3";
 import tcmAudio0754 from "@/assets/audio/two-cats-monkey/slow-075/page-4.mp3";
 import tcmAudio0755 from "@/assets/audio/two-cats-monkey/slow-075/page-5.mp3";
+import ttcmAudio1 from "@/assets/audio/tamil-two-cats-monkey/page-1.mp3";
+import ttcmAudio2 from "@/assets/audio/tamil-two-cats-monkey/page-2.mp3";
+import ttcmAudio3 from "@/assets/audio/tamil-two-cats-monkey/page-3.mp3";
+import ttcmAudio4 from "@/assets/audio/tamil-two-cats-monkey/page-4.mp3";
+import ttcmAudio5 from "@/assets/audio/tamil-two-cats-monkey/page-5.mp3";
+import ttcmAudio0051 from "@/assets/audio/tamil-two-cats-monkey/slow-005/page-1.mp3";
+import ttcmAudio0052 from "@/assets/audio/tamil-two-cats-monkey/slow-005/page-2.mp3";
+import ttcmAudio0053 from "@/assets/audio/tamil-two-cats-monkey/slow-005/page-3.mp3";
+import ttcmAudio0054 from "@/assets/audio/tamil-two-cats-monkey/slow-005/page-4.mp3";
+import ttcmAudio0055 from "@/assets/audio/tamil-two-cats-monkey/slow-005/page-5.mp3";
+import ttcmAudio0151 from "@/assets/audio/tamil-two-cats-monkey/slow-015/page-1.mp3";
+import ttcmAudio0152 from "@/assets/audio/tamil-two-cats-monkey/slow-015/page-2.mp3";
+import ttcmAudio0153 from "@/assets/audio/tamil-two-cats-monkey/slow-015/page-3.mp3";
+import ttcmAudio0154 from "@/assets/audio/tamil-two-cats-monkey/slow-015/page-4.mp3";
+import ttcmAudio0155 from "@/assets/audio/tamil-two-cats-monkey/slow-015/page-5.mp3";
+import ttcmAudio0251 from "@/assets/audio/tamil-two-cats-monkey/slow-025/page-1.mp3";
+import ttcmAudio0252 from "@/assets/audio/tamil-two-cats-monkey/slow-025/page-2.mp3";
+import ttcmAudio0253 from "@/assets/audio/tamil-two-cats-monkey/slow-025/page-3.mp3";
+import ttcmAudio0254 from "@/assets/audio/tamil-two-cats-monkey/slow-025/page-4.mp3";
+import ttcmAudio0255 from "@/assets/audio/tamil-two-cats-monkey/slow-025/page-5.mp3";
+import ttcmAudio051 from "@/assets/audio/tamil-two-cats-monkey/slow-05/page-1.mp3";
+import ttcmAudio052 from "@/assets/audio/tamil-two-cats-monkey/slow-05/page-2.mp3";
+import ttcmAudio053 from "@/assets/audio/tamil-two-cats-monkey/slow-05/page-3.mp3";
+import ttcmAudio054 from "@/assets/audio/tamil-two-cats-monkey/slow-05/page-4.mp3";
+import ttcmAudio055 from "@/assets/audio/tamil-two-cats-monkey/slow-05/page-5.mp3";
+import ttcmAudio0751 from "@/assets/audio/tamil-two-cats-monkey/slow-075/page-1.mp3";
+import ttcmAudio0752 from "@/assets/audio/tamil-two-cats-monkey/slow-075/page-2.mp3";
+import ttcmAudio0753 from "@/assets/audio/tamil-two-cats-monkey/slow-075/page-3.mp3";
+import ttcmAudio0754 from "@/assets/audio/tamil-two-cats-monkey/slow-075/page-4.mp3";
+import ttcmAudio0755 from "@/assets/audio/tamil-two-cats-monkey/slow-075/page-5.mp3";
 import ag1 from "@/assets/stories/ant-grasshopper/slide1.png";
 import ag2 from "@/assets/stories/ant-grasshopper/slide2.png";
 import ag3 from "@/assets/stories/ant-grasshopper/slide3.png";
@@ -447,6 +477,14 @@ export interface StoryPage {
     "0.75"?: string;
     "1"?: string;
   };
+  highlightBySpeed?: {
+    "0.05"?: HighlightTimingProfile;
+    "0.15"?: HighlightTimingProfile;
+    "0.25"?: HighlightTimingProfile;
+    "0.5"?: HighlightTimingProfile;
+    "0.75"?: HighlightTimingProfile;
+    "1"?: HighlightTimingProfile;
+  };
   audioSequence?: {
     src: string;
     pauseAfterMs?: number;
@@ -457,6 +495,17 @@ export interface StoryPage {
     count: number;
     pauseMs: number;
   };
+}
+
+export interface HighlightTimingProfile {
+  chunkPattern: readonly number[];
+  longChunkPattern?: readonly number[];
+  longWordThreshold?: number;
+  wordBaseUnits?: number;
+  wordLengthUnits?: number;
+  pauseUnits?: number;
+  innerWordPauseUnits?: number;
+  finalPauseUnits?: number;
 }
 
 export interface Story {
@@ -480,6 +529,64 @@ export const CATEGORIES: Category[] = [
   "Rhymes",
   "Daily Telugu",
 ];
+
+const twoCatsLearnerHighlightBySpeed: StoryPage["highlightBySpeed"] = {
+  "0.05": {
+    chunkPattern: [1],
+    wordBaseUnits: 0.58,
+    wordLengthUnits: 0.15,
+    pauseUnits: 3.8,
+    finalPauseUnits: 0.35,
+  },
+  "0.15": {
+    chunkPattern: [1],
+    wordBaseUnits: 0.58,
+    wordLengthUnits: 0.15,
+    pauseUnits: 3.1,
+    finalPauseUnits: 0.35,
+  },
+  "0.25": {
+    chunkPattern: [2],
+    wordBaseUnits: 0.58,
+    wordLengthUnits: 0.15,
+    innerWordPauseUnits: 0.18,
+    pauseUnits: 2.8,
+    finalPauseUnits: 0.35,
+  },
+  "0.5": {
+    chunkPattern: [2],
+    longChunkPattern: [1, 2],
+    longWordThreshold: 7,
+    wordBaseUnits: 0.58,
+    wordLengthUnits: 0.15,
+    innerWordPauseUnits: 0.18,
+    pauseUnits: 4.4,
+    finalPauseUnits: 0.35,
+  },
+  "0.75": {
+    chunkPattern: [2],
+    longChunkPattern: [1, 2],
+    longWordThreshold: 7,
+    wordBaseUnits: 0.58,
+    wordLengthUnits: 0.15,
+    innerWordPauseUnits: 0.16,
+    pauseUnits: 3,
+    finalPauseUnits: 0.35,
+  },
+};
+
+const twoCatsFinalPageLearnerHighlightBySpeed: StoryPage["highlightBySpeed"] = {
+  ...twoCatsLearnerHighlightBySpeed,
+  "0.75": {
+    chunkPattern: [1, 2],
+    longChunkPattern: [1, 2],
+    wordBaseUnits: 0.58,
+    wordLengthUnits: 0.15,
+    innerWordPauseUnits: 0.16,
+    pauseUnits: 4.1,
+    finalPauseUnits: 0.35,
+  },
+};
 
 export const stories: Story[] = [
   // ─────────── ANIMAL STORIES ───────────
@@ -736,6 +843,7 @@ export const stories: Story[] = [
         image: tcm1,
         audio: tcmAudio1,
         audioBySpeed: { "0.05": tcmAudio0051, "0.15": tcmAudio0151, "0.25": tcmAudio0251, "0.5": tcmAudio051, "0.75": tcmAudio0751 },
+        highlightBySpeed: twoCatsLearnerHighlightBySpeed,
         telugu: "రెండు పిల్లులు ఒక రొట్టె ముక్క కోసం గొడవ పడ్డాయి.",
         english: "Two cats fought over a piece of bread.",
       },
@@ -743,6 +851,7 @@ export const stories: Story[] = [
         image: tcm2,
         audio: tcmAudio2,
         audioBySpeed: { "0.05": tcmAudio0052, "0.15": tcmAudio0152, "0.25": tcmAudio0252, "0.5": tcmAudio052, "0.75": tcmAudio0752 },
+        highlightBySpeed: twoCatsLearnerHighlightBySpeed,
         telugu: "రొట్టెను సమంగా పంచుకోవాలని ఇద్దరూ అనుకున్నాయి.",
         english: "Both wanted to divide the bread equally.",
       },
@@ -750,6 +859,7 @@ export const stories: Story[] = [
         image: tcm3,
         audio: tcmAudio3,
         audioBySpeed: { "0.05": tcmAudio0053, "0.15": tcmAudio0153, "0.25": tcmAudio0253, "0.5": tcmAudio053, "0.75": tcmAudio0753 },
+        highlightBySpeed: twoCatsLearnerHighlightBySpeed,
         telugu: "అప్పుడు ఒక తెలివైన కోతి వచ్చి, నేను న్యాయం చెబుతాను అంది.",
         english: "Then a clever monkey came and said it would judge fairly.",
       },
@@ -757,6 +867,7 @@ export const stories: Story[] = [
         image: tcm4,
         audio: tcmAudio4,
         audioBySpeed: { "0.05": tcmAudio0054, "0.15": tcmAudio0154, "0.25": tcmAudio0254, "0.5": tcmAudio054, "0.75": tcmAudio0754 },
+        highlightBySpeed: twoCatsLearnerHighlightBySpeed,
         telugu: "కోతి ఒక్కో ముక్కను కొంచెం కొంచెంగా తింటూ, రొట్టె అంతా తినేసింది.",
         english: "The monkey kept nibbling each piece until it ate all the bread.",
       },
@@ -764,7 +875,60 @@ export const stories: Story[] = [
         image: tcm5,
         audio: tcmAudio5,
         audioBySpeed: { "0.05": tcmAudio0055, "0.15": tcmAudio0155, "0.25": tcmAudio0255, "0.5": tcmAudio055, "0.75": tcmAudio0755 },
+        highlightBySpeed: twoCatsFinalPageLearnerHighlightBySpeed,
         telugu: "గొడవ పడితే మనకే నష్టం అని పిల్లులు తెలుసుకున్నాయి.",
+        english: "The cats learned that fighting only brings loss.",
+      },
+    ],
+  },
+  {
+    id: "tamil-two-cats-monkey",
+    title: "Two Cats and a Monkey (Tamil)",
+    teluguTitle: "இரண்டு பூனைகள் மற்றும் குரங்கு",
+    cover: twoCatsMonkeyCover,
+    category: "Animal Stories",
+    age: "5–7",
+    minutes: 3,
+    tagline: "Tamil test version for learner-speed validation.",
+    pages: [
+      {
+        image: tcm1,
+        audio: ttcmAudio1,
+        audioBySpeed: { "0.05": ttcmAudio0051, "0.15": ttcmAudio0151, "0.25": ttcmAudio0251, "0.5": ttcmAudio051, "0.75": ttcmAudio0751 },
+        highlightBySpeed: twoCatsLearnerHighlightBySpeed,
+        telugu: "இரண்டு பூனைகள் ஒரு ரொட்டித் துண்டுக்காக சண்டை போட்டன.",
+        english: "Two cats fought over a piece of bread.",
+      },
+      {
+        image: tcm2,
+        audio: ttcmAudio2,
+        audioBySpeed: { "0.05": ttcmAudio0052, "0.15": ttcmAudio0152, "0.25": ttcmAudio0252, "0.5": ttcmAudio052, "0.75": ttcmAudio0752 },
+        highlightBySpeed: twoCatsLearnerHighlightBySpeed,
+        telugu: "ரொட்டியை சமமாகப் பகிர்ந்து கொள்ள வேண்டும் என்று இரண்டும் நினைத்தன.",
+        english: "Both wanted to divide the bread equally.",
+      },
+      {
+        image: tcm3,
+        audio: ttcmAudio3,
+        audioBySpeed: { "0.05": ttcmAudio0053, "0.15": ttcmAudio0153, "0.25": ttcmAudio0253, "0.5": ttcmAudio053, "0.75": ttcmAudio0753 },
+        highlightBySpeed: twoCatsLearnerHighlightBySpeed,
+        telugu: "அப்போது ஒரு புத்திசாலி குரங்கு வந்து, நான் நியாயம் சொல்கிறேன் என்றது.",
+        english: "Then a clever monkey came and said it would judge fairly.",
+      },
+      {
+        image: tcm4,
+        audio: ttcmAudio4,
+        audioBySpeed: { "0.05": ttcmAudio0054, "0.15": ttcmAudio0154, "0.25": ttcmAudio0254, "0.5": ttcmAudio054, "0.75": ttcmAudio0754 },
+        highlightBySpeed: twoCatsLearnerHighlightBySpeed,
+        telugu: "குரங்கு ஒவ்வொரு துண்டையும் கொஞ்சம் கொஞ்சமாகத் தின்று, ரொட்டி முழுவதையும் தின்றுவிட்டது.",
+        english: "The monkey kept nibbling each piece until it ate all the bread.",
+      },
+      {
+        image: tcm5,
+        audio: ttcmAudio5,
+        audioBySpeed: { "0.05": ttcmAudio0055, "0.15": ttcmAudio0155, "0.25": ttcmAudio0255, "0.5": ttcmAudio055, "0.75": ttcmAudio0755 },
+        highlightBySpeed: twoCatsFinalPageLearnerHighlightBySpeed,
+        telugu: "சண்டை போட்டால் நமக்கே நஷ்டம் என்று பூனைகள் புரிந்துகொண்டன.",
         english: "The cats learned that fighting only brings loss.",
       },
     ],

@@ -58,6 +58,12 @@ export function Index() {
             <a href="#library" className="hover:text-foreground transition-colors">
               Library
             </a>
+            <Link
+              to="/young-readers"
+              className="hover:text-foreground transition-colors"
+            >
+              Young Readers
+            </Link>
             <Link to="/about" className="hover:text-foreground transition-colors">
               About
             </Link>

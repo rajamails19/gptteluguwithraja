@@ -14,6 +14,7 @@ interface Props {
 }
 
 type AudioSequenceSegment = NonNullable<Story["pages"][number]["audioSequence"]>[number];
+type HighlightTimingProfile = NonNullable<Story["pages"][number]["highlightBySpeed"]>[string];
 
 type GuidePosition = {
   left: number;
@@ -72,7 +73,58 @@ function estimateSpeechDurationSeconds(text: string, wordCount: number) {
   return Math.max(1.4, wordCount * 0.62, text.length * 0.082);
 }
 
-function getWordTimingIndex(words: string[], progress: number, mode: HighlightTimingMode) {
+function getWordTimingIndex(
+  words: string[],
+  progress: number,
+  mode: HighlightTimingMode,
+  timingProfile?: HighlightTimingProfile,
+) {
+  if (timingProfile) {
+    const useLongPattern =
+      timingProfile.longChunkPattern &&
+      words.length > (timingProfile.longWordThreshold ?? 7);
+    const chunkPattern = useLongPattern ? timingProfile.longChunkPattern! : timingProfile.chunkPattern;
+    const wordBaseUnits = timingProfile.wordBaseUnits ?? 0.55;
+    const wordLengthUnits = timingProfile.wordLengthUnits ?? 0.16;
+    const pauseUnits = timingProfile.pauseUnits ?? 1.15;
+    const innerWordPauseUnits = timingProfile.innerWordPauseUnits ?? 0.12;
+    const finalPauseUnits = timingProfile.finalPauseUnits ?? 0.25;
+
+    const units = words.map((word, index) => {
+      const cleanLength = Math.max(1, word.replace(/[.,!?'"“”‘’—-]/g, "").length);
+      const isLast = index === words.length - 1;
+      let chunkCursor = 0;
+      let patternIndex = 0;
+
+      while (chunkCursor <= index) {
+        const chunkSize = chunkPattern[patternIndex % chunkPattern.length];
+        const chunkEnd = Math.min(words.length - 1, chunkCursor + chunkSize - 1);
+        if (index <= chunkEnd) {
+          const isChunkEnd = index === chunkEnd;
+          return {
+            wordUnits: wordBaseUnits + cleanLength * wordLengthUnits,
+            holdUnits: isLast ? finalPauseUnits : isChunkEnd ? pauseUnits : innerWordPauseUnits,
+          };
+        }
+        chunkCursor += chunkSize;
+        patternIndex += 1;
+      }
+
+      return { wordUnits: wordBaseUnits + cleanLength * wordLengthUnits, holdUnits: finalPauseUnits };
+    });
+
+    const totalUnits = units.reduce((sum, unit) => sum + unit.wordUnits + unit.holdUnits, 0);
+    const target = progress * totalUnits;
+    let cursor = 0;
+
+    for (let index = 0; index < units.length; index += 1) {
+      cursor += units[index].wordUnits + units[index].holdUnits;
+      if (target <= cursor) return index;
+    }
+
+    return words.length - 1;
+  }
+
   if (mode === "word") {
     return Math.min(words.length - 1, Math.floor(progress * words.length));
   }
@@ -395,6 +447,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
     audio: HTMLAudioElement,
     text: string,
     timingMode: HighlightTimingMode = "character",
+    timingProfile?: HighlightTimingProfile,
   ) => {
     if (isTapPlayRef.current) return; // no highlight for word taps
     if (highlightRafRef.current !== null) {
@@ -431,7 +484,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
             ? elapsed
             : audio.currentTime;
       const progress = Math.max(0, Math.min(1, currentTime / timingDuration));
-      const idx = getWordTimingIndex(words, progress, timingMode);
+      const idx = getWordTimingIndex(words, progress, timingMode, timingProfile);
 
       setActiveWordIndex(idx);
 
@@ -525,6 +578,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
       audioSequence?: AudioSequenceSegment[],
       audioPlaybackRate = voiceSpeed,
       highlightTimingMode: HighlightTimingMode = "character",
+      highlightTimingProfile?: HighlightTimingProfile,
     ) => {
       setAudioError(null);
       try {
@@ -574,7 +628,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
             };
             await audio.play();
             setAudioState("playing");
-            startWordHighlight(audio, text, highlightTimingMode);
+            startWordHighlight(audio, text, highlightTimingMode, highlightTimingProfile);
           };
 
           await playSegment();
@@ -648,7 +702,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
           };
           await audio.play();
           setAudioState("playing");
-          startWordHighlight(audio, text, highlightTimingMode);
+          startWordHighlight(audio, text, highlightTimingMode, highlightTimingProfile);
         };
 
         await playOnce();
@@ -688,6 +742,9 @@ export function StoryReaderModal({ story, onClose }: Props) {
         audioSrc: speedAudio ?? storyPage.audio,
         audioPlaybackRate: speedAudio ? 1 : voiceSpeed,
         highlightTimingMode: speedAudio && voiceSpeed <= 0.5 ? "paced-word" as const : "character" as const,
+        highlightTimingProfile: storyPage.highlightBySpeed?.[
+          String(voiceSpeed) as keyof NonNullable<typeof storyPage.highlightBySpeed>
+        ],
       };
     },
     [voiceSpeed],
@@ -708,7 +765,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
   const playTelugu = async () => {
     if (audioState === "playing") { stopAudio(); return; }
     isTapPlayRef.current = false;
-    const { audioSrc, audioPlaybackRate, highlightTimingMode } = getAudioForSpeed(current);
+    const { audioSrc, audioPlaybackRate, highlightTimingMode, highlightTimingProfile } = getAudioForSpeed(current);
     await playText(
       current.telugu,
       undefined,
@@ -717,6 +774,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
       current.audioSequence,
       audioPlaybackRate,
       highlightTimingMode,
+      highlightTimingProfile,
     );
   };
 
@@ -942,7 +1000,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
   const playAutoForPage = (pageIndex: number) => {
     const storyPage = story.pages[pageIndex];
     const text = storyPage.telugu;
-    const { audioSrc, audioPlaybackRate, highlightTimingMode } = getAudioForSpeed(storyPage);
+    const { audioSrc, audioPlaybackRate, highlightTimingMode, highlightTimingProfile } = getAudioForSpeed(storyPage);
     void playText(text, () => {
       if (autoPlayRef.current !== "playing") return;
       clearAdvanceTimer();
@@ -962,7 +1020,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
         setPage(nextIndex);
         playAutoForPage(nextIndex);
       }, 1000);
-    }, audioSrc, storyPage.audioRepeat, storyPage.audioSequence, audioPlaybackRate, highlightTimingMode);
+    }, audioSrc, storyPage.audioRepeat, storyPage.audioSequence, audioPlaybackRate, highlightTimingMode, highlightTimingProfile);
   };
 
   const handleAutoPlay = () => {
