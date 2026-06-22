@@ -15,10 +15,14 @@ const env = Object.fromEntries(
 );
 
 const apiKey = process.env.ELEVENLABS_API_KEY || env.ELEVENLABS_API_KEY;
-const voiceId = process.env.ELEVENLABS_VOICE_ANVI || env.ELEVENLABS_VOICE_ANVI;
+const voiceIds = {
+  anvi: process.env.ELEVENLABS_VOICE_ANVI || env.ELEVENLABS_VOICE_ANVI,
+  charlie: process.env.ELEVENLABS_VOICE_CHARLIE || env.ELEVENLABS_VOICE_CHARLIE,
+};
 
 if (!apiKey) throw new Error("Missing ELEVENLABS_API_KEY in environment or .env");
-if (!voiceId) throw new Error("Missing ELEVENLABS_VOICE_ANVI in environment or .env");
+if (!voiceIds.anvi) throw new Error("Missing ELEVENLABS_VOICE_ANVI in environment or .env");
+if (!voiceIds.charlie) throw new Error("Missing ELEVENLABS_VOICE_CHARLIE in environment or .env");
 
 const pages = [
   "రెండు పిల్లులు ఒక రొట్టె ముక్క కోసం గొడవ పడ్డాయి.",
@@ -64,9 +68,42 @@ function gentlePace(text) {
     .replace(/, రొట్టె /g, "... రొట్టె ");
 }
 
+function phrasePace(text, chunkPattern, pause) {
+  const parts = words(text);
+  const chunks = [];
+  let index = 0;
+  let patternIndex = 0;
+
+  while (index < parts.length) {
+    const chunkSize = chunkPattern[patternIndex % chunkPattern.length];
+    chunks.push(parts.slice(index, index + chunkSize).join(" "));
+    index += chunkSize;
+    patternIndex += 1;
+  }
+
+  return `${chunks.join(pause)}.`;
+}
+
+function toddlerTeacherPace(text) {
+  return phrasePace(text, [2], "... ... ");
+}
+
+function childTeacherPace(text) {
+  return phrasePace(text, [2, 3], "... ");
+}
+
+function storytellerPace(text) {
+  return phrasePace(text, [2, 3], "... ");
+}
+
+function gentleStorytellerPace(text) {
+  return phrasePace(text, [2, 3], "... ");
+}
+
 const variants = [
-  { key: "005", label: "0.05x", speed: 0.7, transform: ultraBabyPace },
-  { key: "015", label: "0.15x", speed: 0.7, transform: veryBabyPace },
+  { key: "025", label: "0.25x", speed: 0.72, transform: toddlerTeacherPace },
+  { key: "05", label: "0.5x", speed: 0.78, transform: childTeacherPace },
+  { key: "075", label: "0.75x", speed: 0.84, transform: storytellerPace },
 ];
 
 const baseSettings = {
@@ -79,13 +116,14 @@ const baseSettings = {
 for (const variant of variants) {
   for (let index = 0; index < pages.length; index += 1) {
     const pageNumber = index + 1;
-    const outputPath = resolve(
-      root,
-      `src/assets/audio/two-cats-monkey/slow-${variant.key}/page-${pageNumber}.mp3`,
-    );
+    const outputPath =
+      variant.key === "base"
+        ? resolve(root, `src/assets/audio/two-cats-monkey/page-${pageNumber}.mp3`)
+        : resolve(root, `src/assets/audio/two-cats-monkey/slow-${variant.key}/page-${pageNumber}.mp3`);
     await mkdir(dirname(outputPath), { recursive: true });
 
     const text = variant.transform(pages[index]);
+    const voiceId = voiceIds[variant.voice ?? "anvi"];
     const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
       method: "POST",
       headers: {
@@ -111,6 +149,6 @@ for (const variant of variants) {
     }
 
     await writeFile(outputPath, Buffer.from(await response.arrayBuffer()));
-    console.log(`two-cats-monkey page ${pageNumber} ${variant.label} Anvi`);
+    console.log(`two-cats-monkey page ${pageNumber} ${variant.label} ${variant.voice ?? "anvi"}`);
   }
 }
