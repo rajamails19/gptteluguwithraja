@@ -15,6 +15,11 @@ import ke2 from "@/assets/stories/kind-elephant/slide2.png";
 import ke3 from "@/assets/stories/kind-elephant/slide3.png";
 import ke4 from "@/assets/stories/kind-elephant/slide4.png";
 import ke5 from "@/assets/stories/kind-elephant/slide5.png";
+import keAudio1 from "@/assets/audio/kind-elephant/page-1.mp3";
+import keAudio2 from "@/assets/audio/kind-elephant/page-2.mp3";
+import keAudio3 from "@/assets/audio/kind-elephant/page-3.mp3";
+import keAudio4 from "@/assets/audio/kind-elephant/page-4.mp3";
+import keAudio5 from "@/assets/audio/kind-elephant/page-5.mp3";
 import foxGrapesCover from "@/assets/covers/fox-grapes.jpg";
 import antGrasshopperCover from "@/assets/covers/ant-grasshopper.jpg";
 import monkeyCrocodileCover from "@/assets/covers/monkey-crocodile.jpg";
@@ -151,6 +156,12 @@ import bodyAudio4 from "@/assets/audio/my-body/page-4.mp3";
 import bodyAudio5 from "@/assets/audio/my-body/page-5.mp3";
 import bodyAudio6 from "@/assets/audio/my-body/page-6.mp3";
 import bodyAudio7 from "@/assets/audio/my-body/page-7.mp3";
+import colAudio1 from "@/assets/audio/colors-around/page-1.mp3";
+import colAudio2 from "@/assets/audio/colors-around/page-2.mp3";
+import colAudio3 from "@/assets/audio/colors-around/page-3.mp3";
+import colAudio4 from "@/assets/audio/colors-around/page-4.mp3";
+import colAudio5 from "@/assets/audio/colors-around/page-5.mp3";
+import colAudio6 from "@/assets/audio/colors-around/page-6.mp3";
 import tl1 from "@/assets/stories/telugu-letters/slide1.png";
 import tl2 from "@/assets/stories/telugu-letters/slide2.png";
 import tl3 from "@/assets/stories/telugu-letters/slide3.png";
@@ -165,6 +176,20 @@ import tl11 from "@/assets/stories/telugu-letters/slide11.png";
 import tl12 from "@/assets/stories/telugu-letters/slide12.png";
 import tl13 from "@/assets/stories/telugu-letters/slide13.png";
 import tl14 from "@/assets/stories/telugu-letters/slide14.png";
+import tlAudio1 from "@/assets/audio/telugu-letters/page-1.mp3";
+import tlAudio2 from "@/assets/audio/telugu-letters/page-2.mp3";
+import tlAudio3 from "@/assets/audio/telugu-letters/page-3.mp3";
+import tlAudio4 from "@/assets/audio/telugu-letters/page-4.mp3";
+import tlAudio5 from "@/assets/audio/telugu-letters/page-5.mp3";
+import tlAudio6 from "@/assets/audio/telugu-letters/page-6.mp3";
+import tlAudio7 from "@/assets/audio/telugu-letters/page-7.mp3";
+import tlAudio8 from "@/assets/audio/telugu-letters/page-8.mp3";
+import tlAudio9 from "@/assets/audio/telugu-letters/page-9.mp3";
+import tlAudio10 from "@/assets/audio/telugu-letters/page-10.mp3";
+import tlAudio11 from "@/assets/audio/telugu-letters/page-11.mp3";
+import tlAudio12 from "@/assets/audio/telugu-letters/page-12.mp3";
+import tlAudio13 from "@/assets/audio/telugu-letters/page-13.mp3";
+import tlAudio14 from "@/assets/audio/telugu-letters/page-14.mp3";
 import cf1 from "@/assets/stories/counting-friends/slide1.png";
 import cf2 from "@/assets/stories/counting-friends/slide2.png";
 import cf3 from "@/assets/stories/counting-friends/slide3.png";
@@ -175,6 +200,16 @@ import cf7 from "@/assets/stories/counting-friends/slide7.png";
 import cf8 from "@/assets/stories/counting-friends/slide8.png";
 import cf9 from "@/assets/stories/counting-friends/slide9.png";
 import cf10 from "@/assets/stories/counting-friends/slide10.png";
+import cfAudio1 from "@/assets/audio/counting-friends/page-1.mp3";
+import cfAudio2 from "@/assets/audio/counting-friends/page-2.mp3";
+import cfAudio3 from "@/assets/audio/counting-friends/page-3.mp3";
+import cfAudio4 from "@/assets/audio/counting-friends/page-4.mp3";
+import cfAudio5 from "@/assets/audio/counting-friends/page-5.mp3";
+import cfAudio6 from "@/assets/audio/counting-friends/page-6.mp3";
+import cfAudio7 from "@/assets/audio/counting-friends/page-7.mp3";
+import cfAudio8 from "@/assets/audio/counting-friends/page-8.mp3";
+import cfAudio9 from "@/assets/audio/counting-friends/page-9.mp3";
+import cfAudio10 from "@/assets/audio/counting-friends/page-10.mp3";
 import placeholder from "@/assets/placeholder.png";
 import rs1 from "@/assets/stories/rain-song/slide1.png";
 import rs2 from "@/assets/stories/rain-song/slide2.png";
@@ -350,10 +385,18 @@ import tfAudio4 from "@/assets/audio/two-friends/page-4.mp3";
 import ge1 from "@/assets/stories/golden-egg/slide1.jpg";
 import ge2 from "@/assets/stories/golden-egg/slide2.jpg";
 import ge3 from "@/assets/stories/golden-egg/slide3.jpg";
+import geAudio1 from "@/assets/audio/golden-egg/page-1.mp3";
+import geAudio2 from "@/assets/audio/golden-egg/page-2.mp3";
+import geAudio3 from "@/assets/audio/golden-egg/page-3.mp3";
 
 import bw1 from "@/assets/stories/boy-wolf/slide1.jpg";
 import bw2 from "@/assets/stories/boy-wolf/slide2.jpg";
 import bw3 from "@/assets/stories/boy-wolf/slide3.jpg";
+import bwAudio1 from "@/assets/audio/boy-wolf/page-1.mp3";
+import bwAudio2 from "@/assets/audio/boy-wolf/page-2.mp3";
+import bwAudio3 from "@/assets/audio/boy-wolf/page-3.mp3";
+import bwAudio4 from "@/assets/audio/boy-wolf/page-4.mp3";
+import bwAudio5 from "@/assets/audio/boy-wolf/page-5.mp3";
 
 export type Category =
   | "Animal Stories"
@@ -533,9 +576,9 @@ export const stories: Story[] = [
     minutes: 4,
     tagline: "Greed never wins.",
     pages: [
-      { image: ge1, telugu: "ఒక రైతుకు మాయా బాతు ఉండేది.", english: "A farmer had a magical goose." },
-      { image: ge2, telugu: "ప్రతిరోజూ అది ఒక బంగారు గుడ్డు పెట్టేది.", english: "Every day it laid one golden egg." },
-      { image: ge3, telugu: "అత్యాశతో బాతును కోశాడు — లోపల ఏమీ లేదు. అన్నీ పోగొట్టుకున్నాడు.", english: "In greed he cut the goose — nothing inside. He lost everything." },
+      { image: ge1, audio: geAudio1, telugu: "ఒక రైతుకు మాయా బాతు ఉండేది.", english: "A farmer had a magical goose." },
+      { image: ge2, audio: geAudio2, telugu: "ప్రతిరోజూ ఆ బాతు ఒక బంగారు గుడ్డు పెట్టేది.", english: "Every day, that goose laid one golden egg." },
+      { image: ge3, audio: geAudio3, telugu: "అత్యాశతో రైతు బాతును కోశాడు, కానీ లోపల ఏమీ లేదు. చివరికి అతను అన్నీ పోగొట్టుకున్నాడు.", english: "In greed, the farmer cut the goose, but there was nothing inside. In the end, he lost everything." },
     ],
   },
   {
@@ -548,11 +591,11 @@ export const stories: Story[] = [
     minutes: 5,
     tagline: "Always tell the truth.",
     pages: [
-      { image: bw1, telugu: "ఒక గొర్రెల కాపరి బాలుడు కొండపై గొర్రెలను మేపేవాడు.", english: "A shepherd boy watched sheep on a hill." },
-      { image: bw2, telugu: "ఒకరోజు బోర్ కొట్టి, 'తోడేలు! తోడేలు!' అని అరిచాడు.", english: "One day, out of boredom, he shouted, 'Wolf! Wolf!'" },
-      { image: bw3, telugu: "తోడేలు లేదు — గ్రామస్థులు తిరిగి వెళ్లారు. బాలుడు నవ్వాడు.", english: "No wolf — villagers went back. The boy laughed." },
-      { image: "https://loremflickr.com/1200/800/wolf,field?lock=601", telugu: "ఒక రోజు నిజంగా తోడేలు వచ్చింది. బాలుడు అరిచాడు, కానీ ఎవరూ నమ్మలేదు.", english: "One day a real wolf came. The boy shouted, but nobody believed him." },
-      { image: "https://loremflickr.com/1200/800/sheep,sad?lock=602", telugu: "తోడేలు గొర్రెలను తీసుకుపోయింది.", english: "The wolf took the sheep away." },
+      { image: bw1, audio: bwAudio1, telugu: "ఒక గొర్రెల కాపరి బాలుడు కొండపై గొర్రెలను మేపేవాడు.", english: "A shepherd boy watched sheep on a hill." },
+      { image: bw2, audio: bwAudio2, telugu: "ఒకరోజు బోర్ కొట్టి, తోడేలు వచ్చింది అని అరిచాడు.", english: "One day, out of boredom, he shouted that a wolf had come." },
+      { image: bw3, audio: bwAudio3, telugu: "కానీ అక్కడ తోడేలు లేదు. గ్రామస్థులు తిరిగి వెళ్లగా, బాలుడు నవ్వాడు.", english: "But there was no wolf. When the villagers went back, the boy laughed." },
+      { image: "https://loremflickr.com/1200/800/wolf,field?lock=601", audio: bwAudio4, telugu: "ఒక రోజు నిజంగా తోడేలు వచ్చింది. బాలుడు అరిచాడు, కానీ ఎవరూ నమ్మలేదు.", english: "One day, a real wolf came. The boy shouted, but nobody believed him." },
+      { image: "https://loremflickr.com/1200/800/sheep,sad?lock=602", audio: bwAudio5, telugu: "తోడేలు గొర్రెలను తీసుకుపోయింది.", english: "The wolf took the sheep away." },
     ],
   },
 
@@ -586,11 +629,11 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "Kindness makes everyone smile.",
     pages: [
-      { image: ke1, telugu: "ఒక పెద్ద ఏనుగు ఉంది.", english: "There lived a big elephant." },
-      { image: ke2, telugu: "అది అందరికీ సహాయం చేసింది.", english: "It helped everyone always." },
-      { image: ke3, telugu: "చిన్న పక్షి పడిపోయింది.", english: "A little bird fell down." },
-      { image: ke4, telugu: "ఏనుగు దాన్ని లేపింది.", english: "Elephant lifted it gently." },
-      { image: ke5, telugu: "పక్షి పాట పాడింది!", english: "The bird sang with joy!" },
+      { image: ke1, audio: keAudio1, telugu: "ఒక పెద్ద ఏనుగు ఉంది.", english: "There lived a big elephant." },
+      { image: ke2, audio: keAudio2, telugu: "అది అందరికీ ఎప్పుడూ సహాయం చేసేది.", english: "It always helped everyone." },
+      { image: ke3, audio: keAudio3, telugu: "ఒక చిన్న పక్షి చెట్టు నుంచి కింద పడిపోయింది.", english: "A little bird fell down from a tree." },
+      { image: ke4, audio: keAudio4, telugu: "ఏనుగు దాన్ని మెల్లగా లేపింది.", english: "The elephant lifted it gently." },
+      { image: ke5, audio: keAudio5, telugu: "పక్షి ఆనందంగా పాట పాడింది.", english: "The bird sang with joy." },
     ],
   },
   {
@@ -785,12 +828,12 @@ export const stories: Story[] = [
     minutes: 3,
     tagline: "A world of color in Telugu.",
     pages: [
-      { image: colRed, telugu: "ఎరుపు — యాపిల్", english: "Erupu — Red (apple)" },
-      { image: colGreen, telugu: "పచ్చ — ఆకు", english: "Paccha — Green (leaf)" },
-      { image: colBlue, telugu: "నీలం — ఆకాశం", english: "Neelam — Blue (sky)" },
-      { image: colYellow, telugu: "పసుపు — సూర్యుడు", english: "Pasupu — Yellow (sun)" },
-      { image: colWhite, telugu: "తెలుపు — మేఘం", english: "Telupu — White (cloud)" },
-      { image: colBlack, telugu: "నలుపు — రాత్రి", english: "Nalupu — Black (night)" },
+      { image: colRed, audio: colAudio1, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "ఎరుపు — యాపిల్", english: "Erupu — Red (apple)" },
+      { image: colGreen, audio: colAudio2, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "పచ్చ — ఆకు", english: "Paccha — Green (leaf)" },
+      { image: colBlue, audio: colAudio3, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "నీలం — ఆకాశం", english: "Neelam — Blue (sky)" },
+      { image: colYellow, audio: colAudio4, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "పసుపు — సూర్యుడు", english: "Pasupu — Yellow (sun)" },
+      { image: colWhite, audio: colAudio5, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "తెలుపు — మేఘం", english: "Telupu — White (cloud)" },
+      { image: colBlack, audio: colAudio6, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "నలుపు — రాత్రి", english: "Nalupu — Black (night)" },
     ],
   },
   {
@@ -824,20 +867,20 @@ export const stories: Story[] = [
     minutes: 6,
     tagline: "Meet the friendly vowels of Telugu.",
     pages: [
-      { image: tl1, telugu: "అ — అమ్మ", english: "A — Amma (Mother)" },
-      { image: tl2, telugu: "ఆ — ఆవు", english: "Aa — Aavu (Cow)" },
-      { image: tl3, telugu: "ఇ — ఇల్లు", english: "I — Illu (House)" },
-      { image: tl4, telugu: "ఈ — ఈగ", english: "Ee — Eega (Fly)" },
-      { image: tl5, telugu: "ఉ — ఉడుత", english: "U — Uduta (Squirrel)" },
-      { image: tl6, telugu: "ఊ — ఊయల", english: "Oo — Ooyala (Swing)" },
-      { image: tl7, telugu: "ఎ — ఎలుక", english: "E — Eluka (Mouse)" },
-      { image: tl8, telugu: "ఏ — ఏనుగు", english: "Ae — Aenugu (Elephant)" },
-      { image: tl9, telugu: "ఐ — ఐదు", english: "Ai — Aidu (Five)" },
-      { image: tl10, telugu: "ఒ — ఒంటె", english: "O — Onte (Camel)" },
-      { image: tl11, telugu: "ఓ — ఓడ", english: "Oh — Oda (Boat)" },
-      { image: tl12, telugu: "ఔ — ఔషధం", english: "Au — Aushadham (Medicine)" },
-      { image: tl13, telugu: "అం — అంగడి", english: "Am — Angadi (Shop)" },
-      { image: tl14, telugu: "అః — ప్రాణాః", english: "Ah — Praanaah (Life)" },
+      { image: tl1, audio: tlAudio1, telugu: "అ — అమ్మ", english: "A — Amma (Mother)" },
+      { image: tl2, audio: tlAudio2, telugu: "ఆ — ఆవు", english: "Aa — Aavu (Cow)" },
+      { image: tl3, audio: tlAudio3, telugu: "ఇ — ఇల్లు", english: "I — Illu (House)" },
+      { image: tl4, audio: tlAudio4, telugu: "ఈ — ఈగ", english: "Ee — Eega (Fly)" },
+      { image: tl5, audio: tlAudio5, telugu: "ఉ — ఉడుత", english: "U — Uduta (Squirrel)" },
+      { image: tl6, audio: tlAudio6, telugu: "ఊ — ఊయల", english: "Oo — Ooyala (Swing)" },
+      { image: tl7, audio: tlAudio7, telugu: "ఎ — ఎలుక", english: "E — Eluka (Mouse)" },
+      { image: tl8, audio: tlAudio8, telugu: "ఏ — ఏనుగు", english: "Ae — Aenugu (Elephant)" },
+      { image: tl9, audio: tlAudio9, telugu: "ఐ — ఐదు", english: "Ai — Aidu (Five)" },
+      { image: tl10, audio: tlAudio10, telugu: "ఒ — ఒంటె", english: "O — Onte (Camel)" },
+      { image: tl11, audio: tlAudio11, telugu: "ఓ — ఓడ", english: "Oh — Oda (Boat)" },
+      { image: tl12, audio: tlAudio12, telugu: "ఔ — ఔషధం", english: "Au — Aushadham (Medicine)" },
+      { image: tl13, audio: tlAudio13, telugu: "అం — అంగడి", english: "Am — Angadi (Shop)" },
+      { image: tl14, audio: tlAudio14, telugu: "అః — ప్రాణాః", english: "Ah — Praanaah (Life)" },
     ],
   },
 
@@ -852,16 +895,16 @@ export const stories: Story[] = [
     minutes: 4,
     tagline: "Count along with little friends.",
     pages: [
-      { image: cf1, telugu: "౧ — ఒకటి", english: "1 — One elephant" },
-      { image: cf2, telugu: "౨ — రెండు", english: "2 — Two butterflies" },
-      { image: cf3, telugu: "౩ — మూడు", english: "3 — Three fish" },
-      { image: cf4, telugu: "౪ — నాలుగు", english: "4 — Four birds" },
-      { image: cf5, telugu: "౫ — అయిదు", english: "5 — Five flowers" },
-      { image: cf6, telugu: "౬ — ఆరు", english: "6 — Six stars" },
-      { image: cf7, telugu: "౭ — ఏడు", english: "7 — Seven frogs" },
-      { image: cf8, telugu: "౮ — ఎనిమిది", english: "8 — Eight mangoes" },
-      { image: cf9, telugu: "౯ — తొమ్మిది", english: "9 — Nine clouds" },
-      { image: cf10, telugu: "౧౦ — పది", english: "10 — Ten fireflies" },
+      { image: cf1, audio: cfAudio1, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "౧ — ఒకటి", english: "1 — One elephant" },
+      { image: cf2, audio: cfAudio2, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "౨ — రెండు", english: "2 — Two butterflies" },
+      { image: cf3, audio: cfAudio3, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "౩ — మూడు", english: "3 — Three fish" },
+      { image: cf4, audio: cfAudio4, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "౪ — నాలుగు", english: "4 — Four birds" },
+      { image: cf5, audio: cfAudio5, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "౫ — అయిదు", english: "5 — Five flowers" },
+      { image: cf6, audio: cfAudio6, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "౬ — ఆరు", english: "6 — Six stars" },
+      { image: cf7, audio: cfAudio7, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "౭ — ఏడు", english: "7 — Seven frogs" },
+      { image: cf8, audio: cfAudio8, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "౮ — ఎనిమిది", english: "8 — Eight mangoes" },
+      { image: cf9, audio: cfAudio9, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "౯ — తొమ్మిది", english: "9 — Nine clouds" },
+      { image: cf10, audio: cfAudio10, audioRepeat: { count: 2, pauseMs: 1000 }, telugu: "౧౦ — పది", english: "10 — Ten fireflies" },
     ],
   },
 
