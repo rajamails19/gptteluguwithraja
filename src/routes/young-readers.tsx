@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Sparkles } from "lucide-react";
 import { YoungStoryAccordion } from "@/components/YoungStoryAccordion";
@@ -28,8 +28,51 @@ export const Route = createFileRoute("/young-readers")({
 const floatLetters = ["అ", "క", "మ", "ర", "ల", "త", "ఇ", "ప"];
 
 function YoungReadersPage() {
-  const [openId, setOpenId] = useState<string | null>(youngStories[0]?.id ?? null);
+  const [openId, setOpenId] = useState<string | null>(null);
+  const [featuredStart, setFeaturedStart] = useState(0);
+  const hoverTimerRef = useRef<ReturnType<typeof window.setTimeout> | null>(null);
+  const shelfRef = useRef<HTMLDivElement | null>(null);
   const hasOpenStory = openId !== null;
+  const maxFeaturedStart = Math.max(youngStories.length - 3, 0);
+
+  useEffect(() => {
+    return () => {
+      if (hoverTimerRef.current) window.clearTimeout(hoverTimerRef.current);
+    };
+  }, []);
+
+  const clearHoverIntent = () => {
+    if (hoverTimerRef.current) {
+      window.clearTimeout(hoverTimerRef.current);
+      hoverTimerRef.current = null;
+    }
+  };
+
+  const getFeaturedStartFor = (index: number) => {
+    if (index <= 1) return 0;
+    if (index >= youngStories.length - 2) return maxFeaturedStart;
+    return Math.min(Math.max(index - 1, 0), maxFeaturedStart);
+  };
+
+  const bringStoryIntoView = (index: number) => {
+    if (hasOpenStory) return;
+    const nextStart = getFeaturedStartFor(index);
+    setFeaturedStart(nextStart);
+    window.requestAnimationFrame(() => {
+      shelfRef.current?.scrollTo({
+        left: 0,
+        behavior: "smooth",
+      });
+    });
+  };
+
+  const scheduleShelfFocus = (index: number) => {
+    if (hasOpenStory) return;
+    clearHoverIntent();
+    hoverTimerRef.current = window.setTimeout(() => {
+      bringStoryIntoView(index);
+    }, 350);
+  };
 
   return (
     <div className="min-h-screen bg-cream">
@@ -147,22 +190,54 @@ function YoungReadersPage() {
 
       {/* Horizontal image accordion */}
       <main
-        className={`mx-auto max-w-[min(1800px,calc(100vw-2rem))] px-4 sm:px-6 ${
+        className={`mx-auto max-w-[calc(100vw-0.75rem)] px-2 sm:px-3 ${
           hasOpenStory ? "py-4 sm:py-5" : "py-8 sm:py-10"
         }`}
       >
-        <div className="flex flex-row gap-2 sm:gap-3">
-          {youngStories.map((story, i) => (
-            <YoungStoryAccordion
-              key={story.id}
-              story={story}
-              index={i}
-              isOpen={openId === story.id}
-              onToggle={() =>
-                setOpenId((cur) => (cur === story.id ? null : story.id))
-              }
-            />
-          ))}
+        <div className="relative">
+          <div
+            ref={shelfRef}
+            className={`-mx-2 px-2 pb-3 sm:-mx-3 sm:px-3 ${
+              hasOpenStory
+                ? "overflow-x-hidden"
+                : "overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            }`}
+          >
+            <div className="mx-auto flex w-max flex-row justify-center gap-2 sm:gap-3">
+              {youngStories.map((story, i) => {
+                const isFeatured =
+                  !hasOpenStory && i >= featuredStart && i < featuredStart + 3;
+                const display = hasOpenStory
+                  ? openId === story.id
+                    ? "open"
+                    : "hidden"
+                  : isFeatured
+                    ? "featured"
+                    : "hint";
+
+                if (hasOpenStory && openId !== story.id) return null;
+
+                return (
+                  <YoungStoryAccordion
+                    key={story.id}
+                    story={story}
+                    index={i}
+                    display={display}
+                    isOpen={openId === story.id}
+                    onPreviewIntent={() => scheduleShelfFocus(i)}
+                    onPreviewCancel={clearHoverIntent}
+                    onToggle={() => {
+                      if (!hasOpenStory && !isFeatured) {
+                        bringStoryIntoView(i);
+                        return;
+                      }
+                      setOpenId((cur) => (cur === story.id ? null : story.id));
+                    }}
+                  />
+                );
+              })}
+            </div>
+          </div>
         </div>
 
         <p className="mt-7 text-center font-telugu text-sm text-foreground/50">

@@ -4,6 +4,18 @@ import brave1 from "@/assets/young/brave/p1.jpg";
 import brave2 from "@/assets/young/brave/p2.jpg";
 import brave3 from "@/assets/young/brave/p3.jpg";
 import brave4 from "@/assets/young/brave/p4.jpg";
+import braveAudio0051 from "@/assets/audio/young/brave-little-one/slow-005/page-1.mp3";
+import braveAudio0052 from "@/assets/audio/young/brave-little-one/slow-005/page-2.mp3";
+import braveAudio0053 from "@/assets/audio/young/brave-little-one/slow-005/page-3.mp3";
+import braveAudio0054 from "@/assets/audio/young/brave-little-one/slow-005/page-4.mp3";
+import braveAudio051 from "@/assets/audio/young/brave-little-one/slow-05/page-1.mp3";
+import braveAudio052 from "@/assets/audio/young/brave-little-one/slow-05/page-2.mp3";
+import braveAudio053 from "@/assets/audio/young/brave-little-one/slow-05/page-3.mp3";
+import braveAudio054 from "@/assets/audio/young/brave-little-one/slow-05/page-4.mp3";
+import braveAudio1 from "@/assets/audio/young/brave-little-one/base/page-1.mp3";
+import braveAudio2 from "@/assets/audio/young/brave-little-one/base/page-2.mp3";
+import braveAudio3 from "@/assets/audio/young/brave-little-one/base/page-3.mp3";
+import braveAudio4 from "@/assets/audio/young/brave-little-one/base/page-4.mp3";
 
 import forestCover from "@/assets/young/forest/cover.jpg";
 import forest1 from "@/assets/young/forest/p1.jpg";
@@ -17,11 +29,24 @@ import stars2 from "@/assets/young/stars/p2.jpg";
 import stars3 from "@/assets/young/stars/p3.jpg";
 import stars4 from "@/assets/young/stars/p4.jpg";
 
+import cloudCover from "@/assets/young/cloud-fort/cover.jpg";
+import cloud1 from "@/assets/young/cloud-fort/p1.jpg";
+import cloud2 from "@/assets/young/cloud-fort/p2.jpg";
+import cloud3 from "@/assets/young/cloud-fort/p3.jpg";
+import cloud4 from "@/assets/young/cloud-fort/p4.jpg";
+
+import riverCover from "@/assets/young/river-lanterns/cover.jpg";
+import river1 from "@/assets/young/river-lanterns/p1.jpg";
+import river2 from "@/assets/young/river-lanterns/p2.jpg";
+import river3 from "@/assets/young/river-lanterns/p3.jpg";
+import river4 from "@/assets/young/river-lanterns/p4.jpg";
+
 export interface YoungChapter {
   title: string;
   telugu: string; // 4-6 sentences, joined by spaces
   english: string; // short english summary, 1-2 lines for parents
   image: string;
+  audioBySpeed?: Partial<Record<"0.05" | "0.5" | "1", string>>;
 }
 
 export interface YoungStory {
@@ -54,6 +79,11 @@ export const youngStories: YoungStory[] = [
         english:
           "Arjun lives in a small village near the mountains. One morning he remembers his grandfather's story about a magical creature in the forest.",
         image: brave1,
+        audioBySpeed: {
+          "0.05": braveAudio0051,
+          "0.5": braveAudio051,
+          "1": braveAudio1,
+        },
       },
       {
         title: "మాయా అడవిలోకి",
@@ -62,6 +92,11 @@ export const youngStories: YoungStory[] = [
         english:
           "He bravely steps into the forest. Giant trees, fireflies, and glowing mushrooms surround him.",
         image: brave2,
+        audioBySpeed: {
+          "0.05": braveAudio0052,
+          "0.5": braveAudio052,
+          "1": braveAudio2,
+        },
       },
       {
         title: "పెద్ద పులితో",
@@ -70,6 +105,11 @@ export const youngStories: YoungStory[] = [
         english:
           "A magical white tiger appears. Arjun stays calm and offers friendship instead of running away.",
         image: brave3,
+        audioBySpeed: {
+          "0.05": braveAudio0053,
+          "0.5": braveAudio053,
+          "1": braveAudio3,
+        },
       },
       {
         title: "ఆకాశంలో ప్రయాణం",
@@ -78,6 +118,11 @@ export const youngStories: YoungStory[] = [
         english:
           "The tiger flies Arjun through the stars. He learns that courage opens up a magical world, and returns home with a new friend.",
         image: brave4,
+        audioBySpeed: {
+          "0.05": braveAudio0054,
+          "0.5": braveAudio054,
+          "1": braveAudio4,
+        },
       },
     ],
   },
@@ -166,6 +211,94 @@ export const youngStories: YoungStory[] = [
         english:
           "Ravi realises the star must return to the sky. He releases it — and gains a friend that shines for him every night.",
         image: stars4,
+      },
+    ],
+  },
+  {
+    id: "cloud-fort-secret",
+    title: "మేఘాల కోట రహస్యం",
+    titleEnglish: "The Cloud Fort Secret",
+    tagline: "ఒక గాలిపటం, ఒక పాత పటం, ఆకాశంలో దాగిన కోట.",
+    ageBand: "8–10",
+    readMinutes: 5,
+    cover: cloudCover,
+    accent: "from-sky-200/60 via-amber-200/50 to-orange-200/60",
+    chapters: [
+      {
+        title: "గాలిపటంలో పటం",
+        telugu:
+          "కిరణ్ ఇంటి మేడ మీద పగిలిన గాలిపటం కనిపించింది. దాని తోకకు ఒక పాత పటం కట్టబడి ఉంది. పటంలో గ్రామం, కొండ, మేఘాల మధ్య చిన్న కోట గీసి ఉంది. \"ఇది ఎవరి ఆట?\" అని కిరణ్ అనుకున్నాడు. అప్పుడు గాలి ఒక్కసారిగా పటాన్ని మెరిపించింది. కోట వైపు చూపే బాణం నీలంగా వెలిగింది.",
+        english:
+          "Kiran finds an old sky-map tied to a torn kite. The map points toward a fort hidden in the clouds.",
+        image: cloud1,
+      },
+      {
+        title: "గాలి మెట్లు",
+        telugu:
+          "కిరణ్ పటాన్ని పట్టుకుని కొండదారిలోకి బయలుదేరాడు. గాలి గడ్డి మీద అలలలా పరుగెత్తింది. రంగురంగుల గాలిపటాలు అతనికి దారి చూపుతున్నట్లు ఎగిరాయి. కొండపైకి చేరగానే మేఘాల్లో తెల్లని మెట్లు ఏర్పడ్డాయి. కిరణ్ ఊపిరి బిగపట్టి మొదటి మెట్టు ఎక్కాడు. కింద గ్రామం చిన్న బొమ్మలా కనిపించింది.",
+        english:
+          "He follows the map up a windy hill, where a staircase of mist appears in the clouds.",
+        image: cloud2,
+      },
+      {
+        title: "మూడు గంటల పరీక్ష",
+        telugu:
+          "మేఘాల కోటలో బంగారు స్తంభాలు, వెండి కిటికీలు ఉన్నాయి. మధ్యలో మూడు గాలి గంటలు వేలాడుతున్నాయి. ప్రతి గంట వేరే స్వరంతో మోగింది. \"సరైన స్వరం వింటేనే తలుపు తెరుచుకుంటుంది,\" అని పటం మీద అక్షరాలు మెరిశాయి. కిరణ్ కళ్ళు మూసుకుని గాలిని విన్నాడు. మూడో గంటలో వర్షపు చప్పుడు దాగి ఉంది.",
+        english:
+          "Inside the cloud fort, Kiran must listen carefully to three wind bells and find the sound of rain.",
+        image: cloud3,
+      },
+      {
+        title: "వాన రత్నం",
+        telugu:
+          "తలుపు తెరుచుకోగానే లోపల చిన్న వాన రత్నం మెరిసింది. కిరణ్ దాన్ని జాగ్రత్తగా తీసుకుని గ్రామానికి తిరిగి వచ్చాడు. పొలాలు ఎండిపోయి, రైతులు ఆకాశం వైపు చూస్తున్నారు. కిరణ్ రత్నాన్ని నేలపై పెట్టగానే చల్లని చినుకులు పడ్డాయి. పిల్లలు నవ్వుతూ బయటికి పరుగెత్తారు. మేఘాల కోట మెల్లగా వెలుగులో కలిసిపోయింది.",
+        english:
+          "Kiran brings back a rain crystal. The dry fields receive rain, and the cloud fort fades into the sky.",
+        image: cloud4,
+      },
+    ],
+  },
+  {
+    id: "blue-lantern-river",
+    title: "నీలి దీపాల నది",
+    titleEnglish: "The Blue Lantern River",
+    tagline: "నది మీద మెరిసిన దీపాలు, వేర్లు కింద దాగిన గుహ.",
+    ageBand: "8–10",
+    readMinutes: 5,
+    cover: riverCover,
+    accent: "from-cyan-200/60 via-blue-200/50 to-violet-200/60",
+    chapters: [
+      {
+        title: "నీలి వెలుగులు",
+        telugu:
+          "అనిక గ్రామం పక్కన నది ప్రవహిస్తుంది. ఒక సాయంత్రం నీటిమీద చిన్న నీలి వెలుగులు మెరుస్తున్నాయి. అవి పురుగుల్లా కనిపించాయి, కానీ ఒక వరుసగా ముందుకు కదిలాయి. అమ్మమ్మ ఇచ్చిన పిత్తల దీపం అనిక చేతిలో మెల్లగా వెలిగింది. \"నది ఏదో చెప్పాలని చూస్తోంది,\" అని అనిక అనుకుంది. ఆమె నది ఒడ్డున నిశ్శబ్దంగా నిలిచింది.",
+        english:
+          "Anika notices blue lights moving over the river, and her grandmother's brass lantern begins to glow.",
+        image: river1,
+      },
+      {
+        title: "పడవ ప్రయాణం",
+        telugu:
+          "చిన్న పడవను నీటిలోకి తోసి అనిక అందులో కూర్చుంది. నీలి వెలుగులు పడవ ముందు దారి వేసాయి. నది నిశ్శబ్దంగా ఉంది, కానీ దాని లోతుల్లో మధురమైన స్వరం వినిపించింది. పెద్ద మర్రి చెట్ల నీడలు నీటిపై ఊగుతున్నాయి. అనిక భయపడలేదు. \"నేను వింటున్నాను,\" అని ఆమె మెల్లగా చెప్పింది.",
+        english:
+          "She rows into the moonlit river, following the blue lights and listening to a hidden song beneath the water.",
+        image: river2,
+      },
+      {
+        title: "వేర్ల కింద గుహ",
+        telugu:
+          "వెలుగులు ఒక పెద్ద మర్రి చెట్టు వేర్ల దగ్గర ఆగిపోయాయి. వేర్ల మధ్య చిన్న గుహ తలుపు కనిపించింది. లోపల నీలి స్ఫటిక దీపాలు వరుసగా వేలాడుతున్నాయి. రాతి మీద పాత గుర్తులు చెక్కబడి ఉన్నాయి. \"నది వెలుగు తగ్గితే గ్రామం దాహంతో ఉంటుంది,\" అని అనిక అర్థం చేసుకుంది. మధ్యలో ఖాళీ స్తంభం ఒక రత్నం కోసం ఎదురుచూస్తోంది.",
+        english:
+          "The lights lead her to a hidden cave beneath banyan roots, where she discovers the river's missing crystal.",
+        image: river3,
+      },
+      {
+        title: "నది మళ్లీ పాడింది",
+        telugu:
+          "అనిక చిన్న నీలి రత్నాన్ని స్తంభం నుంచి తీసుకుని నదిలో పెట్టింది. వెంటనే నీరు వెండిలా మెరిసింది. చేపలు తిరిగి ఈదాయి, తామర పూలు తెరుచుకున్నాయి. గ్రామస్తులు ఆశ్చర్యంగా ఒడ్డుకు వచ్చారు. నది మళ్లీ తన మృదువైన పాట పాడింది. ఆ రోజు నుంచి అనికకు నది భాష కొంచెం కొంచెంగా అర్థమవుతూనే ఉంది.",
+        english:
+          "Anika restores the blue crystal to the river. The water brightens, fish return, and the river begins to sing again.",
+        image: river4,
       },
     ],
   },
