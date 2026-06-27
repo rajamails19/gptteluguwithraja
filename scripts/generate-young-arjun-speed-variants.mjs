@@ -29,7 +29,6 @@ const chapters = [
 
 const expressiveChapters = [
   [
-    "[warm smile]",
     "అర్జున్ ఒక చిన్న గ్రామంలో నివసిస్తాడు.",
     "[gentle pause]",
     "అతని ఇల్లు... పర్వతాల పక్కన ఉంది.",
@@ -42,7 +41,6 @@ const expressiveChapters = [
     "[wonder gasp]",
   ].join("\n\n"),
   [
-    "[suspenseful pause]",
     "అర్జున్ ధైర్యం చేసి... అడవిలోకి అడుగు పెట్టాడు.",
     "[small breath]",
     "అక్కడ చెట్లు... చాలా పెద్దవిగా ఉన్నాయి.",
@@ -55,7 +53,6 @@ const expressiveChapters = [
     "[heartbeat suspense]",
   ].join("\n\n"),
   [
-    "[sudden gasp]",
     "హఠాత్తుగా ఒక పెద్ద తెల్లని పులి కనిపించింది.",
     "[hushed pause]",
     "దాని కళ్ళు... చంద్రుని వెలుగులా మెరుస్తున్నాయి.",
@@ -68,7 +65,6 @@ const expressiveChapters = [
     "[gentle tiger-like chuckle]",
   ].join("\n\n"),
   [
-    "[excited breath]",
     "పులి అర్జున్‌ని... తన వీపు మీద కూర్చోబెట్టింది.",
     "[delighted gasp]",
     "ఇద్దరూ కలిసి... ఆకాశంలోకి ఎగిరారు.",

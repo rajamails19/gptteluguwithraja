@@ -40,7 +40,9 @@ export function YoungStoryAccordion({
   const [autoPlay, setAutoPlay] = useState(false);
   const [voiceSpeed, setVoiceSpeed] = useState<YoungVoiceSpeed>(() => {
     if (typeof window === "undefined") return 1;
-    const saved = Number(window.localStorage.getItem(YOUNG_VOICE_SPEED_STORAGE_KEY));
+    const saved = Number(
+      window.localStorage.getItem(YOUNG_VOICE_SPEED_STORAGE_KEY),
+    );
     return YOUNG_VOICE_SPEEDS.includes(saved as YoungVoiceSpeed)
       ? (saved as YoungVoiceSpeed)
       : 1;
@@ -59,7 +61,10 @@ export function YoungStoryAccordion({
   }, [autoPlay]);
 
   useEffect(() => {
-    window.localStorage.setItem(YOUNG_VOICE_SPEED_STORAGE_KEY, String(voiceSpeed));
+    window.localStorage.setItem(
+      YOUNG_VOICE_SPEED_STORAGE_KEY,
+      String(voiceSpeed),
+    );
   }, [voiceSpeed]);
 
   useEffect(() => {
@@ -111,39 +116,47 @@ export function YoungStoryAccordion({
     };
   }, []);
 
-  const startSentenceHighlight = useCallback((audio: HTMLAudioElement, text: string, speed: YoungVoiceSpeed) => {
-    if (highlightFrameRef.current !== null) {
-      cancelAnimationFrame(highlightFrameRef.current);
-      highlightFrameRef.current = null;
-    }
-
-    const sentences = splitIntoSentences(text);
-    const timings = getYoungSentenceTimings(sentences, speed);
-    const totalUnits = timings[timings.length - 1]?.end ?? 1;
-    const estimatedDuration = getEstimatedYoungDuration(text, speed);
-
-    const tick = () => {
-      if (audio.paused || audio.ended) {
-        setActiveSentenceIndex(-1);
+  const startSentenceHighlight = useCallback(
+    (audio: HTMLAudioElement, text: string, speed: YoungVoiceSpeed) => {
+      if (highlightFrameRef.current !== null) {
+        cancelAnimationFrame(highlightFrameRef.current);
         highlightFrameRef.current = null;
-        return;
       }
 
-      const duration =
-        Number.isFinite(audio.duration) && audio.duration > 0
-          ? audio.duration
-          : estimatedDuration;
-      const progressUnits = Math.min(totalUnits, (audio.currentTime / duration) * totalUnits);
-      const nextIndex = timings.findIndex(
-        (timing) => progressUnits >= timing.start && progressUnits < timing.end,
-      );
+      const sentences = splitIntoSentences(text);
+      const timings = getYoungSentenceTimings(sentences, speed);
+      const totalUnits = timings[timings.length - 1]?.end ?? 1;
+      const estimatedDuration = getEstimatedYoungDuration(text, speed);
 
-      setActiveSentenceIndex(nextIndex >= 0 ? nextIndex : sentences.length - 1);
-      highlightFrameRef.current = requestAnimationFrame(tick);
-    };
+      const tick = () => {
+        if (audio.paused || audio.ended) {
+          setActiveSentenceIndex(-1);
+          highlightFrameRef.current = null;
+          return;
+        }
 
-    tick();
-  }, []);
+        const duration =
+          Number.isFinite(audio.duration) && audio.duration > 0
+            ? audio.duration
+            : estimatedDuration;
+        const progressUnits = Math.min(
+          totalUnits,
+          (audio.currentTime / duration) * totalUnits,
+        );
+        const nextIndex = getAdjustedYoungSentenceIndex(
+          timings,
+          progressUnits,
+          speed,
+        );
+
+        setActiveSentenceIndex(nextIndex);
+        highlightFrameRef.current = requestAnimationFrame(tick);
+      };
+
+      tick();
+    },
+    [],
+  );
 
   const playText = useCallback(
     async (text: string, audioSrc?: string, onEnded?: () => void) => {
@@ -202,7 +215,10 @@ export function YoungStoryAccordion({
     autoPlayRef.current = false;
     stopAudio();
     setActiveChapter(i);
-    void playText(story.chapters[i].telugu, getChapterAudio(story.chapters[i], voiceSpeed));
+    void playText(
+      story.chapters[i].telugu,
+      getChapterAudio(story.chapters[i], voiceSpeed),
+    );
   };
 
   const playChain = (from: number) => {
@@ -213,13 +229,17 @@ export function YoungStoryAccordion({
       return;
     }
     setActiveChapter(from);
-    void playText(story.chapters[from].telugu, getChapterAudio(story.chapters[from], voiceSpeed), () => {
-      if (!autoPlayRef.current) return;
-      setTimeout(() => {
+    void playText(
+      story.chapters[from].telugu,
+      getChapterAudio(story.chapters[from], voiceSpeed),
+      () => {
         if (!autoPlayRef.current) return;
-        playChain(from + 1);
-      }, 600);
-    });
+        setTimeout(() => {
+          if (!autoPlayRef.current) return;
+          playChain(from + 1);
+        }, 600);
+      },
+    );
   };
 
   const handleReadAll = () => {
@@ -295,7 +315,10 @@ export function YoungStoryAccordion({
               <div className="flex flex-1 items-center justify-center px-2">
                 <h3
                   className="font-telugu text-lg font-bold text-cream drop-shadow-lg sm:text-xl"
-                  style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+                  style={{
+                    writingMode: "vertical-rl",
+                    transform: "rotate(180deg)",
+                  }}
                 >
                   {story.title}
                 </h3>
@@ -329,7 +352,9 @@ export function YoungStoryAccordion({
             </button>
 
             {/* Header band with cover thumb */}
-            <div className={`relative flex items-stretch border-b border-border/40 bg-gradient-to-br ${story.accent}`}>
+            <div
+              className={`relative flex items-stretch border-b border-border/40 bg-gradient-to-br ${story.accent}`}
+            >
               <div className="relative h-24 w-24 shrink-0 overflow-hidden sm:h-28 sm:w-28">
                 <img
                   src={story.cover}
@@ -366,19 +391,27 @@ export function YoungStoryAccordion({
             </div>
 
             {/* Scrollable chapter body */}
-            <div className={`flex-1 overflow-y-auto p-4 sm:p-6 ${pageTone.shell}`}>
+            <div
+              className={`flex-1 overflow-y-auto p-4 sm:p-6 ${pageTone.shell}`}
+            >
               {/* Read all */}
               <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-2 text-xs text-foreground/60">
                   <Sparkles className="h-3.5 w-3.5 text-primary" />
-                  <span>Tap any chapter image or text to hear it read aloud.</span>
+                  <span>
+                    Tap any chapter image or text to hear it read aloud.
+                  </span>
                 </div>
                 <button
                   type="button"
                   onClick={handleReadAll}
                   className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-soft transition-all hover:brightness-110"
                 >
-                  {autoPlay ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 translate-x-[1px]" />}
+                  {autoPlay ? (
+                    <Pause className="h-4 w-4" />
+                  ) : (
+                    <Play className="h-4 w-4 translate-x-[1px]" />
+                  )}
                   <span>{autoPlay ? "Stop reading" : "Read whole story"}</span>
                 </button>
                 <SpeedControl
@@ -401,7 +434,9 @@ export function YoungStoryAccordion({
                     chapter={ch}
                     index={i}
                     isActive={activeChapter === i}
-                    activeSentenceIndex={activeChapter === i ? activeSentenceIndex : -1}
+                    activeSentenceIndex={
+                      activeChapter === i ? activeSentenceIndex : -1
+                    }
                     audioState={activeChapter === i ? audioState : "idle"}
                     onPlay={() => handleChapterPlay(i)}
                     pageTone={pageTone}
@@ -417,7 +452,9 @@ export function YoungStoryAccordion({
 }
 
 function getChapterAudio(chapter: YoungChapter, speed: YoungVoiceSpeed) {
-  return chapter.audioBySpeed?.[String(speed) as keyof NonNullable<YoungChapter["audioBySpeed"]>];
+  return chapter.audioBySpeed?.[
+    String(speed) as keyof NonNullable<YoungChapter["audioBySpeed"]>
+  ];
 }
 
 function SpeedControl({
@@ -510,7 +547,11 @@ function ChapterBlock({
                   key={b}
                   className="block w-0.5 rounded-full bg-primary"
                   animate={{ height: [4, 12, 4] }}
-                  transition={{ duration: 0.8, repeat: Infinity, delay: b * 0.15 }}
+                  transition={{
+                    duration: 0.8,
+                    repeat: Infinity,
+                    delay: b * 0.15,
+                  }}
                 />
               ))}
             </span>
@@ -520,14 +561,18 @@ function ChapterBlock({
       </div>
 
       {/* Text */}
-      <div className={`relative flex flex-col justify-center overflow-hidden p-6 shadow-[inset_18px_0_28px_oklch(0.35_0.025_70_/_0.055)] sm:p-8 lg:p-10 ${pageTone.page}`}>
+      <div
+        className={`relative flex flex-col justify-center overflow-hidden p-6 shadow-[inset_18px_0_28px_oklch(0.35_0.025_70_/_0.055)] sm:p-8 lg:p-10 ${pageTone.page}`}
+      >
         <img
           src={pageTone.art}
           alt=""
           aria-hidden="true"
           className={`pointer-events-none absolute inset-0 h-full w-full object-cover ${pageTone.artPosition} ${pageTone.artOpacity}`}
         />
-        <div className={`pointer-events-none absolute inset-0 ${pageTone.wash}`} />
+        <div
+          className={`pointer-events-none absolute inset-0 ${pageTone.wash}`}
+        />
         <div className="pointer-events-none absolute inset-y-8 left-0 w-px bg-foreground/8" />
         <div className="relative flex items-baseline gap-3 border-b border-foreground/10 pb-4">
           <span className="font-display text-3xl font-semibold text-primary/70">
@@ -612,7 +657,11 @@ function HighlightedSentences({
                 aria-hidden
                 className="absolute bottom-2 left-1 top-2 z-10 w-1 rounded-full bg-primary/55 shadow-[0_0_16px_oklch(0.66_0.12_145_/_0.45)]"
                 animate={{ opacity: [0.45, 1, 0.45] }}
-                transition={{ duration: 1.15, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 1.15,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               />
             )}
             {isActive && (
@@ -620,7 +669,11 @@ function HighlightedSentences({
                 aria-hidden
                 className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 rounded-xl bg-[linear-gradient(90deg,transparent,oklch(1_0_0_/_0.35),transparent)]"
                 animate={{ x: ["-30%", "170%"], opacity: [0, 0.8, 0] }}
-                transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 2.2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               />
             )}
             <span className="relative z-10">{sentence}</span>
@@ -662,10 +715,35 @@ function getYoungSentenceTimings(sentences: string[], speed: YoungVoiceSpeed) {
       cleanLength * (speed === 1 ? 0.018 : 0.026);
 
     timings.push({ start: cursor, end: cursor + sentenceUnits });
-    cursor += sentenceUnits + (speed === 0.05 ? 2.8 : speed === 0.5 ? 1.35 : 0.62);
+    cursor +=
+      sentenceUnits + (speed === 0.05 ? 2.8 : speed === 0.5 ? 1.35 : 0.62);
   });
 
   return timings;
+}
+
+function getAdjustedYoungSentenceIndex(
+  timings: Array<{ start: number; end: number }>,
+  progressUnits: number,
+  speed: YoungVoiceSpeed,
+) {
+  if (timings.length === 0) return -1;
+
+  const activeIndex = timings.findIndex(
+    (timing) => progressUnits >= timing.start && progressUnits < timing.end,
+  );
+  const rawIndex =
+    activeIndex >= 0
+      ? activeIndex
+      : progressUnits < timings[0].start
+        ? 0
+        : Math.min(
+            timings.findLastIndex((timing) => progressUnits >= timing.end) + 1,
+            timings.length - 1,
+          );
+
+  if (speed === 0.05 || speed === 0.5) return Math.max(0, rawIndex - 1);
+  return rawIndex;
 }
 
 type PageTone = {
@@ -688,8 +766,7 @@ function getPageTone(storyId: string): PageTone {
         "bg-[linear-gradient(180deg,oklch(0.985_0.018_76),oklch(0.945_0.024_63))]",
       spread: "bg-[oklch(0.982_0.012_82)]",
       page: "bg-[oklch(0.95_0.025_74)]",
-      wash:
-        "bg-[linear-gradient(90deg,oklch(0.995_0.008_86_/_0.9),oklch(0.99_0.012_82_/_0.82)),radial-gradient(circle_at_100%_100%,oklch(0.82_0.11_68_/_0.32),transparent_42%)]",
+      wash: "bg-[linear-gradient(90deg,oklch(0.995_0.008_86_/_0.9),oklch(0.99_0.012_82_/_0.82)),radial-gradient(circle_at_100%_100%,oklch(0.82_0.11_68_/_0.32),transparent_42%)]",
     },
     "magical-forest": {
       art: forestPageArt,
@@ -699,8 +776,7 @@ function getPageTone(storyId: string): PageTone {
         "bg-[linear-gradient(180deg,oklch(0.982_0.02_320),oklch(0.95_0.022_142))]",
       spread: "bg-[oklch(0.98_0.012_128)]",
       page: "bg-[oklch(0.95_0.022_142)]",
-      wash:
-        "bg-[linear-gradient(90deg,oklch(0.995_0.01_130_/_0.9),oklch(0.985_0.018_142_/_0.8)),radial-gradient(circle_at_100%_100%,oklch(0.72_0.1_150_/_0.28),transparent_46%)]",
+      wash: "bg-[linear-gradient(90deg,oklch(0.995_0.01_130_/_0.9),oklch(0.985_0.018_142_/_0.8)),radial-gradient(circle_at_100%_100%,oklch(0.72_0.1_150_/_0.28),transparent_46%)]",
     },
     "king-of-stars": {
       art: starsPageArt,
@@ -710,8 +786,7 @@ function getPageTone(storyId: string): PageTone {
         "bg-[linear-gradient(180deg,oklch(0.976_0.018_275),oklch(0.944_0.024_238))]",
       spread: "bg-[oklch(0.976_0.011_252)]",
       page: "bg-[oklch(0.93_0.022_250)]",
-      wash:
-        "bg-[linear-gradient(90deg,oklch(0.985_0.012_248_/_0.9),oklch(0.965_0.02_250_/_0.76)),radial-gradient(circle_at_100%_100%,oklch(0.72_0.1_285_/_0.26),transparent_44%)]",
+      wash: "bg-[linear-gradient(90deg,oklch(0.985_0.012_248_/_0.9),oklch(0.965_0.02_250_/_0.76)),radial-gradient(circle_at_100%_100%,oklch(0.72_0.1_285_/_0.26),transparent_44%)]",
     },
     "cloud-fort-secret": {
       art: cloudPageArt,
@@ -721,8 +796,7 @@ function getPageTone(storyId: string): PageTone {
         "bg-[linear-gradient(180deg,oklch(0.982_0.018_225),oklch(0.948_0.024_80))]",
       spread: "bg-[oklch(0.98_0.012_86)]",
       page: "bg-[oklch(0.94_0.02_90)]",
-      wash:
-        "bg-[linear-gradient(90deg,oklch(0.995_0.008_88_/_0.9),oklch(0.985_0.014_84_/_0.76)),radial-gradient(circle_at_100%_100%,oklch(0.76_0.09_225_/_0.24),transparent_45%)]",
+      wash: "bg-[linear-gradient(90deg,oklch(0.995_0.008_88_/_0.9),oklch(0.985_0.014_84_/_0.76)),radial-gradient(circle_at_100%_100%,oklch(0.76_0.09_225_/_0.24),transparent_45%)]",
     },
     "blue-lantern-river": {
       art: riverPageArt,
@@ -732,8 +806,7 @@ function getPageTone(storyId: string): PageTone {
         "bg-[linear-gradient(180deg,oklch(0.975_0.022_225),oklch(0.94_0.024_260))]",
       spread: "bg-[oklch(0.974_0.012_230)]",
       page: "bg-[oklch(0.93_0.02_235)]",
-      wash:
-        "bg-[linear-gradient(90deg,oklch(0.985_0.012_220_/_0.9),oklch(0.965_0.02_235_/_0.76)),radial-gradient(circle_at_100%_100%,oklch(0.72_0.1_225_/_0.25),transparent_46%)]",
+      wash: "bg-[linear-gradient(90deg,oklch(0.985_0.012_220_/_0.9),oklch(0.965_0.02_235_/_0.76)),radial-gradient(circle_at_100%_100%,oklch(0.72_0.1_225_/_0.25),transparent_46%)]",
     },
   };
 
@@ -745,10 +818,8 @@ function getPageTone(storyId: string): PageTone {
       shell:
         "bg-[linear-gradient(180deg,oklch(0.985_0.012_88),oklch(0.955_0.016_78))]",
       spread: "bg-[oklch(0.985_0.008_92)]",
-      page:
-        "bg-[linear-gradient(180deg,oklch(0.995_0.006_94),oklch(0.972_0.012_88))]",
-      wash:
-        "bg-[radial-gradient(circle_at_85%_82%,oklch(0.84_0.08_210_/_0.12),transparent_34%),radial-gradient(circle_at_18%_18%,oklch(0.9_0.08_82_/_0.13),transparent_30%)]",
+      page: "bg-[linear-gradient(180deg,oklch(0.995_0.006_94),oklch(0.972_0.012_88))]",
+      wash: "bg-[radial-gradient(circle_at_85%_82%,oklch(0.84_0.08_210_/_0.12),transparent_34%),radial-gradient(circle_at_18%_18%,oklch(0.9_0.08_82_/_0.13),transparent_30%)]",
     }
   );
 }
