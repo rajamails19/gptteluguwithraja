@@ -674,7 +674,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
         const playOnce = async () => {
           const audio = new Audio(url);
           audio.preload = "auto";
-          audioPlaybackRateRef.current = audioPlaybackRate;
+          audioPlaybackRateRef.current = Math.max(0.0625, Math.min(16, audioPlaybackRate));
           audio.playbackRate = audioPlaybackRateRef.current;
           audioRef.current = audio;
           audio.onended = () => {

@@ -44,6 +44,26 @@ import mrAudio1 from "@/assets/audio/moonlight-rhymes/page-1.mp3";
 import mrAudio2 from "@/assets/audio/moonlight-rhymes/page-2.mp3";
 import mrAudio3 from "@/assets/audio/moonlight-rhymes/page-3.mp3";
 import mrAudio4 from "@/assets/audio/moonlight-rhymes/page-4.mp3";
+import mrAudio0051 from "@/assets/audio/moonlight-rhymes/slow-005/page-1.mp3";
+import mrAudio0052 from "@/assets/audio/moonlight-rhymes/slow-005/page-2.mp3";
+import mrAudio0053 from "@/assets/audio/moonlight-rhymes/slow-005/page-3.mp3";
+import mrAudio0054 from "@/assets/audio/moonlight-rhymes/slow-005/page-4.mp3";
+import mrAudio0151 from "@/assets/audio/moonlight-rhymes/slow-015/page-1.mp3";
+import mrAudio0152 from "@/assets/audio/moonlight-rhymes/slow-015/page-2.mp3";
+import mrAudio0153 from "@/assets/audio/moonlight-rhymes/slow-015/page-3.mp3";
+import mrAudio0154 from "@/assets/audio/moonlight-rhymes/slow-015/page-4.mp3";
+import mrAudio0251 from "@/assets/audio/moonlight-rhymes/slow-025/page-1.mp3";
+import mrAudio0252 from "@/assets/audio/moonlight-rhymes/slow-025/page-2.mp3";
+import mrAudio0253 from "@/assets/audio/moonlight-rhymes/slow-025/page-3.mp3";
+import mrAudio0254 from "@/assets/audio/moonlight-rhymes/slow-025/page-4.mp3";
+import mrAudio051 from "@/assets/audio/moonlight-rhymes/slow-05/page-1.mp3";
+import mrAudio052 from "@/assets/audio/moonlight-rhymes/slow-05/page-2.mp3";
+import mrAudio053 from "@/assets/audio/moonlight-rhymes/slow-05/page-3.mp3";
+import mrAudio054 from "@/assets/audio/moonlight-rhymes/slow-05/page-4.mp3";
+import mrAudio0751 from "@/assets/audio/moonlight-rhymes/slow-075/page-1.mp3";
+import mrAudio0752 from "@/assets/audio/moonlight-rhymes/slow-075/page-2.mp3";
+import mrAudio0753 from "@/assets/audio/moonlight-rhymes/slow-075/page-3.mp3";
+import mrAudio0754 from "@/assets/audio/moonlight-rhymes/slow-075/page-4.mp3";
 import ud1 from "@/assets/stories/ugly-duckling/slide1.png";
 import ud2 from "@/assets/stories/ugly-duckling/slide2.png";
 import ud3 from "@/assets/stories/ugly-duckling/slide3.png";
@@ -1151,24 +1171,28 @@ export const stories: Story[] = [
         telugu: "చందమామ రావే, జాబిల్లి రావే, మా ఇంటికి వెలుగు తెచ్చావే.",
         english: "Come, dear moon, come tonight and bring light to our home.",
         audio: mrAudio1,
+        audioBySpeed: { "0.05": mrAudio0051, "0.15": mrAudio0151, "0.25": mrAudio0251, "0.5": mrAudio051, "0.75": mrAudio0751 },
       },
       {
         image: mr2,
         telugu: "కొండెక్కి రావే, కోటి పూలు తీసుకువచ్చావే.",
         english: "Climb the hill and bring a million flowers.",
         audio: mrAudio2,
+        audioBySpeed: { "0.05": mrAudio0052, "0.15": mrAudio0152, "0.25": mrAudio0252, "0.5": mrAudio052, "0.75": mrAudio0752 },
       },
       {
         image: mr3,
         telugu: "బంగారు పళ్లెంలో మెల్లగా పాలు పోసావే.",
         english: "Gently pour milk into the golden plate.",
         audio: mrAudio3,
+        audioBySpeed: { "0.05": mrAudio0053, "0.15": mrAudio0153, "0.25": mrAudio0253, "0.5": mrAudio053, "0.75": mrAudio0753 },
       },
       {
         image: mr4,
         telugu: "నా బాబుకు హాయిగా నిద్ర పుచ్చావే.",
         english: "Gently help my little one sleep.",
         audio: mrAudio4,
+        audioBySpeed: { "0.05": mrAudio0054, "0.15": mrAudio0154, "0.25": mrAudio0254, "0.5": mrAudio054, "0.75": mrAudio0754 },
       },
     ],
   },
