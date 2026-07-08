@@ -330,6 +330,11 @@ import naaModatiVakyaluCover from "@/assets/covers/naa-modati-vakyalu.jpg";
 import senten1 from "@/assets/stories/naa-modati-vakyalu/slide1.jpg";
 import senten2 from "@/assets/stories/naa-modati-vakyalu/slide2.jpg";
 import senten3 from "@/assets/stories/naa-modati-vakyalu/slide3.jpg";
+import senten4 from "@/assets/stories/naa-modati-vakyalu/slide4.jpg";
+import senten5 from "@/assets/stories/naa-modati-vakyalu/slide5.jpg";
+import senten6 from "@/assets/stories/naa-modati-vakyalu/slide6.jpg";
+import senten7 from "@/assets/stories/naa-modati-vakyalu/slide7.jpg";
+import senten8 from "@/assets/stories/naa-modati-vakyalu/slide8.jpg";
 import marketCover from "@/assets/covers/market.jpg";
 import ps1 from "@/assets/stories/parrot-song/slide1.png";
 import ps2 from "@/assets/stories/parrot-song/slide2.png";
@@ -851,11 +856,11 @@ export const stories: Story[] = [
       { image: senten1, telugu: "నా పేరు రాజా.", english: "My name is Raja." },
       { image: senten2, telugu: "నేను స్కూల్‌కి వెళ్తాను.", english: "I go to school." },
       { image: senten3, telugu: "నేను USA లో ఉంటాను.", english: "I live in the USA." },
-      { image: placeholder, telugu: "నాకు అన్నం-పప్పు అంటే చాలా ఇష్టం.", english: "I love rice and dal very much." },
-      { image: placeholder, telugu: "మా అమ్మ పేరు రాణి.", english: "My mother's name is Rani." },
-      { image: placeholder, telugu: "నేను తెలుగు నేర్చుకుంటున్నాను.", english: "I am learning Telugu." },
-      { image: placeholder, telugu: "నా చెల్లి పేరు క్యూటీ.", english: "My younger sister's name is Cutie." },
-      { image: placeholder, telugu: "నా అన్న పేరు పండు.", english: "My elder brother's name is Pandu." },
+      { image: senten4, telugu: "నాకు అన్నం-పప్పు అంటే చాలా ఇష్టం.", english: "I love rice and dal very much." },
+      { image: senten5, telugu: "మా అమ్మ పేరు రాణి.", english: "My mother's name is Rani." },
+      { image: senten6, telugu: "నేను తెలుగు నేర్చుకుంటున్నాను.", english: "I am learning Telugu." },
+      { image: senten7, telugu: "నా చెల్లి పేరు క్యూటీ.", english: "My younger sister's name is Cutie." },
+      { image: senten8, telugu: "నా అన్న పేరు పండు.", english: "My elder brother's name is Pandu." },
     ],
   },
   {
