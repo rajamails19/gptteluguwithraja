@@ -1,5 +1,6 @@
 import type { Story } from "@/data/stories";
 import { BookCover } from "./BookCover";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 interface Props {
   stories: Story[];
@@ -19,12 +20,13 @@ export function StoryShelf({ stories, onOpen }: Props) {
         <div key={i}>
           <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-8 md:grid-cols-4 md:gap-x-10">
             {row.map((story, idx) => (
-              <BookCover
-                key={story.id}
-                story={story}
-                onOpen={onOpen}
-                index={idx}
-              />
+              <ErrorBoundary key={story.id} fallback={null}>
+                <BookCover
+                  story={story}
+                  onOpen={onOpen}
+                  index={idx}
+                />
+              </ErrorBoundary>
             ))}
           </div>
           <div className="shelf-plank mt-4 h-2.5 w-full sm:mt-6 sm:h-3" />

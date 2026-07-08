@@ -326,6 +326,10 @@ import myBodyCover from "@/assets/covers/my-body.jpg";
 import rainSongCover from "@/assets/covers/rain-song.jpg";
 import parrotSongCover from "@/assets/covers/parrot-song.jpg";
 import morningCover from "@/assets/covers/morning-routine.jpg";
+import naaModatiVakyaluCover from "@/assets/covers/naa-modati-vakyalu.jpg";
+import senten1 from "@/assets/stories/naa-modati-vakyalu/slide1.jpg";
+import senten2 from "@/assets/stories/naa-modati-vakyalu/slide2.jpg";
+import senten3 from "@/assets/stories/naa-modati-vakyalu/slide3.jpg";
 import marketCover from "@/assets/covers/market.jpg";
 import ps1 from "@/assets/stories/parrot-song/slide1.png";
 import ps2 from "@/assets/stories/parrot-song/slide2.png";
@@ -832,6 +836,26 @@ export const stories: Story[] = [
       { image: morn3, audio: mornAudio3, telugu: "తర్వాత అర్జున్ స్నానం చేస్తాడు.", english: "Then Arjun takes a bath." },
       { image: morn4, audio: mornAudio4, telugu: "అమ్మ చేసిన టిఫిన్ ఆనందంగా తింటాడు.", english: "He happily eats the breakfast Amma made." },
       { image: morn5, audio: mornAudio5, telugu: "బ్యాగ్ తీసుకుని స్కూల్‌కు వెళ్తాడు.", english: "He takes his bag and goes to school." },
+    ],
+  },
+  {
+    id: "naa-modati-vakyalu",
+    title: "Naa Modati Vakyalu",
+    teluguTitle: "నా మొదటి వాక్యాలు",
+    cover: naaModatiVakyaluCover,
+    category: "Beginner Telugu",
+    age: "3–6",
+    minutes: 3,
+    tagline: "My very first Telugu sentences.",
+    pages: [
+      { image: senten1, telugu: "నా పేరు రాజా.", english: "My name is Raja." },
+      { image: senten2, telugu: "నేను స్కూల్‌కి వెళ్తాను.", english: "I go to school." },
+      { image: senten3, telugu: "నేను USA లో ఉంటాను.", english: "I live in the USA." },
+      { image: placeholder, telugu: "నాకు అన్నం-పప్పు అంటే చాలా ఇష్టం.", english: "I love rice and dal very much." },
+      { image: placeholder, telugu: "మా అమ్మ పేరు రాణి.", english: "My mother's name is Rani." },
+      { image: placeholder, telugu: "నేను తెలుగు నేర్చుకుంటున్నాను.", english: "I am learning Telugu." },
+      { image: placeholder, telugu: "నా చెల్లి పేరు క్యూటీ.", english: "My younger sister's name is Cutie." },
+      { image: placeholder, telugu: "నా అన్న పేరు పండు.", english: "My elder brother's name is Pandu." },
     ],
   },
   {

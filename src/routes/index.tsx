@@ -4,6 +4,7 @@ import { Hero } from "@/components/Hero";
 import { CategoryFilter } from "@/components/CategoryFilter";
 import { StoryShelf } from "@/components/StoryShelf";
 import { StoryReaderModal } from "@/components/StoryReaderModal";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { MadeWithLove } from "@/components/MadeWithLove";
 import { Link } from "@tanstack/react-router";
 import { stories, type Category, type Story } from "@/data/stories";
@@ -142,7 +143,9 @@ export function Index() {
         </div>
       </footer>
 
-      <StoryReaderModal story={open} onClose={() => setOpen(null)} />
+      <ErrorBoundary fallback={null}>
+        <StoryReaderModal story={open} onClose={() => setOpen(null)} />
+      </ErrorBoundary>
     </div>
   );
 }
