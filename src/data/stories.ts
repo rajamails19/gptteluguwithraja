@@ -323,6 +323,9 @@ import tlEs25 from "@/assets/audio/telugu-letters/spanish/page-25.mp3";
 import tlEs26 from "@/assets/audio/telugu-letters/spanish/page-26.mp3";
 import tlEs27 from "@/assets/audio/telugu-letters/spanish/page-27.mp3";
 import letterPlaceholder from "@/assets/stories/_placeholder.svg";
+import fasSlide1 from "@/assets/stories/first-action-sentences/slide1.png";
+import fasSlide2 from "@/assets/stories/first-action-sentences/slide2.png";
+import fasSlide3 from "@/assets/stories/first-action-sentences/slide3.png";
 import fas1 from "@/assets/audio/first-action-sentences/page-1.mp3";
 import fas2 from "@/assets/audio/first-action-sentences/page-2.mp3";
 import fas3 from "@/assets/audio/first-action-sentences/page-3.mp3";
@@ -765,6 +768,7 @@ export interface StoryPage {
     "0.05"?: string;
     "0.15"?: string;
     "0.25"?: string;
+    "0.45"?: string;
     "0.5"?: string;
     "0.75"?: string;
     "1"?: string;
@@ -942,15 +946,15 @@ export const stories: Story[] = [
     minutes: 4,
     tagline: "How we say what we feel and want.",
     pages: [
-      { image: letterPlaceholder, audio: fas1, audioBySpeed: { "0.05": fas005_1, "0.45": fas045_1 }, telugu: "నాకు సంతోషంగా ఉంది.", english: "I am happy.",
+      { image: fasSlide1, audio: fas1, audioBySpeed: { "0.05": fas005_1, "0.45": fas045_1 }, telugu: "నాకు సంతోషంగా ఉంది.", english: "I am happy.",
         tamil: "எனக்கு சந்தோஷமாக இருக்கிறது.", tamilAudio: fasTa1, tamilAudioBySpeed: { "0.05": fasTa005_1, "0.45": fasTa045_1 },
         spanish: "Estoy feliz.", spanishAudio: fasEs1, spanishAudioBySpeed: { "0.05": fasEs005_1, "0.45": fasEs045_1 },
         wordMap: {"నాకు":"to me","సంతోషంగా":"happy","ఉంది":"is"}, tamilWordMap: {"எனக்கு":"to me","சந்தோஷமாக":"happy","இருக்கிறது":"is"}, spanishWordMap: {"Estoy":"I am","feliz":"happy"} },
-      { image: letterPlaceholder, audio: fas2, audioBySpeed: { "0.05": fas005_2, "0.45": fas045_2 }, telugu: "నీకు ఏం కావాలి?", english: "What do you want?",
+      { image: fasSlide2, audio: fas2, audioBySpeed: { "0.05": fas005_2, "0.45": fas045_2 }, telugu: "నీకు ఏం కావాలి?", english: "What do you want?",
         tamil: "உனக்கு என்ன வேண்டும்?", tamilAudio: fasTa2, tamilAudioBySpeed: { "0.05": fasTa005_2, "0.45": fasTa045_2 },
         spanish: "¿Qué quieres?", spanishAudio: fasEs2, spanishAudioBySpeed: { "0.05": fasEs005_2, "0.45": fasEs045_2 },
         wordMap: {"నీకు":"to you","ఏం":"what","కావాలి":"want"}, tamilWordMap: {"உனக்கு":"to you","என்ன":"what","வேண்டும்":"want"}, spanishWordMap: {"Qué":"what","quieres":"you want"} },
-      { image: letterPlaceholder, audio: fas3, audioBySpeed: { "0.05": fas005_3, "0.45": fas045_3 }, telugu: "మనకి ఆట ఇష్టం.", english: "We like to play.",
+      { image: fasSlide3, audio: fas3, audioBySpeed: { "0.05": fas005_3, "0.45": fas045_3 }, telugu: "మనకి ఆట ఇష్టం.", english: "We like to play.",
         tamil: "நமக்கு விளையாட்டு பிடிக்கும்.", tamilAudio: fasTa3, tamilAudioBySpeed: { "0.05": fasTa005_3, "0.45": fasTa045_3 },
         spanish: "Nos gusta jugar.", spanishAudio: fasEs3, spanishAudioBySpeed: { "0.05": fasEs005_3, "0.45": fasEs045_3 },
         wordMap: {"మనకి":"to us","ఆట":"play","ఇష్టం":"like"}, tamilWordMap: {"நமக்கு":"to us","விளையாட்டு":"play","பிடிக்கும்":"like"}, spanishWordMap: {"Nos":"to us","gusta":"like","jugar":"to play"} },

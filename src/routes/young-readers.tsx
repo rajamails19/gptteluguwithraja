@@ -30,7 +30,7 @@ const floatLetters = ["అ", "క", "మ", "ర", "ల", "త", "ఇ", "ప"];
 function YoungReadersPage() {
   const [openId, setOpenId] = useState<string | null>(null);
   const [featuredStart, setFeaturedStart] = useState(0);
-  const hoverTimerRef = useRef<ReturnType<typeof window.setTimeout> | null>(null);
+  const hoverTimerRef = useRef<number | null>(null);
   const shelfRef = useRef<HTMLDivElement | null>(null);
   const hasOpenStory = openId !== null;
   const maxFeaturedStart = Math.max(youngStories.length - 3, 0);

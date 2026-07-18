@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Capacitor } from "@capacitor/core";
 import { AnimatePresence, motion } from "motion/react";
-import { ChevronLeft, ChevronRight, Loader2, Pause, Play, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2, Pause, Play, RotateCcw, X } from "lucide-react";
 import type { Story } from "@/data/stories";
 import { ProgressDots } from "./ProgressDots";
 import { getCachedAudio, putCachedAudio } from "@/lib/ttsCache";
@@ -14,7 +14,8 @@ interface Props {
 }
 
 type AudioSequenceSegment = NonNullable<Story["pages"][number]["audioSequence"]>[number];
-type HighlightTimingProfile = NonNullable<Story["pages"][number]["highlightBySpeed"]>[string];
+type HighlightBySpeed = NonNullable<Story["pages"][number]["highlightBySpeed"]>;
+type HighlightTimingProfile = NonNullable<HighlightBySpeed[keyof HighlightBySpeed]>;
 
 type GuidePosition = {
   left: number;
@@ -1164,8 +1165,9 @@ export function StoryReaderModal({ story, onClose }: Props) {
     setShowCelebration(true);
   };
 
-  // Switch language: stop playback and reset to the first page, because the
-  // page count can differ between languages (e.g. full Tamil/Spanish alphabet).
+  // Switch language: stop playback but stay on the SAME slide so the reader can
+  // compare the same line across languages. Clamp to the new language's range
+  // in case it has fewer pages (e.g. Telugu 14 vs a longer Tamil alphabet).
   const changeLang = (l: ReaderLang) => {
     if (l === lang) return;
     stopAudio();
@@ -1175,8 +1177,20 @@ export function StoryReaderModal({ story, onClose }: Props) {
     autoPlayRef.current = "off";
     langRef.current = l;
     setLang(l);
-    setPage(0);
+    const newTotal = pagesForLang(story, l).length;
+    setPage((p) => Math.min(p, Math.max(0, newTotal - 1)));
     setDir(1);
+  };
+
+  const startOver = () => {
+    stopAudio();
+    clearAdvanceTimer();
+    clearHighlight();
+    setAutoPlay("off");
+    autoPlayRef.current = "off";
+    setShowCelebration(false);
+    setDir(-1);
+    setPage(0);
   };
 
   // Called after celebration auto-dismisses — go back to page 1
@@ -1281,15 +1295,27 @@ export function StoryReaderModal({ story, onClose }: Props) {
             </div>
 
             <div className="reader-controls safe-x safe-bottom z-20 mt-5 flex w-full items-center justify-between gap-3 border-t border-border/50 bg-cream/88 pt-3 shadow-[0_-16px_34px_oklch(0.3_0.05_60_/_0.08)] backdrop-blur-md">
-              <button
-                type="button"
-                onClick={prev}
-                disabled={page === 0}
-                className="group inline-flex min-h-12 min-w-12 items-center justify-center gap-2 rounded-full border border-border bg-paper px-3 text-sm font-medium text-foreground/80 shadow-soft transition-all disabled:cursor-not-allowed disabled:opacity-30 hover:enabled:bg-foreground/5"
-                aria-label="Previous page"
-              >
-                <ChevronLeft className="h-4 w-4 transition-transform group-hover:enabled:-translate-x-0.5" />
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={prev}
+                  disabled={page === 0}
+                  className="group inline-flex min-h-12 min-w-12 items-center justify-center gap-2 rounded-full border border-border bg-paper px-3 text-sm font-medium text-foreground/80 shadow-soft transition-all disabled:cursor-not-allowed disabled:opacity-30 hover:enabled:bg-foreground/5"
+                  aria-label="Previous page"
+                >
+                  <ChevronLeft className="h-4 w-4 transition-transform group-hover:enabled:-translate-x-0.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={startOver}
+                  disabled={page === 0}
+                  className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-full border border-border bg-paper text-foreground/70 shadow-soft transition-all disabled:cursor-not-allowed disabled:opacity-30 hover:enabled:bg-foreground/5"
+                  aria-label="Start over from the first page"
+                  title="Start over"
+                >
+                  <RotateCcw className="h-4 w-4" />
+                </button>
+              </div>
 
               <ProgressDots total={total} current={page} />
 
@@ -1389,16 +1415,29 @@ export function StoryReaderModal({ story, onClose }: Props) {
               </div>
 
               <div className="reader-controls z-20 mt-2 flex w-full items-center justify-between gap-3 bg-transparent px-0 pb-7 pt-2 shadow-none">
-                <button
-                  type="button"
-                  onClick={prev}
-                  disabled={page === 0}
-                  className="group inline-flex items-center justify-center gap-2 rounded-full border border-border bg-paper px-4 py-2.5 text-sm font-medium text-foreground/80 shadow-soft transition-all disabled:cursor-not-allowed disabled:opacity-30 hover:enabled:bg-foreground/5"
-                  aria-label="Previous page"
-                >
-                  <ChevronLeft className="h-4 w-4 transition-transform group-hover:enabled:-translate-x-0.5" />
-                  <span>Previous</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={prev}
+                    disabled={page === 0}
+                    className="group inline-flex items-center justify-center gap-2 rounded-full border border-border bg-paper px-4 py-2.5 text-sm font-medium text-foreground/80 shadow-soft transition-all disabled:cursor-not-allowed disabled:opacity-30 hover:enabled:bg-foreground/5"
+                    aria-label="Previous page"
+                  >
+                    <ChevronLeft className="h-4 w-4 transition-transform group-hover:enabled:-translate-x-0.5" />
+                    <span>Previous</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={startOver}
+                    disabled={page === 0}
+                    className="group inline-flex items-center justify-center gap-2 rounded-full border border-border bg-paper px-4 py-2.5 text-sm font-medium text-foreground/70 shadow-soft transition-all disabled:cursor-not-allowed disabled:opacity-30 hover:enabled:bg-foreground/5"
+                    aria-label="Start over from the first page"
+                    title="Start over"
+                  >
+                    <RotateCcw className="h-4 w-4" />
+                    <span>Start over</span>
+                  </button>
+                </div>
 
                 <button
                   type="button"

@@ -738,7 +738,12 @@ function getAdjustedYoungSentenceIndex(
       : progressUnits < timings[0].start
         ? 0
         : Math.min(
-            timings.findLastIndex((timing) => progressUnits >= timing.end) + 1,
+            (() => {
+              for (let i = timings.length - 1; i >= 0; i--) {
+                if (progressUnits >= timings[i].end) return i;
+              }
+              return -1;
+            })() + 1,
             timings.length - 1,
           );
 
