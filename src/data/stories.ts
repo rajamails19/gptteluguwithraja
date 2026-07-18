@@ -35,7 +35,6 @@ import moonlightRhymesCover from "@/assets/covers/moonlight-rhymes.jpg";
 import gorumuddahCover from "@/assets/covers/gorumuddha-cover.jpg";
 import balabaluCover from "@/assets/covers/bala-balu-cover.jpg";
 import raaraKrishnaCover from "@/assets/covers/raara-krishna-cover.jpg";
-// import balabaluCover from "@/assets/covers/bala-balu-cover.jpg";
 import mr1 from "@/assets/stories/moonlight-rhymes/slide1.png";
 import mr2 from "@/assets/stories/moonlight-rhymes/slide2.png";
 import mr3 from "@/assets/stories/moonlight-rhymes/slide3.png";
@@ -265,6 +264,245 @@ import tlAudio11 from "@/assets/audio/telugu-letters/page-11.mp3";
 import tlAudio12 from "@/assets/audio/telugu-letters/page-12.mp3";
 import tlAudio13 from "@/assets/audio/telugu-letters/page-13.mp3";
 import tlAudio14 from "@/assets/audio/telugu-letters/page-14.mp3";
+import tlTa1 from "@/assets/audio/telugu-letters/tamil/page-1.mp3";
+import tlTa2 from "@/assets/audio/telugu-letters/tamil/page-2.mp3";
+import tlTa3 from "@/assets/audio/telugu-letters/tamil/page-3.mp3";
+import tlTa4 from "@/assets/audio/telugu-letters/tamil/page-4.mp3";
+import tlTa5 from "@/assets/audio/telugu-letters/tamil/page-5.mp3";
+import tlTa6 from "@/assets/audio/telugu-letters/tamil/page-6.mp3";
+import tlTa7 from "@/assets/audio/telugu-letters/tamil/page-7.mp3";
+import tlTa8 from "@/assets/audio/telugu-letters/tamil/page-8.mp3";
+import tlTa9 from "@/assets/audio/telugu-letters/tamil/page-9.mp3";
+import tlTa10 from "@/assets/audio/telugu-letters/tamil/page-10.mp3";
+import tlTa11 from "@/assets/audio/telugu-letters/tamil/page-11.mp3";
+import tlTa12 from "@/assets/audio/telugu-letters/tamil/page-12.mp3";
+import tlTa13 from "@/assets/audio/telugu-letters/tamil/page-13.mp3";
+import tlTa14 from "@/assets/audio/telugu-letters/tamil/page-14.mp3";
+import tlEs1 from "@/assets/audio/telugu-letters/spanish/page-1.mp3";
+import tlEs2 from "@/assets/audio/telugu-letters/spanish/page-2.mp3";
+import tlEs3 from "@/assets/audio/telugu-letters/spanish/page-3.mp3";
+import tlEs4 from "@/assets/audio/telugu-letters/spanish/page-4.mp3";
+import tlEs5 from "@/assets/audio/telugu-letters/spanish/page-5.mp3";
+import tlEs6 from "@/assets/audio/telugu-letters/spanish/page-6.mp3";
+import tlEs7 from "@/assets/audio/telugu-letters/spanish/page-7.mp3";
+import tlEs8 from "@/assets/audio/telugu-letters/spanish/page-8.mp3";
+import tlEs9 from "@/assets/audio/telugu-letters/spanish/page-9.mp3";
+import tlEs10 from "@/assets/audio/telugu-letters/spanish/page-10.mp3";
+import tlEs11 from "@/assets/audio/telugu-letters/spanish/page-11.mp3";
+import tlEs12 from "@/assets/audio/telugu-letters/spanish/page-12.mp3";
+import tlEs13 from "@/assets/audio/telugu-letters/spanish/page-13.mp3";
+import tlEs14 from "@/assets/audio/telugu-letters/spanish/page-14.mp3";
+import tlTa15 from "@/assets/audio/telugu-letters/tamil/page-15.mp3";
+import tlTa16 from "@/assets/audio/telugu-letters/tamil/page-16.mp3";
+import tlTa17 from "@/assets/audio/telugu-letters/tamil/page-17.mp3";
+import tlTa18 from "@/assets/audio/telugu-letters/tamil/page-18.mp3";
+import tlTa19 from "@/assets/audio/telugu-letters/tamil/page-19.mp3";
+import tlTa20 from "@/assets/audio/telugu-letters/tamil/page-20.mp3";
+import tlTa21 from "@/assets/audio/telugu-letters/tamil/page-21.mp3";
+import tlTa22 from "@/assets/audio/telugu-letters/tamil/page-22.mp3";
+import tlTa23 from "@/assets/audio/telugu-letters/tamil/page-23.mp3";
+import tlTa24 from "@/assets/audio/telugu-letters/tamil/page-24.mp3";
+import tlTa25 from "@/assets/audio/telugu-letters/tamil/page-25.mp3";
+import tlTa26 from "@/assets/audio/telugu-letters/tamil/page-26.mp3";
+import tlTa27 from "@/assets/audio/telugu-letters/tamil/page-27.mp3";
+import tlTa28 from "@/assets/audio/telugu-letters/tamil/page-28.mp3";
+import tlTa29 from "@/assets/audio/telugu-letters/tamil/page-29.mp3";
+import tlTa30 from "@/assets/audio/telugu-letters/tamil/page-30.mp3";
+import tlTa31 from "@/assets/audio/telugu-letters/tamil/page-31.mp3";
+import tlEs15 from "@/assets/audio/telugu-letters/spanish/page-15.mp3";
+import tlEs16 from "@/assets/audio/telugu-letters/spanish/page-16.mp3";
+import tlEs17 from "@/assets/audio/telugu-letters/spanish/page-17.mp3";
+import tlEs18 from "@/assets/audio/telugu-letters/spanish/page-18.mp3";
+import tlEs19 from "@/assets/audio/telugu-letters/spanish/page-19.mp3";
+import tlEs20 from "@/assets/audio/telugu-letters/spanish/page-20.mp3";
+import tlEs21 from "@/assets/audio/telugu-letters/spanish/page-21.mp3";
+import tlEs22 from "@/assets/audio/telugu-letters/spanish/page-22.mp3";
+import tlEs23 from "@/assets/audio/telugu-letters/spanish/page-23.mp3";
+import tlEs24 from "@/assets/audio/telugu-letters/spanish/page-24.mp3";
+import tlEs25 from "@/assets/audio/telugu-letters/spanish/page-25.mp3";
+import tlEs26 from "@/assets/audio/telugu-letters/spanish/page-26.mp3";
+import tlEs27 from "@/assets/audio/telugu-letters/spanish/page-27.mp3";
+import letterPlaceholder from "@/assets/stories/_placeholder.svg";
+import fas1 from "@/assets/audio/first-action-sentences/page-1.mp3";
+import fas2 from "@/assets/audio/first-action-sentences/page-2.mp3";
+import fas3 from "@/assets/audio/first-action-sentences/page-3.mp3";
+import fas4 from "@/assets/audio/first-action-sentences/page-4.mp3";
+import fas5 from "@/assets/audio/first-action-sentences/page-5.mp3";
+import fas6 from "@/assets/audio/first-action-sentences/page-6.mp3";
+import fas7 from "@/assets/audio/first-action-sentences/page-7.mp3";
+import fas8 from "@/assets/audio/first-action-sentences/page-8.mp3";
+import fas9 from "@/assets/audio/first-action-sentences/page-9.mp3";
+import fas10 from "@/assets/audio/first-action-sentences/page-10.mp3";
+import fas11 from "@/assets/audio/first-action-sentences/page-11.mp3";
+import fas12 from "@/assets/audio/first-action-sentences/page-12.mp3";
+import fas13 from "@/assets/audio/first-action-sentences/page-13.mp3";
+import fas14 from "@/assets/audio/first-action-sentences/page-14.mp3";
+import fas15 from "@/assets/audio/first-action-sentences/page-15.mp3";
+import fas16 from "@/assets/audio/first-action-sentences/page-16.mp3";
+import fas17 from "@/assets/audio/first-action-sentences/page-17.mp3";
+import fas18 from "@/assets/audio/first-action-sentences/page-18.mp3";
+import fas19 from "@/assets/audio/first-action-sentences/page-19.mp3";
+import fas20 from "@/assets/audio/first-action-sentences/page-20.mp3";
+import fas005_1 from "@/assets/audio/first-action-sentences/slow-005/page-1.mp3";
+import fas005_2 from "@/assets/audio/first-action-sentences/slow-005/page-2.mp3";
+import fas005_3 from "@/assets/audio/first-action-sentences/slow-005/page-3.mp3";
+import fas005_4 from "@/assets/audio/first-action-sentences/slow-005/page-4.mp3";
+import fas005_5 from "@/assets/audio/first-action-sentences/slow-005/page-5.mp3";
+import fas005_6 from "@/assets/audio/first-action-sentences/slow-005/page-6.mp3";
+import fas005_7 from "@/assets/audio/first-action-sentences/slow-005/page-7.mp3";
+import fas005_8 from "@/assets/audio/first-action-sentences/slow-005/page-8.mp3";
+import fas005_9 from "@/assets/audio/first-action-sentences/slow-005/page-9.mp3";
+import fas005_10 from "@/assets/audio/first-action-sentences/slow-005/page-10.mp3";
+import fas005_11 from "@/assets/audio/first-action-sentences/slow-005/page-11.mp3";
+import fas005_12 from "@/assets/audio/first-action-sentences/slow-005/page-12.mp3";
+import fas005_13 from "@/assets/audio/first-action-sentences/slow-005/page-13.mp3";
+import fas005_14 from "@/assets/audio/first-action-sentences/slow-005/page-14.mp3";
+import fas005_15 from "@/assets/audio/first-action-sentences/slow-005/page-15.mp3";
+import fas005_16 from "@/assets/audio/first-action-sentences/slow-005/page-16.mp3";
+import fas005_17 from "@/assets/audio/first-action-sentences/slow-005/page-17.mp3";
+import fas005_18 from "@/assets/audio/first-action-sentences/slow-005/page-18.mp3";
+import fas005_19 from "@/assets/audio/first-action-sentences/slow-005/page-19.mp3";
+import fas005_20 from "@/assets/audio/first-action-sentences/slow-005/page-20.mp3";
+import fas045_1 from "@/assets/audio/first-action-sentences/slow-045/page-1.mp3";
+import fas045_2 from "@/assets/audio/first-action-sentences/slow-045/page-2.mp3";
+import fas045_3 from "@/assets/audio/first-action-sentences/slow-045/page-3.mp3";
+import fas045_4 from "@/assets/audio/first-action-sentences/slow-045/page-4.mp3";
+import fas045_5 from "@/assets/audio/first-action-sentences/slow-045/page-5.mp3";
+import fas045_6 from "@/assets/audio/first-action-sentences/slow-045/page-6.mp3";
+import fas045_7 from "@/assets/audio/first-action-sentences/slow-045/page-7.mp3";
+import fas045_8 from "@/assets/audio/first-action-sentences/slow-045/page-8.mp3";
+import fas045_9 from "@/assets/audio/first-action-sentences/slow-045/page-9.mp3";
+import fas045_10 from "@/assets/audio/first-action-sentences/slow-045/page-10.mp3";
+import fas045_11 from "@/assets/audio/first-action-sentences/slow-045/page-11.mp3";
+import fas045_12 from "@/assets/audio/first-action-sentences/slow-045/page-12.mp3";
+import fas045_13 from "@/assets/audio/first-action-sentences/slow-045/page-13.mp3";
+import fas045_14 from "@/assets/audio/first-action-sentences/slow-045/page-14.mp3";
+import fas045_15 from "@/assets/audio/first-action-sentences/slow-045/page-15.mp3";
+import fas045_16 from "@/assets/audio/first-action-sentences/slow-045/page-16.mp3";
+import fas045_17 from "@/assets/audio/first-action-sentences/slow-045/page-17.mp3";
+import fas045_18 from "@/assets/audio/first-action-sentences/slow-045/page-18.mp3";
+import fas045_19 from "@/assets/audio/first-action-sentences/slow-045/page-19.mp3";
+import fas045_20 from "@/assets/audio/first-action-sentences/slow-045/page-20.mp3";
+import fasTa1 from "@/assets/audio/first-action-sentences/tamil/page-1.mp3";
+import fasTa005_1 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-1.mp3";
+import fasTa045_1 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-1.mp3";
+import fasTa2 from "@/assets/audio/first-action-sentences/tamil/page-2.mp3";
+import fasTa005_2 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-2.mp3";
+import fasTa045_2 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-2.mp3";
+import fasTa3 from "@/assets/audio/first-action-sentences/tamil/page-3.mp3";
+import fasTa005_3 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-3.mp3";
+import fasTa045_3 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-3.mp3";
+import fasTa4 from "@/assets/audio/first-action-sentences/tamil/page-4.mp3";
+import fasTa005_4 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-4.mp3";
+import fasTa045_4 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-4.mp3";
+import fasTa5 from "@/assets/audio/first-action-sentences/tamil/page-5.mp3";
+import fasTa005_5 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-5.mp3";
+import fasTa045_5 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-5.mp3";
+import fasTa6 from "@/assets/audio/first-action-sentences/tamil/page-6.mp3";
+import fasTa005_6 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-6.mp3";
+import fasTa045_6 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-6.mp3";
+import fasTa7 from "@/assets/audio/first-action-sentences/tamil/page-7.mp3";
+import fasTa005_7 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-7.mp3";
+import fasTa045_7 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-7.mp3";
+import fasTa8 from "@/assets/audio/first-action-sentences/tamil/page-8.mp3";
+import fasTa005_8 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-8.mp3";
+import fasTa045_8 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-8.mp3";
+import fasTa9 from "@/assets/audio/first-action-sentences/tamil/page-9.mp3";
+import fasTa005_9 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-9.mp3";
+import fasTa045_9 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-9.mp3";
+import fasTa10 from "@/assets/audio/first-action-sentences/tamil/page-10.mp3";
+import fasTa005_10 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-10.mp3";
+import fasTa045_10 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-10.mp3";
+import fasTa11 from "@/assets/audio/first-action-sentences/tamil/page-11.mp3";
+import fasTa005_11 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-11.mp3";
+import fasTa045_11 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-11.mp3";
+import fasTa12 from "@/assets/audio/first-action-sentences/tamil/page-12.mp3";
+import fasTa005_12 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-12.mp3";
+import fasTa045_12 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-12.mp3";
+import fasTa13 from "@/assets/audio/first-action-sentences/tamil/page-13.mp3";
+import fasTa005_13 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-13.mp3";
+import fasTa045_13 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-13.mp3";
+import fasTa14 from "@/assets/audio/first-action-sentences/tamil/page-14.mp3";
+import fasTa005_14 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-14.mp3";
+import fasTa045_14 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-14.mp3";
+import fasTa15 from "@/assets/audio/first-action-sentences/tamil/page-15.mp3";
+import fasTa005_15 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-15.mp3";
+import fasTa045_15 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-15.mp3";
+import fasTa16 from "@/assets/audio/first-action-sentences/tamil/page-16.mp3";
+import fasTa005_16 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-16.mp3";
+import fasTa045_16 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-16.mp3";
+import fasTa17 from "@/assets/audio/first-action-sentences/tamil/page-17.mp3";
+import fasTa005_17 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-17.mp3";
+import fasTa045_17 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-17.mp3";
+import fasTa18 from "@/assets/audio/first-action-sentences/tamil/page-18.mp3";
+import fasTa005_18 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-18.mp3";
+import fasTa045_18 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-18.mp3";
+import fasTa19 from "@/assets/audio/first-action-sentences/tamil/page-19.mp3";
+import fasTa005_19 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-19.mp3";
+import fasTa045_19 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-19.mp3";
+import fasTa20 from "@/assets/audio/first-action-sentences/tamil/page-20.mp3";
+import fasTa005_20 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-20.mp3";
+import fasTa045_20 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-20.mp3";
+import fasEs1 from "@/assets/audio/first-action-sentences/spanish/page-1.mp3";
+import fasEs005_1 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-1.mp3";
+import fasEs045_1 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-1.mp3";
+import fasEs2 from "@/assets/audio/first-action-sentences/spanish/page-2.mp3";
+import fasEs005_2 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-2.mp3";
+import fasEs045_2 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-2.mp3";
+import fasEs3 from "@/assets/audio/first-action-sentences/spanish/page-3.mp3";
+import fasEs005_3 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-3.mp3";
+import fasEs045_3 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-3.mp3";
+import fasEs4 from "@/assets/audio/first-action-sentences/spanish/page-4.mp3";
+import fasEs005_4 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-4.mp3";
+import fasEs045_4 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-4.mp3";
+import fasEs5 from "@/assets/audio/first-action-sentences/spanish/page-5.mp3";
+import fasEs005_5 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-5.mp3";
+import fasEs045_5 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-5.mp3";
+import fasEs6 from "@/assets/audio/first-action-sentences/spanish/page-6.mp3";
+import fasEs005_6 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-6.mp3";
+import fasEs045_6 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-6.mp3";
+import fasEs7 from "@/assets/audio/first-action-sentences/spanish/page-7.mp3";
+import fasEs005_7 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-7.mp3";
+import fasEs045_7 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-7.mp3";
+import fasEs8 from "@/assets/audio/first-action-sentences/spanish/page-8.mp3";
+import fasEs005_8 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-8.mp3";
+import fasEs045_8 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-8.mp3";
+import fasEs9 from "@/assets/audio/first-action-sentences/spanish/page-9.mp3";
+import fasEs005_9 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-9.mp3";
+import fasEs045_9 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-9.mp3";
+import fasEs10 from "@/assets/audio/first-action-sentences/spanish/page-10.mp3";
+import fasEs005_10 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-10.mp3";
+import fasEs045_10 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-10.mp3";
+import fasEs11 from "@/assets/audio/first-action-sentences/spanish/page-11.mp3";
+import fasEs005_11 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-11.mp3";
+import fasEs045_11 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-11.mp3";
+import fasEs12 from "@/assets/audio/first-action-sentences/spanish/page-12.mp3";
+import fasEs005_12 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-12.mp3";
+import fasEs045_12 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-12.mp3";
+import fasEs13 from "@/assets/audio/first-action-sentences/spanish/page-13.mp3";
+import fasEs005_13 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-13.mp3";
+import fasEs045_13 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-13.mp3";
+import fasEs14 from "@/assets/audio/first-action-sentences/spanish/page-14.mp3";
+import fasEs005_14 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-14.mp3";
+import fasEs045_14 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-14.mp3";
+import fasEs15 from "@/assets/audio/first-action-sentences/spanish/page-15.mp3";
+import fasEs005_15 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-15.mp3";
+import fasEs045_15 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-15.mp3";
+import fasEs16 from "@/assets/audio/first-action-sentences/spanish/page-16.mp3";
+import fasEs005_16 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-16.mp3";
+import fasEs045_16 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-16.mp3";
+import fasEs17 from "@/assets/audio/first-action-sentences/spanish/page-17.mp3";
+import fasEs005_17 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-17.mp3";
+import fasEs045_17 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-17.mp3";
+import fasEs18 from "@/assets/audio/first-action-sentences/spanish/page-18.mp3";
+import fasEs005_18 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-18.mp3";
+import fasEs045_18 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-18.mp3";
+import fasEs19 from "@/assets/audio/first-action-sentences/spanish/page-19.mp3";
+import fasEs005_19 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-19.mp3";
+import fasEs045_19 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-19.mp3";
+import fasEs20 from "@/assets/audio/first-action-sentences/spanish/page-20.mp3";
+import fasEs005_20 from "@/assets/audio/first-action-sentences/spanish/slow-005/page-20.mp3";
+import fasEs045_20 from "@/assets/audio/first-action-sentences/spanish/slow-045/page-20.mp3";
 import cf1 from "@/assets/stories/counting-friends/slide1.png";
 import cf2 from "@/assets/stories/counting-friends/slide2.png";
 import cf3 from "@/assets/stories/counting-friends/slide3.png";
@@ -335,6 +573,22 @@ import senten5 from "@/assets/stories/naa-modati-vakyalu/slide5.jpg";
 import senten6 from "@/assets/stories/naa-modati-vakyalu/slide6.jpg";
 import senten7 from "@/assets/stories/naa-modati-vakyalu/slide7.jpg";
 import senten8 from "@/assets/stories/naa-modati-vakyalu/slide8.jpg";
+import nmvTamil1 from "@/assets/audio/naa-modati-vakyalu/tamil/page-1.mp3";
+import nmvTamil2 from "@/assets/audio/naa-modati-vakyalu/tamil/page-2.mp3";
+import nmvTamil3 from "@/assets/audio/naa-modati-vakyalu/tamil/page-3.mp3";
+import nmvTamil4 from "@/assets/audio/naa-modati-vakyalu/tamil/page-4.mp3";
+import nmvTamil5 from "@/assets/audio/naa-modati-vakyalu/tamil/page-5.mp3";
+import nmvTamil6 from "@/assets/audio/naa-modati-vakyalu/tamil/page-6.mp3";
+import nmvTamil7 from "@/assets/audio/naa-modati-vakyalu/tamil/page-7.mp3";
+import nmvTamil8 from "@/assets/audio/naa-modati-vakyalu/tamil/page-8.mp3";
+import nmvSpanish1 from "@/assets/audio/naa-modati-vakyalu/spanish/page-1.mp3";
+import nmvSpanish2 from "@/assets/audio/naa-modati-vakyalu/spanish/page-2.mp3";
+import nmvSpanish3 from "@/assets/audio/naa-modati-vakyalu/spanish/page-3.mp3";
+import nmvSpanish4 from "@/assets/audio/naa-modati-vakyalu/spanish/page-4.mp3";
+import nmvSpanish5 from "@/assets/audio/naa-modati-vakyalu/spanish/page-5.mp3";
+import nmvSpanish6 from "@/assets/audio/naa-modati-vakyalu/spanish/page-6.mp3";
+import nmvSpanish7 from "@/assets/audio/naa-modati-vakyalu/spanish/page-7.mp3";
+import nmvSpanish8 from "@/assets/audio/naa-modati-vakyalu/spanish/page-8.mp3";
 import marketCover from "@/assets/covers/market.jpg";
 import ps1 from "@/assets/stories/parrot-song/slide1.png";
 import ps2 from "@/assets/stories/parrot-song/slide2.png";
@@ -497,6 +751,15 @@ export interface StoryPage {
   image: string;
   telugu: string;
   english: string;
+  tamil?: string;
+  tamilAudio?: string;
+  tamilAudioBySpeed?: Record<string, string>;
+  spanish?: string;
+  spanishAudio?: string;
+  spanishAudioBySpeed?: Record<string, string>;
+  wordMap?: Record<string, string>;
+  tamilWordMap?: Record<string, string>;
+  spanishWordMap?: Record<string, string>;
   audio?: string;
   audioBySpeed?: {
     "0.05"?: string;
@@ -547,6 +810,13 @@ export interface Story {
   minutes: number;
   tagline: string;
   pages: StoryPage[];
+  // Optional per-language page sets. When a language has its own full page
+  // list (e.g. a complete Tamil/Spanish alphabet with more letters than the
+  // Telugu base), the reader switches to it instead of just swapping text.
+  pagesByLang?: {
+    tamil?: StoryPage[];
+    spanish?: StoryPage[];
+  };
 }
 
 export const CATEGORIES: Category[] = [
@@ -618,6 +888,142 @@ const twoCatsFinalPageLearnerHighlightBySpeed: StoryPage["highlightBySpeed"] = {
 };
 
 export const stories: Story[] = [
+  {
+    id: "naa-modati-vakyalu",
+    title: "Naa Modati Vakyalu",
+    teluguTitle: "నా మొదటి వాక్యాలు",
+    cover: naaModatiVakyaluCover,
+    category: "Beginner Telugu",
+    age: "3–6",
+    minutes: 3,
+    tagline: "My very first Telugu sentences.",
+    pages: [
+      { image: senten1, telugu: "నా పేరు రాజా.", english: "My name is Raja.", tamil: "என் பெயர் ராஜா.", tamilAudio: nmvTamil1, spanish: "Me llamo Raja.", spanishAudio: nmvSpanish1,
+        wordMap: { "నా": "my", "పేరు": "name", "రాజా": "Raja" },
+        tamilWordMap: { "என்": "my", "பெயர்": "name", "ராஜா": "Raja" },
+        spanishWordMap: { "Me": "I", "llamo": "am called", "Raja": "Raja" } },
+      { image: senten2, telugu: "నేను స్కూల్‌కి వెళ్తాను.", english: "I go to school.", tamil: "நான் பள்ளிக்கு செல்கிறேன்.", tamilAudio: nmvTamil2, spanish: "Voy a la escuela.", spanishAudio: nmvSpanish2,
+        wordMap: { "నేను": "I", "స్కూల్‌కి": "to school", "వెళ్తాను": "go" },
+        tamilWordMap: { "நான்": "I", "பள்ளிக்கு": "to school", "செல்கிறேன்": "go" },
+        spanishWordMap: { "Voy": "I go", "a": "to", "la": "the", "escuela": "school" } },
+      { image: senten3, telugu: "నేను USA లో ఉంటాను.", english: "I live in the USA.", tamil: "நான் அமெரிக்காவில் வசிக்கிறேன்.", tamilAudio: nmvTamil3, spanish: "Vivo en Estados Unidos.", spanishAudio: nmvSpanish3,
+        wordMap: { "నేను": "I", "USA": "USA", "లో": "in", "ఉంటాను": "live" },
+        tamilWordMap: { "நான்": "I", "அமெரிக்காவில்": "in America", "வசிக்கிறேன்": "live" },
+        spanishWordMap: { "Vivo": "I live", "en": "in", "Estados": "States", "Unidos": "United" } },
+      { image: senten4, telugu: "నాకు అన్నం-పప్పు అంటే చాలా ఇష్టం.", english: "I love rice and dal very much.", tamil: "எனக்கு சோறு-பருப்பு என்றால் மிகவும் பிடிக்கும்.", tamilAudio: nmvTamil4, spanish: "Me encanta el arroz con dal.", spanishAudio: nmvSpanish4,
+        wordMap: { "నాకు": "to me", "అన్నం-పప్పు": "rice & dal", "అంటే": "means", "చాలా": "very", "ఇష్టం": "love" },
+        tamilWordMap: { "எனக்கு": "to me", "சோறு-பருப்பு": "rice & dal", "என்றால்": "means", "மிகவும்": "very", "பிடிக்கும்": "love" },
+        spanishWordMap: { "Me": "to me", "encanta": "love", "el": "the", "arroz": "rice", "con": "with", "dal": "dal" } },
+      { image: senten5, telugu: "మా అమ్మ పేరు రాణి.", english: "My mother's name is Rani.", tamil: "என் அம்மா பெயர் ராணி.", tamilAudio: nmvTamil5, spanish: "Mi mamá se llama Rani.", spanishAudio: nmvSpanish5,
+        wordMap: { "మా": "my", "అమ్మ": "mother", "పేరు": "name", "రాణి": "Rani" },
+        tamilWordMap: { "என்": "my", "அம்மா": "mother", "பெயர்": "name", "ராணி": "Rani" },
+        spanishWordMap: { "Mi": "my", "mamá": "mom", "se": "herself", "llama": "calls", "Rani": "Rani" } },
+      { image: senten6, telugu: "నేను తెలుగు నేర్చుకుంటున్నాను.", english: "I am learning Telugu.", tamil: "நான் தமிழ் கற்றுக்கொள்கிறேன்.", tamilAudio: nmvTamil6, spanish: "Estoy aprendiendo español.", spanishAudio: nmvSpanish6,
+        wordMap: { "నేను": "I", "తెలుగు": "Telugu", "నేర్చుకుంటున్నాను": "am learning" },
+        tamilWordMap: { "நான்": "I", "தமிழ்": "Tamil", "கற்றுக்கொள்கிறேன்": "am learning" },
+        spanishWordMap: { "Estoy": "I am", "aprendiendo": "learning", "español": "Spanish" } },
+      { image: senten7, telugu: "నా చెల్లి పేరు క్యూటీ.", english: "My younger sister's name is Cutie.", tamil: "என் தங்கை பெயர் க்யூட்டி.", tamilAudio: nmvTamil7, spanish: "Mi hermana se llama Cutie.", spanishAudio: nmvSpanish7,
+        wordMap: { "నా": "my", "చెల్లి": "sister", "పేరు": "name", "క్యూటీ": "Cutie" },
+        tamilWordMap: { "என்": "my", "தங்கை": "sister", "பெயர்": "name", "க்யூட்டி": "Cutie" },
+        spanishWordMap: { "Mi": "my", "hermana": "sister", "se": "herself", "llama": "calls", "Cutie": "Cutie" } },
+      { image: senten8, telugu: "నా అన్న పేరు పండు.", english: "My elder brother's name is Pandu.", tamil: "என் அண்ணன் பெயர் பண்டு.", tamilAudio: nmvTamil8, spanish: "Mi hermano se llama Pandu.", spanishAudio: nmvSpanish8,
+        wordMap: { "నా": "my", "అన్న": "brother", "పేరు": "name", "పండు": "Pandu" },
+        tamilWordMap: { "என்": "my", "அண்ணன்": "brother", "பெயர்": "name", "பண்டு": "Pandu" },
+        spanishWordMap: { "Mi": "my", "hermano": "brother", "se": "himself", "llama": "calls", "Pandu": "Pandu" } },
+    ],
+  },
+  {
+    id: "first-action-sentences",
+    title: "First Action Sentences",
+    teluguTitle: "నా మొదటి భావాలు",
+    cover: letterPlaceholder,
+    category: "Beginner Telugu",
+    age: "3–6",
+    minutes: 4,
+    tagline: "How we say what we feel and want.",
+    pages: [
+      { image: letterPlaceholder, audio: fas1, audioBySpeed: { "0.05": fas005_1, "0.45": fas045_1 }, telugu: "నాకు సంతోషంగా ఉంది.", english: "I am happy.",
+        tamil: "எனக்கு சந்தோஷமாக இருக்கிறது.", tamilAudio: fasTa1, tamilAudioBySpeed: { "0.05": fasTa005_1, "0.45": fasTa045_1 },
+        spanish: "Estoy feliz.", spanishAudio: fasEs1, spanishAudioBySpeed: { "0.05": fasEs005_1, "0.45": fasEs045_1 },
+        wordMap: {"నాకు":"to me","సంతోషంగా":"happy","ఉంది":"is"}, tamilWordMap: {"எனக்கு":"to me","சந்தோஷமாக":"happy","இருக்கிறது":"is"}, spanishWordMap: {"Estoy":"I am","feliz":"happy"} },
+      { image: letterPlaceholder, audio: fas2, audioBySpeed: { "0.05": fas005_2, "0.45": fas045_2 }, telugu: "నీకు ఏం కావాలి?", english: "What do you want?",
+        tamil: "உனக்கு என்ன வேண்டும்?", tamilAudio: fasTa2, tamilAudioBySpeed: { "0.05": fasTa005_2, "0.45": fasTa045_2 },
+        spanish: "¿Qué quieres?", spanishAudio: fasEs2, spanishAudioBySpeed: { "0.05": fasEs005_2, "0.45": fasEs045_2 },
+        wordMap: {"నీకు":"to you","ఏం":"what","కావాలి":"want"}, tamilWordMap: {"உனக்கு":"to you","என்ன":"what","வேண்டும்":"want"}, spanishWordMap: {"Qué":"what","quieres":"you want"} },
+      { image: letterPlaceholder, audio: fas3, audioBySpeed: { "0.05": fas005_3, "0.45": fas045_3 }, telugu: "మనకి ఆట ఇష్టం.", english: "We like to play.",
+        tamil: "நமக்கு விளையாட்டு பிடிக்கும்.", tamilAudio: fasTa3, tamilAudioBySpeed: { "0.05": fasTa005_3, "0.45": fasTa045_3 },
+        spanish: "Nos gusta jugar.", spanishAudio: fasEs3, spanishAudioBySpeed: { "0.05": fasEs005_3, "0.45": fasEs045_3 },
+        wordMap: {"మనకి":"to us","ఆట":"play","ఇష్టం":"like"}, tamilWordMap: {"நமக்கு":"to us","விளையாட்டு":"play","பிடிக்கும்":"like"}, spanishWordMap: {"Nos":"to us","gusta":"like","jugar":"to play"} },
+      { image: letterPlaceholder, audio: fas4, audioBySpeed: { "0.05": fas005_4, "0.45": fas045_4 }, telugu: "వాళ్ళకి అన్నం కావాలి.", english: "They want food.",
+        tamil: "அவர்களுக்கு சாப்பாடு வேண்டும்.", tamilAudio: fasTa4, tamilAudioBySpeed: { "0.05": fasTa005_4, "0.45": fasTa045_4 },
+        spanish: "Ellos quieren comida.", spanishAudio: fasEs4, spanishAudioBySpeed: { "0.05": fasEs005_4, "0.45": fasEs045_4 },
+        wordMap: {"వాళ్ళకి":"to them","అన్నం":"food","కావాలి":"want"}, tamilWordMap: {"அவர்களுக்கு":"to them","சாப்பாடு":"food","வேண்டும்":"want"}, spanishWordMap: {"Ellos":"they","quieren":"want","comida":"food"} },
+      { image: letterPlaceholder, audio: fas5, audioBySpeed: { "0.05": fas005_5, "0.45": fas045_5 }, telugu: "అమ్మకి పువ్వు ఇచ్చాను.", english: "I gave a flower to mother.",
+        tamil: "அம்மாவுக்கு பூ கொடுத்தேன்.", tamilAudio: fasTa5, tamilAudioBySpeed: { "0.05": fasTa005_5, "0.45": fasTa045_5 },
+        spanish: "Le di una flor a mamá.", spanishAudio: fasEs5, spanishAudioBySpeed: { "0.05": fasEs005_5, "0.45": fasEs045_5 },
+        wordMap: {"అమ్మకి":"to mother","పువ్వు":"flower","ఇచ్చాను":"gave"}, tamilWordMap: {"அம்மாவுக்கு":"to mother","பூ":"flower","கொடுத்தேன்":"gave"}, spanishWordMap: {"Le":"to her","di":"gave","una":"a","flor":"flower","a":"to","mamá":"mom"} },
+      { image: letterPlaceholder, audio: fas6, audioBySpeed: { "0.05": fas005_6, "0.45": fas045_6 }, telugu: "ఆయనకి నమస్కారం చెప్పు.", english: "Say hello to him.",
+        tamil: "அவருக்கு வணக்கம் சொல்லு.", tamilAudio: fasTa6, tamilAudioBySpeed: { "0.05": fasTa005_6, "0.45": fasTa045_6 },
+        spanish: "Dile hola.", spanishAudio: fasEs6, spanishAudioBySpeed: { "0.05": fasEs005_6, "0.45": fasEs045_6 },
+        wordMap: {"ఆయనకి":"to him","నమస్కారం":"hello","చెప్పు":"say"}, tamilWordMap: {"அவருக்கு":"to him","வணக்கம்":"hello","சொல்லு":"say"}, spanishWordMap: {"Dile":"tell him","hola":"hello"} },
+      { image: letterPlaceholder, audio: fas7, audioBySpeed: { "0.05": fas005_7, "0.45": fas045_7 }, telugu: "తనకి బొమ్మ కావాలి.", english: "She wants a toy.",
+        tamil: "அவளுக்கு பொம்மை வேண்டும்.", tamilAudio: fasTa7, tamilAudioBySpeed: { "0.05": fasTa005_7, "0.45": fasTa045_7 },
+        spanish: "Ella quiere un juguete.", spanishAudio: fasEs7, spanishAudioBySpeed: { "0.05": fasEs005_7, "0.45": fasEs045_7 },
+        wordMap: {"తనకి":"to her/him","బొమ్మ":"toy","కావాలి":"wants"}, tamilWordMap: {"அவளுக்கு":"to her","பொம்மை":"toy","வேண்டும்":"wants"}, spanishWordMap: {"Ella":"she","quiere":"wants","un":"a","juguete":"toy"} },
+      { image: letterPlaceholder, audio: fas8, audioBySpeed: { "0.05": fas005_8, "0.45": fas045_8 }, telugu: "ఇతని పేరు ఏమిటి?", english: "What is his name?",
+        tamil: "அவனுடைய பெயர் என்ன?", tamilAudio: fasTa8, tamilAudioBySpeed: { "0.05": fasTa005_8, "0.45": fasTa045_8 },
+        spanish: "¿Cómo se llama él?", spanishAudio: fasEs8, spanishAudioBySpeed: { "0.05": fasEs005_8, "0.45": fasEs045_8 },
+        wordMap: {"ఇతని":"his","పేరు":"name","ఏమిటి":"what is"}, tamilWordMap: {"அவனுடைய":"his","பெயர்":"name","என்ன":"what is"}, spanishWordMap: {"Cómo":"how","se":"himself","llama":"is called","él":"he"} },
+      { image: letterPlaceholder, audio: fas9, audioBySpeed: { "0.05": fas005_9, "0.45": fas045_9 }, telugu: "అందరికి ధన్యవాదాలు.", english: "Thank you everyone.",
+        tamil: "அனைவருக்கும் நன்றி.", tamilAudio: fasTa9, tamilAudioBySpeed: { "0.05": fasTa005_9, "0.45": fasTa045_9 },
+        spanish: "Gracias a todos.", spanishAudio: fasEs9, spanishAudioBySpeed: { "0.05": fasEs005_9, "0.45": fasEs045_9 },
+        wordMap: {"అందరికి":"to everyone","ధన్యవాదాలు":"thank you"}, tamilWordMap: {"அனைவருக்கும்":"to everyone","நன்றி":"thank you"}, spanishWordMap: {"Gracias":"thank you","a":"to","todos":"everyone"} },
+      { image: letterPlaceholder, audio: fas10, audioBySpeed: { "0.05": fas005_10, "0.45": fas045_10 }, telugu: "ఇది నా పుస్తకం.", english: "This is my book.",
+        tamil: "இது என் புத்தகம்.", tamilAudio: fasTa10, tamilAudioBySpeed: { "0.05": fasTa005_10, "0.45": fasTa045_10 },
+        spanish: "Este es mi libro.", spanishAudio: fasEs10, spanishAudioBySpeed: { "0.05": fasEs005_10, "0.45": fasEs045_10 },
+        wordMap: {"ఇది":"this","నా":"my","పుస్తకం":"book"}, tamilWordMap: {"இது":"this","என்":"my","புத்தகம்":"book"}, spanishWordMap: {"Este":"this","es":"is","mi":"my","libro":"book"} },
+      { image: letterPlaceholder, audio: fas11, audioBySpeed: { "0.05": fas005_11, "0.45": fas045_11 }, telugu: "అది ఎవరిది?", english: "Whose is that?",
+        tamil: "அது யாருடையது?", tamilAudio: fasTa11, tamilAudioBySpeed: { "0.05": fasTa005_11, "0.45": fasTa045_11 },
+        spanish: "¿De quién es eso?", spanishAudio: fasEs11, spanishAudioBySpeed: { "0.05": fasEs005_11, "0.45": fasEs045_11 },
+        wordMap: {"అది":"that","ఎవరిది":"whose is"}, tamilWordMap: {"அது":"that","யாருடையது":"whose is"}, spanishWordMap: {"De":"of","quién":"whom","es":"is","eso":"that"} },
+      { image: letterPlaceholder, audio: fas12, audioBySpeed: { "0.05": fas005_12, "0.45": fas045_12 }, telugu: "అది అక్కడ ఉంది.", english: "It is there.",
+        tamil: "அது அங்கே இருக்கிறது.", tamilAudio: fasTa12, tamilAudioBySpeed: { "0.05": fasTa005_12, "0.45": fasTa045_12 },
+        spanish: "Está allí.", spanishAudio: fasEs12, spanishAudioBySpeed: { "0.05": fasEs005_12, "0.45": fasEs045_12 },
+        wordMap: {"అది":"it","అక్కడ":"there","ఉంది":"is"}, tamilWordMap: {"அது":"it","அங்கே":"there","இருக்கிறது":"is"}, spanishWordMap: {"Está":"it is","allí":"there"} },
+      { image: letterPlaceholder, audio: fas13, audioBySpeed: { "0.05": fas005_13, "0.45": fas045_13 }, telugu: "ఇది ఇక్కడ ఉంది.", english: "It is here.",
+        tamil: "இது இங்கே இருக்கிறது.", tamilAudio: fasTa13, tamilAudioBySpeed: { "0.05": fasTa005_13, "0.45": fasTa045_13 },
+        spanish: "Está aquí.", spanishAudio: fasEs13, spanishAudioBySpeed: { "0.05": fasEs005_13, "0.45": fasEs045_13 },
+        wordMap: {"ఇది":"it","ఇక్కడ":"here","ఉంది":"is"}, tamilWordMap: {"இது":"it","இங்கே":"here","இருக்கிறது":"is"}, spanishWordMap: {"Está":"it is","aquí":"here"} },
+      { image: letterPlaceholder, audio: fas14, audioBySpeed: { "0.05": fas005_14, "0.45": fas045_14 }, telugu: "నీళ్లు ఉన్నాయా?", english: "Is there water?",
+        tamil: "தண்ணீர் இருக்கிறதா?", tamilAudio: fasTa14, tamilAudioBySpeed: { "0.05": fasTa005_14, "0.45": fasTa045_14 },
+        spanish: "¿Hay agua?", spanishAudio: fasEs14, spanishAudioBySpeed: { "0.05": fasEs005_14, "0.45": fasEs045_14 },
+        wordMap: {"నీళ్లు":"water","ఉన్నాయా":"is there?"}, tamilWordMap: {"தண்ணீர்":"water","இருக்கிறதா":"is there?"}, spanishWordMap: {"Hay":"is there","agua":"water"} },
+      { image: letterPlaceholder, audio: fas15, audioBySpeed: { "0.05": fas005_15, "0.45": fas045_15 }, telugu: "అవును, నిజమే!", english: "Yes, it's true!",
+        tamil: "ஆமாம், உண்மைதான்!", tamilAudio: fasTa15, tamilAudioBySpeed: { "0.05": fasTa005_15, "0.45": fasTa045_15 },
+        spanish: "¡Sí, es verdad!", spanishAudio: fasEs15, spanishAudioBySpeed: { "0.05": fasEs005_15, "0.45": fasEs045_15 },
+        wordMap: {"అవును":"yes","నిజమే":"it's true"}, tamilWordMap: {"ஆமாம்":"yes","உண்மைதான்":"it's true"}, spanishWordMap: {"Sí":"yes","es":"it's","verdad":"true"} },
+      { image: letterPlaceholder, audio: fas16, audioBySpeed: { "0.05": fas005_16, "0.45": fas045_16 }, telugu: "ఓహ్, భలే ఉంది!", english: "Oh, it's lovely!",
+        tamil: "ஓ, அழகாக இருக்கிறது!", tamilAudio: fasTa16, tamilAudioBySpeed: { "0.05": fasTa005_16, "0.45": fasTa045_16 },
+        spanish: "¡Oh, es precioso!", spanishAudio: fasEs16, spanishAudioBySpeed: { "0.05": fasEs005_16, "0.45": fasEs045_16 },
+        wordMap: {"ఓహ్":"oh","భలే":"lovely","ఉంది":"is"}, tamilWordMap: {"ஓ":"oh","அழகாக":"lovely","இருக்கிறது":"is"}, spanishWordMap: {"Oh":"oh","es":"it's","precioso":"lovely"} },
+      { image: letterPlaceholder, audio: fas17, audioBySpeed: { "0.05": fas005_17, "0.45": fas045_17 }, telugu: "ఎందుకు ఏడుస్తున్నావు?", english: "Why are you crying?",
+        tamil: "ஏன் அழுகிறாய்?", tamilAudio: fasTa17, tamilAudioBySpeed: { "0.05": fasTa005_17, "0.45": fasTa045_17 },
+        spanish: "¿Por qué lloras?", spanishAudio: fasEs17, spanishAudioBySpeed: { "0.05": fasEs005_17, "0.45": fasEs045_17 },
+        wordMap: {"ఎందుకు":"why","ఏడుస్తున్నావు":"are you crying"}, tamilWordMap: {"ஏன்":"why","அழுகிறாய்":"are you crying"}, spanishWordMap: {"Por":"why","qué":"what","lloras":"you cry"} },
+      { image: letterPlaceholder, audio: fas18, audioBySpeed: { "0.05": fas005_18, "0.45": fas045_18 }, telugu: "ఎప్పుడు వెళ్దాం?", english: "When shall we go?",
+        tamil: "எப்போது போகலாம்?", tamilAudio: fasTa18, tamilAudioBySpeed: { "0.05": fasTa005_18, "0.45": fasTa045_18 },
+        spanish: "¿Cuándo vamos?", spanishAudio: fasEs18, spanishAudioBySpeed: { "0.05": fasEs005_18, "0.45": fasEs045_18 },
+        wordMap: {"ఎప్పుడు":"when","వెళ్దాం":"shall we go"}, tamilWordMap: {"எப்போது":"when","போகலாம்":"shall we go"}, spanishWordMap: {"Cuándo":"when","vamos":"shall we go"} },
+      { image: letterPlaceholder, audio: fas19, audioBySpeed: { "0.05": fas005_19, "0.45": fas045_19 }, telugu: "అతని బ్యాగ్ ఇది.", english: "This is his bag.",
+        tamil: "இது அவனுடைய பை.", tamilAudio: fasTa19, tamilAudioBySpeed: { "0.05": fasTa005_19, "0.45": fasTa045_19 },
+        spanish: "Esta es su mochila.", spanishAudio: fasEs19, spanishAudioBySpeed: { "0.05": fasEs005_19, "0.45": fasEs045_19 },
+        wordMap: {"అతని":"his","బ్యాగ్":"bag","ఇది":"this is"}, tamilWordMap: {"இது":"this is","அவனுடைய":"his","பை":"bag"}, spanishWordMap: {"Esta":"this","es":"is","su":"his","mochila":"bag"} },
+      { image: letterPlaceholder, audio: fas20, audioBySpeed: { "0.05": fas005_20, "0.45": fas045_20 }, telugu: "ఆమె నా అక్క.", english: "She is my elder sister.",
+        tamil: "அவள் என் அக்கா.", tamilAudio: fasTa20, tamilAudioBySpeed: { "0.05": fasTa005_20, "0.45": fasTa045_20 },
+        spanish: "Ella es mi hermana mayor.", spanishAudio: fasEs20, spanishAudioBySpeed: { "0.05": fasEs005_20, "0.45": fasEs045_20 },
+        wordMap: {"ఆమె":"she","నా":"my","అక్క":"elder sister"}, tamilWordMap: {"அவள்":"she","என்":"my","அக்கா":"elder sister"}, spanishWordMap: {"Ella":"she","es":"is","mi":"my","hermana":"sister","mayor":"elder"} },
+    ],
+  },
   // ─────────── ANIMAL STORIES ───────────
   {
     id: "moonlight-rhymes",
@@ -802,7 +1208,7 @@ export const stories: Story[] = [
   },
   {
     id: "telugu-letters",
-    title: "My First Telugu Letters",
+    title: "My First Letters",
     teluguTitle: "నా మొదటి అక్షరాలు",
     cover: teluguLettersCover,
     category: "Letters",
@@ -810,21 +1216,88 @@ export const stories: Story[] = [
     minutes: 6,
     tagline: "Meet the friendly vowels of Telugu.",
     pages: [
-      { image: tl1, audio: tlAudio1, telugu: "అ — అమ్మ", english: "A — Amma (Mother)" },
-      { image: tl2, audio: tlAudio2, telugu: "ఆ — ఆవు", english: "Aa — Aavu (Cow)" },
-      { image: tl3, audio: tlAudio3, telugu: "ఇ — ఇల్లు", english: "I — Illu (House)" },
-      { image: tl4, audio: tlAudio4, telugu: "ఈ — ఈగ", english: "Ee — Eega (Fly)" },
-      { image: tl5, audio: tlAudio5, telugu: "ఉ — ఉడుత", english: "U — Uduta (Squirrel)" },
-      { image: tl6, audio: tlAudio6, telugu: "ఊ — ఊయల", english: "Oo — Ooyala (Swing)" },
-      { image: tl7, audio: tlAudio7, telugu: "ఎ — ఎలుక", english: "E — Eluka (Mouse)" },
-      { image: tl8, audio: tlAudio8, telugu: "ఏ — ఏనుగు", english: "Ae — Aenugu (Elephant)" },
-      { image: tl9, audio: tlAudio9, telugu: "ఐ — ఐదు", english: "Ai — Aidu (Five)" },
-      { image: tl10, audio: tlAudio10, telugu: "ఒ — ఒంటె", english: "O — Onte (Camel)" },
-      { image: tl11, audio: tlAudio11, telugu: "ఓ — ఓడ", english: "Oh — Oda (Boat)" },
-      { image: tl12, audio: tlAudio12, telugu: "ఔ — ఔషధం", english: "Au — Aushadham (Medicine)" },
-      { image: tl13, audio: tlAudio13, telugu: "అం — అంగడి", english: "Am — Angadi (Shop)" },
-      { image: tl14, audio: tlAudio14, telugu: "అః — ప్రాణాః", english: "Ah — Praanaah (Life)" },
+      { image: tl1, audio: tlAudio1, telugu: "అ — అమ్మ", english: "A — Amma (Mother)", wordMap: { "అమ్మ": "mother" } },
+      { image: tl2, audio: tlAudio2, telugu: "ఆ — ఆవు", english: "Aa — Aavu (Cow)", wordMap: { "ఆవు": "cow" } },
+      { image: tl3, audio: tlAudio3, telugu: "ఇ — ఇల్లు", english: "I — Illu (House)", wordMap: { "ఇల్లు": "house" } },
+      { image: tl4, audio: tlAudio4, telugu: "ఈ — ఈగ", english: "Ee — Eega (Fly)", wordMap: { "ఈగ": "fly" } },
+      { image: tl5, audio: tlAudio5, telugu: "ఉ — ఉడుత", english: "U — Uduta (Squirrel)", wordMap: { "ఉడుత": "squirrel" } },
+      { image: tl6, audio: tlAudio6, telugu: "ఊ — ఊయల", english: "Oo — Ooyala (Swing)", wordMap: { "ఊయల": "swing" } },
+      { image: tl7, audio: tlAudio7, telugu: "ఎ — ఎలుక", english: "E — Eluka (Mouse)", wordMap: { "ఎలుక": "mouse" } },
+      { image: tl8, audio: tlAudio8, telugu: "ఏ — ఏనుగు", english: "Ae — Aenugu (Elephant)", wordMap: { "ఏనుగు": "elephant" } },
+      { image: tl9, audio: tlAudio9, telugu: "ఐ — ఐదు", english: "Ai — Aidu (Five)", wordMap: { "ఐదు": "five" } },
+      { image: tl10, audio: tlAudio10, telugu: "ఒ — ఒంటె", english: "O — Onte (Camel)", wordMap: { "ఒంటె": "camel" } },
+      { image: tl11, audio: tlAudio11, telugu: "ఓ — ఓడ", english: "Oh — Oda (Boat)", wordMap: { "ఓడ": "boat" } },
+      { image: tl12, audio: tlAudio12, telugu: "ఔ — ఔషధం", english: "Au — Aushadham (Medicine)", wordMap: { "ఔషధం": "medicine" } },
+      { image: tl13, audio: tlAudio13, telugu: "అం — అంగడి", english: "Am — Angadi (Shop)", wordMap: { "అంగడి": "shop" } },
+      { image: tl14, audio: tlAudio14, telugu: "అః — ప్రాణాః", english: "Ah — Praanaah (Life)", wordMap: { "ప్రాణాః": "life" } },
     ],
+    pagesByLang: {
+      // Full Tamil alphabet: 12 vowels + ஃ (aytham) + 18 consonants.
+      // Pages 1–14 reuse the Telugu images; 15+ use a placeholder until real art is added.
+      tamil: [
+        { image: tl1, telugu: "அ — அம்மா", english: "A — Amma (Mother)", tamilAudio: tlTa1, tamilWordMap: { "அம்மா": "mother" } },
+        { image: tl2, telugu: "ஆ — ஆடு", english: "Aa — Aadu (Goat)", tamilAudio: tlTa2, tamilWordMap: { "ஆடு": "goat" } },
+        { image: tl3, telugu: "இ — இலை", english: "I — Ilai (Leaf)", tamilAudio: tlTa3, tamilWordMap: { "இலை": "leaf" } },
+        { image: tl4, telugu: "ஈ — ஈ", english: "Ee — Ee (Fly)", tamilAudio: tlTa4, tamilWordMap: { "ஈ": "fly" } },
+        { image: tl5, telugu: "உ — உப்பு", english: "U — Uppu (Salt)", tamilAudio: tlTa5, tamilWordMap: { "உப்பு": "salt" } },
+        { image: tl6, telugu: "ஊ — ஊஞ்சல்", english: "Oo — Oonjal (Swing)", tamilAudio: tlTa6, tamilWordMap: { "ஊஞ்சல்": "swing" } },
+        { image: tl7, telugu: "எ — எலி", english: "E — Eli (Mouse)", tamilAudio: tlTa7, tamilWordMap: { "எலி": "mouse" } },
+        { image: tl8, telugu: "ஏ — ஏணி", english: "Ae — Aeni (Ladder)", tamilAudio: tlTa8, tamilWordMap: { "ஏணி": "ladder" } },
+        { image: tl9, telugu: "ஐ — ஐந்து", english: "Ai — Aindhu (Five)", tamilAudio: tlTa9, tamilWordMap: { "ஐந்து": "five" } },
+        { image: tl10, telugu: "ஒ — ஒட்டகம்", english: "O — Ottagam (Camel)", tamilAudio: tlTa10, tamilWordMap: { "ஒட்டகம்": "camel" } },
+        { image: tl11, telugu: "ஓ — ஓடம்", english: "Oh — Oadam (Boat)", tamilAudio: tlTa11, tamilWordMap: { "ஓடம்": "boat" } },
+        { image: tl12, telugu: "ஔ — ஔடதம்", english: "Au — Aushadham (Medicine)", tamilAudio: tlTa12, tamilWordMap: { "ஔடதம்": "medicine" } },
+        { image: tl13, telugu: "ஃ — அஃது", english: "Akh — Ahdhu (That)", tamilAudio: tlTa13, tamilWordMap: { "அஃது": "that" } },
+        { image: tl14, telugu: "க — கை", english: "Ka — Kai (Hand)", tamilAudio: tlTa14, tamilWordMap: { "கை": "hand" } },
+        { image: letterPlaceholder, telugu: "ங", english: "Nga", tamilAudio: tlTa15, tamilWordMap: { "ங": "‘nga’ sound" } },
+        { image: letterPlaceholder, telugu: "ச — சாவி", english: "Cha — Saavi (Key)", tamilAudio: tlTa16, tamilWordMap: { "சாவி": "key" } },
+        { image: letterPlaceholder, telugu: "ஞ — ஞாயிறு", english: "Nya — Nyaayiru (Sun)", tamilAudio: tlTa17, tamilWordMap: { "ஞாயிறு": "sun" } },
+        { image: letterPlaceholder, telugu: "ட — டமாரம்", english: "Ta — Damaaram (Drum)", tamilAudio: tlTa18, tamilWordMap: { "டமாரம்": "drum" } },
+        { image: letterPlaceholder, telugu: "ண", english: "Na", tamilAudio: tlTa19, tamilWordMap: { "ண": "‘Na’ sound" } },
+        { image: letterPlaceholder, telugu: "த — தலை", english: "Tha — Thalai (Head)", tamilAudio: tlTa20, tamilWordMap: { "தலை": "head" } },
+        { image: letterPlaceholder, telugu: "ந — நாய்", english: "Na — Naai (Dog)", tamilAudio: tlTa21, tamilWordMap: { "நாய்": "dog" } },
+        { image: letterPlaceholder, telugu: "ப — பசு", english: "Pa — Pasu (Cow)", tamilAudio: tlTa22, tamilWordMap: { "பசு": "cow" } },
+        { image: letterPlaceholder, telugu: "ம — மரம்", english: "Ma — Maram (Tree)", tamilAudio: tlTa23, tamilWordMap: { "மரம்": "tree" } },
+        { image: letterPlaceholder, telugu: "ய — யானை", english: "Ya — Yaanai (Elephant)", tamilAudio: tlTa24, tamilWordMap: { "யானை": "elephant" } },
+        { image: letterPlaceholder, telugu: "ர — ரயில்", english: "Ra — Rayil (Train)", tamilAudio: tlTa25, tamilWordMap: { "ரயில்": "train" } },
+        { image: letterPlaceholder, telugu: "ல — லட்டு", english: "La — Laddu (Sweet)", tamilAudio: tlTa26, tamilWordMap: { "லட்டு": "sweet" } },
+        { image: letterPlaceholder, telugu: "வ — வாழை", english: "Va — Vaazhai (Banana)", tamilAudio: tlTa27, tamilWordMap: { "வாழை": "banana" } },
+        { image: letterPlaceholder, telugu: "ழ", english: "Zha", tamilAudio: tlTa28, tamilWordMap: { "ழ": "‘zha’ sound" } },
+        { image: letterPlaceholder, telugu: "ள", english: "La", tamilAudio: tlTa29, tamilWordMap: { "ள": "‘La’ sound" } },
+        { image: letterPlaceholder, telugu: "ற", english: "Ra", tamilAudio: tlTa30, tamilWordMap: { "ற": "‘Ra’ sound" } },
+        { image: letterPlaceholder, telugu: "ன", english: "Na", tamilAudio: tlTa31, tamilWordMap: { "ன": "‘na’ sound" } },
+      ],
+      // Full Spanish alphabet: A–Z + Ñ (27 letters). Pages 1–14 reuse Telugu images; 15+ placeholder.
+      spanish: [
+        { image: tl1, telugu: "A — Abuela", english: "A — Abuela (Grandmother)", spanishAudio: tlEs1, spanishWordMap: { "Abuela": "grandma" } },
+        { image: tl2, telugu: "B — Bebé", english: "B — Bebé (Baby)", spanishAudio: tlEs2, spanishWordMap: { "Bebé": "baby" } },
+        { image: tl3, telugu: "C — Casa", english: "C — Casa (House)", spanishAudio: tlEs3, spanishWordMap: { "Casa": "house" } },
+        { image: tl4, telugu: "D — Dedo", english: "D — Dedo (Finger)", spanishAudio: tlEs4, spanishWordMap: { "Dedo": "finger" } },
+        { image: tl5, telugu: "E — Elefante", english: "E — Elefante (Elephant)", spanishAudio: tlEs5, spanishWordMap: { "Elefante": "elephant" } },
+        { image: tl6, telugu: "F — Flor", english: "F — Flor (Flower)", spanishAudio: tlEs6, spanishWordMap: { "Flor": "flower" } },
+        { image: tl7, telugu: "G — Gato", english: "G — Gato (Cat)", spanishAudio: tlEs7, spanishWordMap: { "Gato": "cat" } },
+        { image: tl8, telugu: "H — Hoja", english: "H — Hoja (Leaf)", spanishAudio: tlEs8, spanishWordMap: { "Hoja": "leaf" } },
+        { image: tl9, telugu: "I — Isla", english: "I — Isla (Island)", spanishAudio: tlEs9, spanishWordMap: { "Isla": "island" } },
+        { image: tl10, telugu: "J — Jugo", english: "J — Jugo (Juice)", spanishAudio: tlEs10, spanishWordMap: { "Jugo": "juice" } },
+        { image: tl11, telugu: "K — Koala", english: "K — Koala (Koala)", spanishAudio: tlEs11, spanishWordMap: { "Koala": "koala" } },
+        { image: tl12, telugu: "L — Luna", english: "L — Luna (Moon)", spanishAudio: tlEs12, spanishWordMap: { "Luna": "moon" } },
+        { image: tl13, telugu: "M — Mamá", english: "M — Mamá (Mom)", spanishAudio: tlEs13, spanishWordMap: { "Mamá": "mom" } },
+        { image: tl14, telugu: "N — Niño", english: "N — Niño (Boy)", spanishAudio: tlEs14, spanishWordMap: { "Niño": "boy" } },
+        { image: letterPlaceholder, telugu: "Ñ — Ñu", english: "Ñ — Ñu (Gnu)", spanishAudio: tlEs15, spanishWordMap: { "Ñu": "gnu" } },
+        { image: letterPlaceholder, telugu: "O — Oso", english: "O — Oso (Bear)", spanishAudio: tlEs16, spanishWordMap: { "Oso": "bear" } },
+        { image: letterPlaceholder, telugu: "P — Perro", english: "P — Perro (Dog)", spanishAudio: tlEs17, spanishWordMap: { "Perro": "dog" } },
+        { image: letterPlaceholder, telugu: "Q — Queso", english: "Q — Queso (Cheese)", spanishAudio: tlEs18, spanishWordMap: { "Queso": "cheese" } },
+        { image: letterPlaceholder, telugu: "R — Ratón", english: "R — Ratón (Mouse)", spanishAudio: tlEs19, spanishWordMap: { "Ratón": "mouse" } },
+        { image: letterPlaceholder, telugu: "S — Sol", english: "S — Sol (Sun)", spanishAudio: tlEs20, spanishWordMap: { "Sol": "sun" } },
+        { image: letterPlaceholder, telugu: "T — Tortuga", english: "T — Tortuga (Turtle)", spanishAudio: tlEs21, spanishWordMap: { "Tortuga": "turtle" } },
+        { image: letterPlaceholder, telugu: "U — Uva", english: "U — Uva (Grape)", spanishAudio: tlEs22, spanishWordMap: { "Uva": "grape" } },
+        { image: letterPlaceholder, telugu: "V — Vaca", english: "V — Vaca (Cow)", spanishAudio: tlEs23, spanishWordMap: { "Vaca": "cow" } },
+        { image: letterPlaceholder, telugu: "W — Wombat", english: "W — Wombat (Wombat)", spanishAudio: tlEs24, spanishWordMap: { "Wombat": "wombat" } },
+        { image: letterPlaceholder, telugu: "X — Xilófono", english: "X — Xilófono (Xylophone)", spanishAudio: tlEs25, spanishWordMap: { "Xilófono": "xylophone" } },
+        { image: letterPlaceholder, telugu: "Y — Yoyó", english: "Y — Yoyó (Yo-yo)", spanishAudio: tlEs26, spanishWordMap: { "Yoyó": "yo-yo" } },
+        { image: letterPlaceholder, telugu: "Z — Zapato", english: "Z — Zapato (Shoe)", spanishAudio: tlEs27, spanishWordMap: { "Zapato": "shoe" } },
+      ],
+    },
   },
   {
     id: "morning-routine",
@@ -841,26 +1314,6 @@ export const stories: Story[] = [
       { image: morn3, audio: mornAudio3, telugu: "తర్వాత అర్జున్ స్నానం చేస్తాడు.", english: "Then Arjun takes a bath." },
       { image: morn4, audio: mornAudio4, telugu: "అమ్మ చేసిన టిఫిన్ ఆనందంగా తింటాడు.", english: "He happily eats the breakfast Amma made." },
       { image: morn5, audio: mornAudio5, telugu: "బ్యాగ్ తీసుకుని స్కూల్‌కు వెళ్తాడు.", english: "He takes his bag and goes to school." },
-    ],
-  },
-  {
-    id: "naa-modati-vakyalu",
-    title: "Naa Modati Vakyalu",
-    teluguTitle: "నా మొదటి వాక్యాలు",
-    cover: naaModatiVakyaluCover,
-    category: "Beginner Telugu",
-    age: "3–6",
-    minutes: 3,
-    tagline: "My very first Telugu sentences.",
-    pages: [
-      { image: senten1, telugu: "నా పేరు రాజా.", english: "My name is Raja." },
-      { image: senten2, telugu: "నేను స్కూల్‌కి వెళ్తాను.", english: "I go to school." },
-      { image: senten3, telugu: "నేను USA లో ఉంటాను.", english: "I live in the USA." },
-      { image: senten4, telugu: "నాకు అన్నం-పప్పు అంటే చాలా ఇష్టం.", english: "I love rice and dal very much." },
-      { image: senten5, telugu: "మా అమ్మ పేరు రాణి.", english: "My mother's name is Rani." },
-      { image: senten6, telugu: "నేను తెలుగు నేర్చుకుంటున్నాను.", english: "I am learning Telugu." },
-      { image: senten7, telugu: "నా చెల్లి పేరు క్యూటీ.", english: "My younger sister's name is Cutie." },
-      { image: senten8, telugu: "నా అన్న పేరు పండు.", english: "My elder brother's name is Pandu." },
     ],
   },
   {

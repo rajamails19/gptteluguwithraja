@@ -20,9 +20,9 @@ interface Props {
 }
 
 type AudioState = "idle" | "loading" | "playing";
-type YoungVoiceSpeed = 0.05 | 0.5 | 1;
+type YoungVoiceSpeed = 0.05 | 0.45 | 1;
 
-const YOUNG_VOICE_SPEEDS: YoungVoiceSpeed[] = [0.05, 0.5, 1];
+const YOUNG_VOICE_SPEEDS: YoungVoiceSpeed[] = [0.05, 0.45, 1];
 const YOUNG_VOICE_SPEED_STORAGE_KEY = "telugu-tales-young-voice-speed";
 
 export function YoungStoryAccordion({
@@ -698,25 +698,25 @@ function getWords(text: string) {
 function getEstimatedYoungDuration(text: string, speed: YoungVoiceSpeed) {
   const wordCount = getWords(text).length;
   if (speed === 0.05) return Math.max(12, wordCount * 1.28);
-  if (speed === 0.5) return Math.max(7, wordCount * 0.78);
+  if (speed === 0.45) return Math.max(7, wordCount * 0.78);
   return Math.max(4.5, wordCount * 0.43);
 }
 
 function getYoungSentenceTimings(sentences: string[], speed: YoungVoiceSpeed) {
   const timings: Array<{ start: number; end: number }> = [];
-  let cursor = speed === 1 ? 0.18 : speed === 0.5 ? 0.28 : 0.42;
+  let cursor = speed === 1 ? 0.18 : speed === 0.45 ? 0.28 : 0.42;
 
   sentences.forEach((sentence) => {
     const words = getWords(sentence);
     const cleanLength = sentence.replace(/[^\p{L}\p{N}]/gu, "").length;
     const sentenceUnits =
-      (speed === 0.05 ? 2.2 : speed === 0.5 ? 1.35 : 0.78) +
-      words.length * (speed === 1 ? 0.62 : speed === 0.5 ? 0.9 : 1.35) +
+      (speed === 0.05 ? 2.2 : speed === 0.45 ? 1.35 : 0.78) +
+      words.length * (speed === 1 ? 0.62 : speed === 0.45 ? 0.9 : 1.35) +
       cleanLength * (speed === 1 ? 0.018 : 0.026);
 
     timings.push({ start: cursor, end: cursor + sentenceUnits });
     cursor +=
-      sentenceUnits + (speed === 0.05 ? 2.8 : speed === 0.5 ? 1.35 : 0.62);
+      sentenceUnits + (speed === 0.05 ? 2.8 : speed === 0.45 ? 1.35 : 0.62);
   });
 
   return timings;
@@ -742,7 +742,7 @@ function getAdjustedYoungSentenceIndex(
             timings.length - 1,
           );
 
-  if (speed === 0.05 || speed === 0.5) return Math.max(0, rawIndex - 1);
+  if (speed === 0.05 || speed === 0.45) return Math.max(0, rawIndex - 1);
   return rawIndex;
 }
 

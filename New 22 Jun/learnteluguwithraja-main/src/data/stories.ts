@@ -334,7 +334,7 @@ export const stories: Story[] = [
   // ─────────── LETTERS ───────────
   {
     id: "telugu-letters",
-    title: "My First Telugu Letters",
+    title: "My First Letters",
     teluguTitle: "నా మొదటి అక్షరాలు",
     cover: teluguLettersCover,
     category: "Letters",

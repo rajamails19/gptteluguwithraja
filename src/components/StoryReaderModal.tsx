@@ -21,7 +21,7 @@ type GuidePosition = {
   top: number;
 };
 
-type VoiceSpeed = 0.05 | 0.15 | 0.25 | 0.5 | 0.75 | 1;
+type VoiceSpeed = 0.05 | 0.45 | 1;
 type HighlightTimingMode = "character" | "word" | "paced-word";
 
 // Rainbow palette for word highlights
@@ -39,7 +39,7 @@ const TTS_API_ORIGIN = import.meta.env.VITE_TTS_API_ORIGIN?.replace(/\/$/, "") ?
 const OFFLINE_ERROR = "OFFLINE";
 const CAPACITOR_TTS_CONFIG_ERROR = "CAPACITOR_TTS_CONFIG";
 const DEBUG_NATIVE_TTS_TRACKING = true;
-const VOICE_SPEED_OPTIONS: VoiceSpeed[] = [0.05, 0.15, 0.25, 0.5, 0.75, 1];
+const VOICE_SPEED_OPTIONS: VoiceSpeed[] = [0.05, 0.45, 1];
 const VOICE_SPEED_STORAGE_KEY = "telugu-tales-voice-speed";
 
 function isCapacitorRuntime() {
@@ -167,6 +167,28 @@ function logNativeTracking(message: string, data: Record<string, unknown>) {
   console.debug(`[TeluguTales:TTS] ${message}`, data);
 }
 
+type ReaderLang = "telugu" | "tamil" | "spanish";
+
+// The page list to show for the active language. When a story defines a
+// full per-language page set (e.g. a complete Tamil/Spanish alphabet), use
+// it; otherwise fall back to the base pages (tabs just swap text on them).
+function pagesForLang(story: Story | null, lang: ReaderLang): Story["pages"] {
+  if (!story) return [];
+  const byLang = lang !== "telugu" ? story.pagesByLang?.[lang] : undefined;
+  return byLang ?? story.pages;
+}
+
+// Languages a story offers: telugu always, plus any language that has either
+// a dedicated page set or inline translated text on the base pages.
+function availableLangs(story: Story | null): ReaderLang[] {
+  if (!story) return ["telugu"];
+  const langs: ReaderLang[] = ["telugu"];
+  (["tamil", "spanish"] as const).forEach((l) => {
+    if (story.pagesByLang?.[l] || story.pages.some((p) => p[l])) langs.push(l);
+  });
+  return langs;
+}
+
 export function StoryReaderModal({ story, onClose }: Props) {
   const [page, setPage] = useState(0);
   const [dir, setDir] = useState<1 | -1>(1);
@@ -187,6 +209,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
   const [autoPlay, setAutoPlay] = useState<"off" | "playing" | "paused">("off");
   const autoPlayRef = useRef<"off" | "playing" | "paused">("off");
   const advanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const langRef = useRef<"telugu" | "tamil" | "spanish">("telugu");
 
   // Word highlight state
   const [activeWordIndex, setActiveWordIndex] = useState<number>(-1);
@@ -205,6 +228,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
 
   // Meenu walking on every page turn
   const [isPageTurning, setIsPageTurning] = useState(false);
+  const [lang, setLang] = useState<"telugu" | "tamil" | "spanish">("telugu");
   const walkTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const triggerWalk = useCallback(() => {
@@ -214,6 +238,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
   }, []);
 
   useEffect(() => { autoPlayRef.current = autoPlay; }, [autoPlay]);
+  useEffect(() => { langRef.current = lang; }, [lang]);
 
   useEffect(() => {
     window.localStorage.setItem(VOICE_SPEED_STORAGE_KEY, String(voiceSpeed));
@@ -277,10 +302,13 @@ export function StoryReaderModal({ story, onClose }: Props) {
     setDir(1);
     setAutoPlay("off");
     setShowCelebration(false);
+    setLang("telugu");
+    langRef.current = "telugu";
     clearAdvanceTimer();
   }, [story?.id, clearAdvanceTimer]);
 
-  const total = story?.pages.length ?? 0;
+  const activePages = pagesForLang(story, lang);
+  const total = activePages.length;
 
   const stopAudio = useCallback(() => {
     if (audioRepeatTimerRef.current) {
@@ -320,15 +348,16 @@ export function StoryReaderModal({ story, onClose }: Props) {
   useEffect(() => {
     if (!story) return;
 
+    const pages = pagesForLang(story, langRef.current);
     [page + 1, page - 1].forEach((pageIndex) => {
-      const image = story.pages[pageIndex]?.image;
+      const image = pages[pageIndex]?.image;
       if (!image) return;
 
       const preload = new Image();
       preload.decoding = "async";
       preload.src = image;
     });
-  }, [page, story]);
+  }, [page, story, lang]);
 
   useEffect(() => {
     audioPreloadRef.current.forEach((audio) => {
@@ -734,9 +763,19 @@ export function StoryReaderModal({ story, onClose }: Props) {
 
   const getAudioForSpeed = useCallback(
     (storyPage: Story["pages"][number]) => {
-      const speedAudio = storyPage.audioBySpeed?.[
-        String(voiceSpeed) as keyof NonNullable<typeof storyPage.audioBySpeed>
-      ];
+      const bySpeed = storyPage.audioBySpeed;
+      let speedAudio: string | undefined;
+      if (bySpeed) {
+        const keys = Object.keys(bySpeed).map(Number).filter(isFinite);
+        const nearest = keys.reduce((a, b) =>
+          Math.abs(b - voiceSpeed) < Math.abs(a - voiceSpeed) ? b : a, keys[0]);
+        // Only snap to a pre-generated variant when it's close to the requested
+        // speed; otherwise prefer the base audio played at the chosen rate.
+        // (Avoids e.g. playing a 0.05x file when the user picked 1x.)
+        if (nearest !== undefined && (Math.abs(nearest - voiceSpeed) <= 0.12 || !storyPage.audio)) {
+          speedAudio = bySpeed[String(nearest) as keyof typeof bySpeed];
+        }
+      }
 
       return {
         audioSrc: speedAudio ?? storyPage.audio,
@@ -750,8 +789,27 @@ export function StoryReaderModal({ story, onClose }: Props) {
     [voiceSpeed],
   );
 
+  // Pick the Tamil/Spanish audio for the current speed selector. Falls back to
+  // the base (1x) clip when no close-enough slow variant exists.
+  const langSpeedAudio = (p: Story["pages"][number], l: "tamil" | "spanish") => {
+    const bySpeed = l === "tamil" ? p.tamilAudioBySpeed : p.spanishAudioBySpeed;
+    const base = l === "tamil" ? p.tamilAudio : p.spanishAudio;
+    if (bySpeed) {
+      const keys = Object.keys(bySpeed).map(Number).filter(isFinite);
+      if (keys.length) {
+        const nearest = keys.reduce((a, b) =>
+          Math.abs(b - voiceSpeed) < Math.abs(a - voiceSpeed) ? b : a, keys[0]);
+        if (Math.abs(nearest - voiceSpeed) <= 0.12 || !base) return bySpeed[String(nearest)];
+      }
+    }
+    return base;
+  };
+
   if (!story) return null;
-  const current = story.pages[page];
+  const current = activePages[page];
+  if (!current) return null;
+  const langs = availableLangs(story);
+  const hasMultiLang = langs.length > 1;
 
   // Decide Meenu's expression based on current state
   const meenuExpression: MeenuExpression = (() => {
@@ -778,9 +836,29 @@ export function StoryReaderModal({ story, onClose }: Props) {
     );
   };
 
+  const playTamilAudio = (src: string, tamilText: string, onDone?: () => void) => {
+    if (audioState === "playing") { stopAudio(); return; }
+    isTapPlayRef.current = false;
+    const audio = new Audio(src);
+    audioRef.current = audio;
+    setAudioState("playing");
+    const startPlay = () => {
+      const durationMs = (isFinite(audio.duration) ? audio.duration : 3) * 1000;
+      startEstimatedWordHighlight(tamilText, durationMs);
+      audio.play().catch(() => { setAudioState("idle"); setActiveWordIndex(-1); });
+    };
+    if (isFinite(audio.duration)) {
+      startPlay();
+    } else {
+      audio.addEventListener("loadedmetadata", startPlay, { once: true });
+      audio.load();
+    }
+    audio.onended = () => { setAudioState("idle"); setActiveWordIndex(-1); onDone?.(); };
+  };
+
   const handleWordTap = (word: string) => {
-    if (audioState !== "idle") return;
-    isTapPlayRef.current = true; // suppress highlight for single-word play
+    if (audioState !== "idle" || langRef.current !== "telugu") return;
+    isTapPlayRef.current = true;
     void playText(word);
   };
 
@@ -845,7 +923,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
     </motion.div>
   );
 
-  const renderTeluguWords = (text: string, isCurrentPage: boolean) => {
+  const renderTeluguWords = (text: string, isCurrentPage: boolean, wordMap?: Record<string, string>) => {
     const words = text.split(/\s+/).filter(Boolean);
     // Reset refs array length
     wordSpanRefs.current = wordSpanRefs.current.slice(0, words.length);
@@ -905,6 +983,8 @@ export function StoryReaderModal({ story, onClose }: Props) {
           {words.map((word, i) => {
             const isActive = isCurrentPage && !isTapPlayRef.current && activeWordIndex === i;
             const color = RAINBOW[i % RAINBOW.length];
+            const cleanWord = word.replace(/^[¿¡"']+/, "").replace(/[.,!?।"']+$/, "");
+            const meaning = wordMap?.[cleanWord] ?? wordMap?.[word];
             return (
               <span key={i}>
                 <span
@@ -919,13 +999,35 @@ export function StoryReaderModal({ story, onClose }: Props) {
                           padding: "2px 6px",
                           borderRadius: "8px",
                           display: "inline-block",
+                          position: "relative",
                         }
                       : {
                           padding: "2px 6px",
                           display: "inline-block",
+                          position: "relative",
                         }
                   }
                 >
+                  {meaning && (
+                    <span
+                      aria-hidden
+                      style={{
+                        position: "absolute",
+                        bottom: "100%",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        fontSize: "0.42em",
+                        fontFamily: "var(--font-display, serif)",
+                        color: "oklch(0.5 0.12 145)",
+                        fontStyle: "italic",
+                        lineHeight: 1,
+                        whiteSpace: "nowrap",
+                        pointerEvents: "none",
+                      }}
+                    >
+                      ({meaning})
+                    </span>
+                  )}
                   {word}
                 </span>
                 {i < words.length - 1 ? " " : ""}
@@ -937,7 +1039,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
     );
   };
 
-  const renderPage = (p: { telugu: string; english: string; image: string }, withButton: boolean, isCurrentPage = false) => (
+  const renderPage = (p: { telugu: string; english: string; tamil?: string; tamilAudio?: string; spanish?: string; spanishAudio?: string; wordMap?: Record<string, string>; tamilWordMap?: Record<string, string>; spanishWordMap?: Record<string, string>; image: string }, withButton: boolean, isCurrentPage = false) => (
     <div className="flex w-full max-w-6xl flex-col items-center">
       {/* Image */}
       <div className="reader-scene-media relative aspect-[16/8.2] w-full sm:aspect-[16/7]">
@@ -968,13 +1070,25 @@ export function StoryReaderModal({ story, onClose }: Props) {
       </div>
       <div className="reader-copy mt-4 w-full max-w-3xl text-center sm:mt-6">
         <div className="grid grid-cols-[1fr_auto] items-center gap-2 sm:flex sm:justify-center sm:gap-3">
-          {renderTeluguWords(p.telugu, isCurrentPage)}
-          {withButton && (
+          {lang === "telugu"
+            ? renderTeluguWords(p.telugu, isCurrentPage, p.wordMap)
+            : renderTeluguWords(
+                lang === "tamil" ? (p.tamil ?? p.telugu) : (p.spanish ?? p.telugu),
+                isCurrentPage,
+                lang === "tamil" ? p.tamilWordMap : p.spanishWordMap,
+              )}
+          {withButton && (lang === "telugu" || (lang === "tamil" && p.tamilAudio) || (lang === "spanish" && p.spanishAudio)) && (
             <button
               type="button"
-              onClick={playTelugu}
+              onClick={
+                lang === "tamil" && p.tamilAudio
+                  ? () => playTamilAudio(langSpeedAudio(p, "tamil")!, p.tamil ?? p.telugu)
+                  : lang === "spanish" && p.spanishAudio
+                    ? () => playTamilAudio(langSpeedAudio(p, "spanish")!, p.spanish ?? p.telugu)
+                    : playTelugu
+              }
               disabled={audioState === "loading"}
-              aria-label={audioState === "playing" ? "Stop Telugu audio" : "Play Telugu audio"}
+              aria-label={audioState === "playing" ? "Stop audio" : "Play audio"}
               className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground shadow-soft transition-all hover:enabled:brightness-110 disabled:opacity-60 sm:h-11 sm:w-11"
             >
               {audioState === "loading" ? (
@@ -998,10 +1112,9 @@ export function StoryReaderModal({ story, onClose }: Props) {
   );
 
   const playAutoForPage = (pageIndex: number) => {
-    const storyPage = story.pages[pageIndex];
-    const text = storyPage.telugu;
-    const { audioSrc, audioPlaybackRate, highlightTimingMode, highlightTimingProfile } = getAudioForSpeed(storyPage);
-    void playText(text, () => {
+    const storyPage = pagesForLang(story, langRef.current)[pageIndex];
+    if (!storyPage) return;
+    const onDone = () => {
       if (autoPlayRef.current !== "playing") return;
       clearAdvanceTimer();
       const isLast = pageIndex >= total - 1;
@@ -1020,7 +1133,16 @@ export function StoryReaderModal({ story, onClose }: Props) {
         setPage(nextIndex);
         playAutoForPage(nextIndex);
       }, 1000);
-    }, audioSrc, storyPage.audioRepeat, storyPage.audioSequence, audioPlaybackRate, highlightTimingMode, highlightTimingProfile);
+    };
+
+    if (langRef.current === "tamil" && storyPage.tamilAudio) {
+      playTamilAudio(langSpeedAudio(storyPage, "tamil")!, storyPage.tamil ?? storyPage.telugu, onDone);
+    } else if (langRef.current === "spanish" && storyPage.spanishAudio) {
+      playTamilAudio(langSpeedAudio(storyPage, "spanish")!, storyPage.spanish ?? storyPage.telugu, onDone);
+    } else {
+      const { audioSrc, audioPlaybackRate, highlightTimingMode, highlightTimingProfile } = getAudioForSpeed(storyPage);
+      void playText(storyPage.telugu, onDone, audioSrc, storyPage.audioRepeat, storyPage.audioSequence, audioPlaybackRate, highlightTimingMode, highlightTimingProfile);
+    }
   };
 
   const handleAutoPlay = () => {
@@ -1040,6 +1162,21 @@ export function StoryReaderModal({ story, onClose }: Props) {
   const handleTheEnd = () => {
     stopAudio();
     setShowCelebration(true);
+  };
+
+  // Switch language: stop playback and reset to the first page, because the
+  // page count can differ between languages (e.g. full Tamil/Spanish alphabet).
+  const changeLang = (l: ReaderLang) => {
+    if (l === lang) return;
+    stopAudio();
+    clearAdvanceTimer();
+    clearHighlight();
+    setAutoPlay("off");
+    autoPlayRef.current = "off";
+    langRef.current = l;
+    setLang(l);
+    setPage(0);
+    setDir(1);
   };
 
   // Called after celebration auto-dismisses — go back to page 1
@@ -1101,6 +1238,24 @@ export function StoryReaderModal({ story, onClose }: Props) {
                 <X className="h-5 w-5" />
               </button>
             </div>
+            {hasMultiLang && (
+              <div className="mt-2 flex justify-center gap-1">
+                {langs.map((l) => (
+                  <button
+                    key={l}
+                    type="button"
+                    onClick={() => changeLang(l)}
+                    className={`rounded-full px-3 py-1.5 text-xs font-medium transition-all ${
+                      lang === l
+                        ? "bg-primary text-primary-foreground shadow-soft"
+                        : "border border-border bg-paper text-muted-foreground hover:bg-foreground/5"
+                    }`}
+                  >
+                    {l === "telugu" ? "తెలుగు" : l === "tamil" ? "தமிழ்" : "Español"}
+                  </button>
+                ))}
+              </div>
+            )}
             <div className="mt-2 flex items-center justify-between gap-2">
               {renderSpeedControl(true)}
               <button
@@ -1170,8 +1325,8 @@ export function StoryReaderModal({ story, onClose }: Props) {
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
-          <div className="safe-x safe-top flex shrink-0 items-center justify-between gap-4 border-b border-border/60 bg-paper/90 pb-2.5 backdrop-blur-sm sm:px-8 sm:py-3">
-            <div className="min-w-0 flex-1">
+          <div className="safe-x safe-top grid shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-border/60 bg-paper/90 pb-2.5 backdrop-blur-sm sm:px-8 sm:py-3">
+            <div className="min-w-0">
               <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                 {story.category}
               </p>
@@ -1179,8 +1334,28 @@ export function StoryReaderModal({ story, onClose }: Props) {
                 {story.title}
               </h2>
             </div>
-            <ProgressDots total={total} current={page} />
-            <div className="flex shrink-0 items-center gap-3">
+            <div className="flex flex-col items-center gap-1.5">
+              <ProgressDots total={total} current={page} />
+              {hasMultiLang && (
+                <div className="flex gap-1">
+                  {langs.map((l) => (
+                    <button
+                      key={l}
+                      type="button"
+                      onClick={() => changeLang(l)}
+                      className={`rounded-full px-4 py-1.5 text-xs font-medium transition-all ${
+                        lang === l
+                          ? "bg-primary text-primary-foreground shadow-soft"
+                          : "border border-border bg-paper text-muted-foreground hover:bg-foreground/5"
+                      }`}
+                    >
+                      {l === "telugu" ? "తెలుగు" : l === "tamil" ? "தமிழ்" : "Español"}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="flex items-center justify-end gap-3">
               {renderSpeedControl()}
               <button
                 type="button"
