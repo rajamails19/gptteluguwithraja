@@ -7,6 +7,7 @@ import { ProgressDots } from "./ProgressDots";
 import { getCachedAudio, putCachedAudio } from "@/lib/ttsCache";
 import { StoryCelebration } from "./StoryCelebration";
 import { MeenuCharacter, type MeenuExpression } from "./MeenuCharacter";
+import yourTurnCue from "@/assets/audio/ui/your-turn.mp3";
 
 interface Props {
   story: Story | null;
@@ -203,6 +204,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
   const audioPlaybackRateRef = useRef<number>(1);
   const audioPreloadRef = useRef<HTMLAudioElement[]>([]);
   const audioRepeatTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const promptAudioRef = useRef<HTMLAudioElement | null>(null);
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
   const cacheRef = useRef<Map<string, string>>(new Map());
   const [audioState, setAudioState] = useState<"idle" | "loading" | "playing">("idle");
@@ -318,6 +320,8 @@ export function StoryReaderModal({ story, onClose }: Props) {
     }
     const a = audioRef.current;
     if (a) { a.pause(); a.currentTime = 0; a.onended = null; a.onerror = null; }
+    const prompt = promptAudioRef.current;
+    if (prompt) { prompt.pause(); prompt.onended = null; prompt.onerror = null; promptAudioRef.current = null; }
     if (supportsBrowserSpeech()) {
       window.speechSynthesis.cancel();
     }
@@ -924,7 +928,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
     </motion.div>
   );
 
-  const renderTeluguWords = (text: string, isCurrentPage: boolean, wordMap?: Record<string, string>) => {
+  const renderTeluguWords = (text: string, isCurrentPage: boolean, wordMap?: Record<string, string>, translitMap?: Record<string, string>) => {
     const words = text.split(/\s+/).filter(Boolean);
     // Reset refs array length
     wordSpanRefs.current = wordSpanRefs.current.slice(0, words.length);
@@ -986,6 +990,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
             const color = RAINBOW[i % RAINBOW.length];
             const cleanWord = word.replace(/^[¿¡"']+/, "").replace(/[.,!?।"']+$/, "");
             const meaning = wordMap?.[cleanWord] ?? wordMap?.[word];
+            const translit = translitMap?.[cleanWord] ?? translitMap?.[word];
             return (
               <span key={i}>
                 <span
@@ -1030,6 +1035,27 @@ export function StoryReaderModal({ story, onClose }: Props) {
                     </span>
                   )}
                   {word}
+                  {translit && (
+                    <span
+                      aria-hidden
+                      style={{
+                        position: "absolute",
+                        top: "100%",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        fontSize: "0.42em",
+                        fontFamily: "var(--font-display, serif)",
+                        color: "oklch(0.55 0.02 60)",
+                        fontStyle: "italic",
+                        lineHeight: 1,
+                        whiteSpace: "nowrap",
+                        pointerEvents: "none",
+                        marginTop: "2px",
+                      }}
+                    >
+                      ({translit})
+                    </span>
+                  )}
                 </span>
                 {i < words.length - 1 ? " " : ""}
               </span>
@@ -1040,7 +1066,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
     );
   };
 
-  const renderPage = (p: { telugu: string; english: string; tamil?: string; tamilAudio?: string; spanish?: string; spanishAudio?: string; wordMap?: Record<string, string>; tamilWordMap?: Record<string, string>; spanishWordMap?: Record<string, string>; image: string }, withButton: boolean, isCurrentPage = false) => (
+  const renderPage = (p: { telugu: string; english: string; tamil?: string; tamilAudio?: string; spanish?: string; spanishAudio?: string; wordMap?: Record<string, string>; tamilWordMap?: Record<string, string>; spanishWordMap?: Record<string, string>; translitMap?: Record<string, string>; tamilTranslitMap?: Record<string, string>; spanishTranslitMap?: Record<string, string>; image: string }, withButton: boolean, isCurrentPage = false) => (
     <div className="flex w-full max-w-6xl flex-col items-center">
       {/* Image */}
       <div className="reader-scene-media relative aspect-[16/8.2] w-full sm:aspect-[16/7]">
@@ -1072,11 +1098,12 @@ export function StoryReaderModal({ story, onClose }: Props) {
       <div className="reader-copy mt-4 w-full max-w-3xl text-center sm:mt-6">
         <div className="grid grid-cols-[1fr_auto] items-center gap-2 sm:flex sm:justify-center sm:gap-3">
           {lang === "telugu"
-            ? renderTeluguWords(p.telugu, isCurrentPage, p.wordMap)
+            ? renderTeluguWords(p.telugu, isCurrentPage, p.wordMap, p.translitMap)
             : renderTeluguWords(
                 lang === "tamil" ? (p.tamil ?? p.telugu) : (p.spanish ?? p.telugu),
                 isCurrentPage,
                 lang === "tamil" ? p.tamilWordMap : p.spanishWordMap,
+                lang === "tamil" ? p.tamilTranslitMap : p.spanishTranslitMap,
               )}
           {withButton && (lang === "telugu" || (lang === "tamil" && p.tamilAudio) || (lang === "spanish" && p.spanishAudio)) && (
             <button
@@ -1112,9 +1139,33 @@ export function StoryReaderModal({ story, onClose }: Props) {
     </div>
   );
 
+  // Play the "now you repeat that" cue between slides, then run onEnded.
+  // Falls through immediately if the clip can't play so auto-read never stalls.
+  const playRepeatPrompt = (onEnded: () => void) => {
+    try {
+      const clip = new Audio(yourTurnCue);
+      promptAudioRef.current = clip;
+      const done = () => { promptAudioRef.current = null; onEnded(); };
+      clip.onended = done;
+      clip.onerror = done;
+      clip.play().catch(done);
+    } catch {
+      onEnded();
+    }
+  };
+
   const playAutoForPage = (pageIndex: number) => {
     const storyPage = pagesForLang(story, langRef.current)[pageIndex];
     if (!storyPage) return;
+    const advanceToNext = () => {
+      advanceTimerRef.current = setTimeout(() => {
+        if (autoPlayRef.current !== "playing") return;
+        const nextIndex = pageIndex + 1;
+        setDir(1);
+        setPage(nextIndex);
+        playAutoForPage(nextIndex);
+      }, 3500); // quiet time for the child to repeat after the cue
+    };
     const onDone = () => {
       if (autoPlayRef.current !== "playing") return;
       clearAdvanceTimer();
@@ -1127,13 +1178,15 @@ export function StoryReaderModal({ story, onClose }: Props) {
         }, 800);
         return;
       }
+      // Wait 2s after the sentence, gently say "your turn", then advance
+      // after a quiet gap so the child has time to repeat.
       advanceTimerRef.current = setTimeout(() => {
         if (autoPlayRef.current !== "playing") return;
-        const nextIndex = pageIndex + 1;
-        setDir(1);
-        setPage(nextIndex);
-        playAutoForPage(nextIndex);
-      }, 1000);
+        playRepeatPrompt(() => {
+          if (autoPlayRef.current !== "playing") return;
+          advanceToNext();
+        });
+      }, 2000);
     };
 
     if (langRef.current === "tamil" && storyPage.tamilAudio) {

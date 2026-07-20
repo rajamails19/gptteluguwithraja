@@ -326,6 +326,14 @@ import letterPlaceholder from "@/assets/stories/_placeholder.svg";
 import fasSlide1 from "@/assets/stories/first-action-sentences/slide1.png";
 import fasSlide2 from "@/assets/stories/first-action-sentences/slide2.png";
 import fasSlide3 from "@/assets/stories/first-action-sentences/slide3.png";
+import fasSlide4 from "@/assets/stories/first-action-sentences/slide4.png";
+import fasSlide5 from "@/assets/stories/first-action-sentences/slide5.png";
+import fasSlide6 from "@/assets/stories/first-action-sentences/slide6.png";
+import fasSlide7 from "@/assets/stories/first-action-sentences/slide7.png";
+import fasSlide8 from "@/assets/stories/first-action-sentences/slide8.png";
+import fasSlide9 from "@/assets/stories/first-action-sentences/slide9.png";
+import fasSlide10 from "@/assets/stories/first-action-sentences/slide10.png";
+import fasSlide11 from "@/assets/stories/first-action-sentences/slide11.png";
 import fas1 from "@/assets/audio/first-action-sentences/page-1.mp3";
 import fas2 from "@/assets/audio/first-action-sentences/page-2.mp3";
 import fas3 from "@/assets/audio/first-action-sentences/page-3.mp3";
@@ -568,6 +576,7 @@ import rainSongCover from "@/assets/covers/rain-song.jpg";
 import parrotSongCover from "@/assets/covers/parrot-song.jpg";
 import morningCover from "@/assets/covers/morning-routine.jpg";
 import naaModatiVakyaluCover from "@/assets/covers/naa-modati-vakyalu.jpg";
+import firstActionCover from "@/assets/covers/first-action-sentences.png";
 import senten1 from "@/assets/stories/naa-modati-vakyalu/slide1.jpg";
 import senten2 from "@/assets/stories/naa-modati-vakyalu/slide2.jpg";
 import senten3 from "@/assets/stories/naa-modati-vakyalu/slide3.jpg";
@@ -763,6 +772,10 @@ export interface StoryPage {
   wordMap?: Record<string, string>;
   tamilWordMap?: Record<string, string>;
   spanishWordMap?: Record<string, string>;
+  // Romanized pronunciation shown below each word (so kids can sound it out).
+  translitMap?: Record<string, string>;
+  tamilTranslitMap?: Record<string, string>;
+  spanishTranslitMap?: Record<string, string>;
   audio?: string;
   audioBySpeed?: {
     "0.05"?: string;
@@ -940,7 +953,7 @@ export const stories: Story[] = [
     id: "first-action-sentences",
     title: "First Action Sentences",
     teluguTitle: "నా మొదటి భావాలు",
-    cover: letterPlaceholder,
+    cover: firstActionCover,
     category: "Beginner Telugu",
     age: "3–6",
     minutes: 4,
@@ -949,83 +962,83 @@ export const stories: Story[] = [
       { image: fasSlide1, audio: fas1, audioBySpeed: { "0.05": fas005_1, "0.45": fas045_1 }, telugu: "నాకు సంతోషంగా ఉంది.", english: "I am happy.",
         tamil: "எனக்கு சந்தோஷமாக இருக்கிறது.", tamilAudio: fasTa1, tamilAudioBySpeed: { "0.05": fasTa005_1, "0.45": fasTa045_1 },
         spanish: "Estoy feliz.", spanishAudio: fasEs1, spanishAudioBySpeed: { "0.05": fasEs005_1, "0.45": fasEs045_1 },
-        wordMap: {"నాకు":"to me","సంతోషంగా":"happy","ఉంది":"is"}, tamilWordMap: {"எனக்கு":"to me","சந்தோஷமாக":"happy","இருக்கிறது":"is"}, spanishWordMap: {"Estoy":"I am","feliz":"happy"} },
+        wordMap: {"నాకు":"to me","సంతోషంగా":"happy","ఉంది":"is"}, tamilWordMap: {"எனக்கு":"to me","சந்தோஷமாக":"happy","இருக்கிறது":"is"}, spanishWordMap: {"Estoy":"I am","feliz":"happy"}, translitMap: {"నాకు":"naaku","సంతోషంగా":"santhoshamga","ఉంది":"undi"}, tamilTranslitMap: {"எனக்கு":"enakku","சந்தோஷமாக":"santhoshamaaga","இருக்கிறது":"irukkiradhu"}, spanishTranslitMap: {"Estoy":"es-toy","feliz":"feh-lees"} },
       { image: fasSlide2, audio: fas2, audioBySpeed: { "0.05": fas005_2, "0.45": fas045_2 }, telugu: "నీకు ఏం కావాలి?", english: "What do you want?",
         tamil: "உனக்கு என்ன வேண்டும்?", tamilAudio: fasTa2, tamilAudioBySpeed: { "0.05": fasTa005_2, "0.45": fasTa045_2 },
         spanish: "¿Qué quieres?", spanishAudio: fasEs2, spanishAudioBySpeed: { "0.05": fasEs005_2, "0.45": fasEs045_2 },
-        wordMap: {"నీకు":"to you","ఏం":"what","కావాలి":"want"}, tamilWordMap: {"உனக்கு":"to you","என்ன":"what","வேண்டும்":"want"}, spanishWordMap: {"Qué":"what","quieres":"you want"} },
+        wordMap: {"నీకు":"to you","ఏం":"what","కావాలి":"want"}, tamilWordMap: {"உனக்கு":"to you","என்ன":"what","வேண்டும்":"want"}, spanishWordMap: {"Qué":"what","quieres":"you want"}, translitMap: {"నీకు":"neeku","ఏం":"em","కావాలి":"kaavaali"}, tamilTranslitMap: {"உனக்கு":"unakku","என்ன":"enna","வேண்டும்":"vendum"}, spanishTranslitMap: {"Qué":"keh","quieres":"kee-eh-res"} },
       { image: fasSlide3, audio: fas3, audioBySpeed: { "0.05": fas005_3, "0.45": fas045_3 }, telugu: "మనకి ఆట ఇష్టం.", english: "We like to play.",
         tamil: "நமக்கு விளையாட்டு பிடிக்கும்.", tamilAudio: fasTa3, tamilAudioBySpeed: { "0.05": fasTa005_3, "0.45": fasTa045_3 },
         spanish: "Nos gusta jugar.", spanishAudio: fasEs3, spanishAudioBySpeed: { "0.05": fasEs005_3, "0.45": fasEs045_3 },
-        wordMap: {"మనకి":"to us","ఆట":"play","ఇష్టం":"like"}, tamilWordMap: {"நமக்கு":"to us","விளையாட்டு":"play","பிடிக்கும்":"like"}, spanishWordMap: {"Nos":"to us","gusta":"like","jugar":"to play"} },
-      { image: letterPlaceholder, audio: fas4, audioBySpeed: { "0.05": fas005_4, "0.45": fas045_4 }, telugu: "వాళ్ళకి అన్నం కావాలి.", english: "They want food.",
+        wordMap: {"మనకి":"to us","ఆట":"play","ఇష్టం":"like"}, tamilWordMap: {"நமக்கு":"to us","விளையாட்டு":"play","பிடிக்கும்":"like"}, spanishWordMap: {"Nos":"to us","gusta":"like","jugar":"to play"}, translitMap: {"మనకి":"manaki","ఆట":"aata","ఇష్టం":"ishtam"}, tamilTranslitMap: {"நமக்கு":"namakku","விளையாட்டு":"vilaiyaattu","பிடிக்கும்":"pidikkum"}, spanishTranslitMap: {"Nos":"nohs","gusta":"goos-tah","jugar":"hoo-gar"} },
+      { image: fasSlide4, audio: fas4, audioBySpeed: { "0.05": fas005_4, "0.45": fas045_4 }, telugu: "వాళ్ళకి అన్నం కావాలి.", english: "They want food.",
         tamil: "அவர்களுக்கு சாப்பாடு வேண்டும்.", tamilAudio: fasTa4, tamilAudioBySpeed: { "0.05": fasTa005_4, "0.45": fasTa045_4 },
         spanish: "Ellos quieren comida.", spanishAudio: fasEs4, spanishAudioBySpeed: { "0.05": fasEs005_4, "0.45": fasEs045_4 },
-        wordMap: {"వాళ్ళకి":"to them","అన్నం":"food","కావాలి":"want"}, tamilWordMap: {"அவர்களுக்கு":"to them","சாப்பாடு":"food","வேண்டும்":"want"}, spanishWordMap: {"Ellos":"they","quieren":"want","comida":"food"} },
-      { image: letterPlaceholder, audio: fas5, audioBySpeed: { "0.05": fas005_5, "0.45": fas045_5 }, telugu: "అమ్మకి పువ్వు ఇచ్చాను.", english: "I gave a flower to mother.",
+        wordMap: {"వాళ్ళకి":"to them","అన్నం":"food","కావాలి":"want"}, tamilWordMap: {"அவர்களுக்கு":"to them","சாப்பாடு":"food","வேண்டும்":"want"}, spanishWordMap: {"Ellos":"they","quieren":"want","comida":"food"}, translitMap: {"వాళ్ళకి":"vaallaki","అన్నం":"annam","కావాలి":"kaavaali"}, tamilTranslitMap: {"அவர்களுக்கு":"avargalukku","சாப்பாடு":"saappaadu","வேண்டும்":"vendum"}, spanishTranslitMap: {"Ellos":"eh-yohs","quieren":"kee-eh-ren","comida":"koh-mee-dah"} },
+      { image: fasSlide5, audio: fas5, audioBySpeed: { "0.05": fas005_5, "0.45": fas045_5 }, telugu: "అమ్మకి పువ్వు ఇచ్చాను.", english: "I gave a flower to mother.",
         tamil: "அம்மாவுக்கு பூ கொடுத்தேன்.", tamilAudio: fasTa5, tamilAudioBySpeed: { "0.05": fasTa005_5, "0.45": fasTa045_5 },
         spanish: "Le di una flor a mamá.", spanishAudio: fasEs5, spanishAudioBySpeed: { "0.05": fasEs005_5, "0.45": fasEs045_5 },
-        wordMap: {"అమ్మకి":"to mother","పువ్వు":"flower","ఇచ్చాను":"gave"}, tamilWordMap: {"அம்மாவுக்கு":"to mother","பூ":"flower","கொடுத்தேன்":"gave"}, spanishWordMap: {"Le":"to her","di":"gave","una":"a","flor":"flower","a":"to","mamá":"mom"} },
-      { image: letterPlaceholder, audio: fas6, audioBySpeed: { "0.05": fas005_6, "0.45": fas045_6 }, telugu: "ఆయనకి నమస్కారం చెప్పు.", english: "Say hello to him.",
+        wordMap: {"అమ్మకి":"to mother","పువ్వు":"flower","ఇచ్చాను":"gave"}, tamilWordMap: {"அம்மாவுக்கு":"to mother","பூ":"flower","கொடுத்தேன்":"gave"}, spanishWordMap: {"Le":"to her","di":"gave","una":"a","flor":"flower","a":"to","mamá":"mom"}, translitMap: {"అమ్మకి":"ammaki","పువ్వు":"puvvu","ఇచ్చాను":"ichchaanu"}, tamilTranslitMap: {"அம்மாவுக்கு":"ammaavukku","பூ":"poo","கொடுத்தேன்":"koduthen"}, spanishTranslitMap: {"Le":"leh","di":"dee","una":"oo-nah","flor":"flor","a":"ah","mamá":"mah-mah"} },
+      { image: fasSlide6, audio: fas6, audioBySpeed: { "0.05": fas005_6, "0.45": fas045_6 }, telugu: "ఆయనకి నమస్కారం చెప్పు.", english: "Say hello to him.",
         tamil: "அவருக்கு வணக்கம் சொல்லு.", tamilAudio: fasTa6, tamilAudioBySpeed: { "0.05": fasTa005_6, "0.45": fasTa045_6 },
         spanish: "Dile hola.", spanishAudio: fasEs6, spanishAudioBySpeed: { "0.05": fasEs005_6, "0.45": fasEs045_6 },
-        wordMap: {"ఆయనకి":"to him","నమస్కారం":"hello","చెప్పు":"say"}, tamilWordMap: {"அவருக்கு":"to him","வணக்கம்":"hello","சொல்லு":"say"}, spanishWordMap: {"Dile":"tell him","hola":"hello"} },
-      { image: letterPlaceholder, audio: fas7, audioBySpeed: { "0.05": fas005_7, "0.45": fas045_7 }, telugu: "తనకి బొమ్మ కావాలి.", english: "She wants a toy.",
+        wordMap: {"ఆయనకి":"to him","నమస్కారం":"hello","చెప్పు":"say"}, tamilWordMap: {"அவருக்கு":"to him","வணக்கம்":"hello","சொல்லு":"say"}, spanishWordMap: {"Dile":"tell him","hola":"hello"}, translitMap: {"ఆయనకి":"aayanaki","నమస్కారం":"namaskaaram","చెప్పు":"cheppu"}, tamilTranslitMap: {"அவருக்கு":"avarukku","வணக்கம்":"vanakkam","சொல்லு":"sollu"}, spanishTranslitMap: {"Dile":"dee-leh","hola":"oh-lah"} },
+      { image: fasSlide7, audio: fas7, audioBySpeed: { "0.05": fas005_7, "0.45": fas045_7 }, telugu: "తనకి బొమ్మ కావాలి.", english: "She wants a toy.",
         tamil: "அவளுக்கு பொம்மை வேண்டும்.", tamilAudio: fasTa7, tamilAudioBySpeed: { "0.05": fasTa005_7, "0.45": fasTa045_7 },
         spanish: "Ella quiere un juguete.", spanishAudio: fasEs7, spanishAudioBySpeed: { "0.05": fasEs005_7, "0.45": fasEs045_7 },
-        wordMap: {"తనకి":"to her/him","బొమ్మ":"toy","కావాలి":"wants"}, tamilWordMap: {"அவளுக்கு":"to her","பொம்மை":"toy","வேண்டும்":"wants"}, spanishWordMap: {"Ella":"she","quiere":"wants","un":"a","juguete":"toy"} },
-      { image: letterPlaceholder, audio: fas8, audioBySpeed: { "0.05": fas005_8, "0.45": fas045_8 }, telugu: "ఇతని పేరు ఏమిటి?", english: "What is his name?",
+        wordMap: {"తనకి":"to her/him","బొమ్మ":"toy","కావాలి":"wants"}, tamilWordMap: {"அவளுக்கு":"to her","பொம்மை":"toy","வேண்டும்":"wants"}, spanishWordMap: {"Ella":"she","quiere":"wants","un":"a","juguete":"toy"}, translitMap: {"తనకి":"thanaki","బొమ్మ":"bomma","కావాలి":"kaavaali"}, tamilTranslitMap: {"அவளுக்கு":"avalukku","பொம்மை":"bommai","வேண்டும்":"vendum"}, spanishTranslitMap: {"Ella":"eh-yah","quiere":"kee-eh-reh","un":"oon","juguete":"hoo-geh-teh"} },
+      { image: fasSlide8, audio: fas8, audioBySpeed: { "0.05": fas005_8, "0.45": fas045_8 }, telugu: "ఇతని పేరు ఏమిటి?", english: "What is his name?",
         tamil: "அவனுடைய பெயர் என்ன?", tamilAudio: fasTa8, tamilAudioBySpeed: { "0.05": fasTa005_8, "0.45": fasTa045_8 },
         spanish: "¿Cómo se llama él?", spanishAudio: fasEs8, spanishAudioBySpeed: { "0.05": fasEs005_8, "0.45": fasEs045_8 },
-        wordMap: {"ఇతని":"his","పేరు":"name","ఏమిటి":"what is"}, tamilWordMap: {"அவனுடைய":"his","பெயர்":"name","என்ன":"what is"}, spanishWordMap: {"Cómo":"how","se":"himself","llama":"is called","él":"he"} },
-      { image: letterPlaceholder, audio: fas9, audioBySpeed: { "0.05": fas005_9, "0.45": fas045_9 }, telugu: "అందరికి ధన్యవాదాలు.", english: "Thank you everyone.",
+        wordMap: {"ఇతని":"his","పేరు":"name","ఏమిటి":"what is"}, tamilWordMap: {"அவனுடைய":"his","பெயர்":"name","என்ன":"what is"}, spanishWordMap: {"Cómo":"how","se":"himself","llama":"is called","él":"he"}, translitMap: {"ఇతని":"ithani","పేరు":"peru","ఏమిటి":"emiti"}, tamilTranslitMap: {"அவனுடைய":"avanudaiya","பெயர்":"peyar","என்ன":"enna"}, spanishTranslitMap: {"Cómo":"koh-moh","se":"seh","llama":"yah-mah","él":"el"} },
+      { image: fasSlide9, audio: fas9, audioBySpeed: { "0.05": fas005_9, "0.45": fas045_9 }, telugu: "అందరికి ధన్యవాదాలు.", english: "Thank you everyone.",
         tamil: "அனைவருக்கும் நன்றி.", tamilAudio: fasTa9, tamilAudioBySpeed: { "0.05": fasTa005_9, "0.45": fasTa045_9 },
         spanish: "Gracias a todos.", spanishAudio: fasEs9, spanishAudioBySpeed: { "0.05": fasEs005_9, "0.45": fasEs045_9 },
-        wordMap: {"అందరికి":"to everyone","ధన్యవాదాలు":"thank you"}, tamilWordMap: {"அனைவருக்கும்":"to everyone","நன்றி":"thank you"}, spanishWordMap: {"Gracias":"thank you","a":"to","todos":"everyone"} },
-      { image: letterPlaceholder, audio: fas10, audioBySpeed: { "0.05": fas005_10, "0.45": fas045_10 }, telugu: "ఇది నా పుస్తకం.", english: "This is my book.",
+        wordMap: {"అందరికి":"to everyone","ధన్యవాదాలు":"thank you"}, tamilWordMap: {"அனைவருக்கும்":"to everyone","நன்றி":"thank you"}, spanishWordMap: {"Gracias":"thank you","a":"to","todos":"everyone"}, translitMap: {"అందరికి":"andariki","ధన్యవాదాలు":"dhanyavaadaalu"}, tamilTranslitMap: {"அனைவருக்கும்":"anaivarukkum","நன்றி":"nandri"}, spanishTranslitMap: {"Gracias":"grah-see-as","a":"ah","todos":"toh-dohs"} },
+      { image: fasSlide10, audio: fas10, audioBySpeed: { "0.05": fas005_10, "0.45": fas045_10 }, telugu: "ఇది నా పుస్తకం.", english: "This is my book.",
         tamil: "இது என் புத்தகம்.", tamilAudio: fasTa10, tamilAudioBySpeed: { "0.05": fasTa005_10, "0.45": fasTa045_10 },
         spanish: "Este es mi libro.", spanishAudio: fasEs10, spanishAudioBySpeed: { "0.05": fasEs005_10, "0.45": fasEs045_10 },
-        wordMap: {"ఇది":"this","నా":"my","పుస్తకం":"book"}, tamilWordMap: {"இது":"this","என்":"my","புத்தகம்":"book"}, spanishWordMap: {"Este":"this","es":"is","mi":"my","libro":"book"} },
-      { image: letterPlaceholder, audio: fas11, audioBySpeed: { "0.05": fas005_11, "0.45": fas045_11 }, telugu: "అది ఎవరిది?", english: "Whose is that?",
+        wordMap: {"ఇది":"this","నా":"my","పుస్తకం":"book"}, tamilWordMap: {"இது":"this","என்":"my","புத்தகம்":"book"}, spanishWordMap: {"Este":"this","es":"is","mi":"my","libro":"book"}, translitMap: {"ఇది":"idi","నా":"naa","పుస్తకం":"pusthakam"}, tamilTranslitMap: {"இது":"idhu","என்":"en","புத்தகம்":"puthagam"}, spanishTranslitMap: {"Este":"es-teh","es":"es","mi":"mee","libro":"lee-broh"} },
+      { image: fasSlide11, audio: fas11, audioBySpeed: { "0.05": fas005_11, "0.45": fas045_11 }, telugu: "అది ఎవరిది?", english: "Whose is that?",
         tamil: "அது யாருடையது?", tamilAudio: fasTa11, tamilAudioBySpeed: { "0.05": fasTa005_11, "0.45": fasTa045_11 },
         spanish: "¿De quién es eso?", spanishAudio: fasEs11, spanishAudioBySpeed: { "0.05": fasEs005_11, "0.45": fasEs045_11 },
-        wordMap: {"అది":"that","ఎవరిది":"whose is"}, tamilWordMap: {"அது":"that","யாருடையது":"whose is"}, spanishWordMap: {"De":"of","quién":"whom","es":"is","eso":"that"} },
+        wordMap: {"అది":"that","ఎవరిది":"whose is"}, tamilWordMap: {"அது":"that","யாருடையது":"whose is"}, spanishWordMap: {"De":"of","quién":"whom","es":"is","eso":"that"}, translitMap: {"అది":"adi","ఎవరిది":"evaridi"}, tamilTranslitMap: {"அது":"adhu","யாருடையது":"yaarudaiyadhu"}, spanishTranslitMap: {"De":"deh","quién":"kee-en","es":"es","eso":"eh-soh"} },
       { image: letterPlaceholder, audio: fas12, audioBySpeed: { "0.05": fas005_12, "0.45": fas045_12 }, telugu: "అది అక్కడ ఉంది.", english: "It is there.",
         tamil: "அது அங்கே இருக்கிறது.", tamilAudio: fasTa12, tamilAudioBySpeed: { "0.05": fasTa005_12, "0.45": fasTa045_12 },
         spanish: "Está allí.", spanishAudio: fasEs12, spanishAudioBySpeed: { "0.05": fasEs005_12, "0.45": fasEs045_12 },
-        wordMap: {"అది":"it","అక్కడ":"there","ఉంది":"is"}, tamilWordMap: {"அது":"it","அங்கே":"there","இருக்கிறது":"is"}, spanishWordMap: {"Está":"it is","allí":"there"} },
+        wordMap: {"అది":"it","అక్కడ":"there","ఉంది":"is"}, tamilWordMap: {"அது":"it","அங்கே":"there","இருக்கிறது":"is"}, spanishWordMap: {"Está":"it is","allí":"there"}, translitMap: {"అది":"adi","అక్కడ":"akkada","ఉంది":"undi"}, tamilTranslitMap: {"அது":"adhu","அங்கே":"angae","இருக்கிறது":"irukkiradhu"}, spanishTranslitMap: {"Está":"es-tah","allí":"ah-yee"} },
       { image: letterPlaceholder, audio: fas13, audioBySpeed: { "0.05": fas005_13, "0.45": fas045_13 }, telugu: "ఇది ఇక్కడ ఉంది.", english: "It is here.",
         tamil: "இது இங்கே இருக்கிறது.", tamilAudio: fasTa13, tamilAudioBySpeed: { "0.05": fasTa005_13, "0.45": fasTa045_13 },
         spanish: "Está aquí.", spanishAudio: fasEs13, spanishAudioBySpeed: { "0.05": fasEs005_13, "0.45": fasEs045_13 },
-        wordMap: {"ఇది":"it","ఇక్కడ":"here","ఉంది":"is"}, tamilWordMap: {"இது":"it","இங்கே":"here","இருக்கிறது":"is"}, spanishWordMap: {"Está":"it is","aquí":"here"} },
+        wordMap: {"ఇది":"it","ఇక్కడ":"here","ఉంది":"is"}, tamilWordMap: {"இது":"it","இங்கே":"here","இருக்கிறது":"is"}, spanishWordMap: {"Está":"it is","aquí":"here"}, translitMap: {"ఇది":"idi","ఇక్కడ":"ikkada","ఉంది":"undi"}, tamilTranslitMap: {"இது":"idhu","இங்கே":"ingae","இருக்கிறது":"irukkiradhu"}, spanishTranslitMap: {"Está":"es-tah","aquí":"ah-kee"} },
       { image: letterPlaceholder, audio: fas14, audioBySpeed: { "0.05": fas005_14, "0.45": fas045_14 }, telugu: "నీళ్లు ఉన్నాయా?", english: "Is there water?",
         tamil: "தண்ணீர் இருக்கிறதா?", tamilAudio: fasTa14, tamilAudioBySpeed: { "0.05": fasTa005_14, "0.45": fasTa045_14 },
         spanish: "¿Hay agua?", spanishAudio: fasEs14, spanishAudioBySpeed: { "0.05": fasEs005_14, "0.45": fasEs045_14 },
-        wordMap: {"నీళ్లు":"water","ఉన్నాయా":"is there?"}, tamilWordMap: {"தண்ணீர்":"water","இருக்கிறதா":"is there?"}, spanishWordMap: {"Hay":"is there","agua":"water"} },
+        wordMap: {"నీళ్లు":"water","ఉన్నాయా":"is there?"}, tamilWordMap: {"தண்ணீர்":"water","இருக்கிறதா":"is there?"}, spanishWordMap: {"Hay":"is there","agua":"water"}, translitMap: {"నీళ్లు":"neellu","ఉన్నాయా":"unnaayaa"}, tamilTranslitMap: {"தண்ணீர்":"thanneer","இருக்கிறதா":"irukkiradhaa"}, spanishTranslitMap: {"Hay":"eye","agua":"ah-gwah"} },
       { image: letterPlaceholder, audio: fas15, audioBySpeed: { "0.05": fas005_15, "0.45": fas045_15 }, telugu: "అవును, నిజమే!", english: "Yes, it's true!",
         tamil: "ஆமாம், உண்மைதான்!", tamilAudio: fasTa15, tamilAudioBySpeed: { "0.05": fasTa005_15, "0.45": fasTa045_15 },
         spanish: "¡Sí, es verdad!", spanishAudio: fasEs15, spanishAudioBySpeed: { "0.05": fasEs005_15, "0.45": fasEs045_15 },
-        wordMap: {"అవును":"yes","నిజమే":"it's true"}, tamilWordMap: {"ஆமாம்":"yes","உண்மைதான்":"it's true"}, spanishWordMap: {"Sí":"yes","es":"it's","verdad":"true"} },
+        wordMap: {"అవును":"yes","నిజమే":"it's true"}, tamilWordMap: {"ஆமாம்":"yes","உண்மைதான்":"it's true"}, spanishWordMap: {"Sí":"yes","es":"it's","verdad":"true"}, translitMap: {"అవును":"avunu","నిజమే":"nijame"}, tamilTranslitMap: {"ஆமாம்":"aamaam","உண்மைதான்":"unmaidhaan"}, spanishTranslitMap: {"Sí":"see","es":"es","verdad":"ver-dahd"} },
       { image: letterPlaceholder, audio: fas16, audioBySpeed: { "0.05": fas005_16, "0.45": fas045_16 }, telugu: "ఓహ్, భలే ఉంది!", english: "Oh, it's lovely!",
         tamil: "ஓ, அழகாக இருக்கிறது!", tamilAudio: fasTa16, tamilAudioBySpeed: { "0.05": fasTa005_16, "0.45": fasTa045_16 },
         spanish: "¡Oh, es precioso!", spanishAudio: fasEs16, spanishAudioBySpeed: { "0.05": fasEs005_16, "0.45": fasEs045_16 },
-        wordMap: {"ఓహ్":"oh","భలే":"lovely","ఉంది":"is"}, tamilWordMap: {"ஓ":"oh","அழகாக":"lovely","இருக்கிறது":"is"}, spanishWordMap: {"Oh":"oh","es":"it's","precioso":"lovely"} },
+        wordMap: {"ఓహ్":"oh","భలే":"lovely","ఉంది":"is"}, tamilWordMap: {"ஓ":"oh","அழகாக":"lovely","இருக்கிறது":"is"}, spanishWordMap: {"Oh":"oh","es":"it's","precioso":"lovely"}, translitMap: {"ఓహ్":"oh","భలే":"bhale","ఉంది":"undi"}, tamilTranslitMap: {"ஓ":"oh","அழகாக":"azhagaaga","இருக்கிறது":"irukkiradhu"}, spanishTranslitMap: {"Oh":"oh","es":"es","precioso":"preh-see-oh-soh"} },
       { image: letterPlaceholder, audio: fas17, audioBySpeed: { "0.05": fas005_17, "0.45": fas045_17 }, telugu: "ఎందుకు ఏడుస్తున్నావు?", english: "Why are you crying?",
         tamil: "ஏன் அழுகிறாய்?", tamilAudio: fasTa17, tamilAudioBySpeed: { "0.05": fasTa005_17, "0.45": fasTa045_17 },
         spanish: "¿Por qué lloras?", spanishAudio: fasEs17, spanishAudioBySpeed: { "0.05": fasEs005_17, "0.45": fasEs045_17 },
-        wordMap: {"ఎందుకు":"why","ఏడుస్తున్నావు":"are you crying"}, tamilWordMap: {"ஏன்":"why","அழுகிறாய்":"are you crying"}, spanishWordMap: {"Por":"why","qué":"what","lloras":"you cry"} },
+        wordMap: {"ఎందుకు":"why","ఏడుస్తున్నావు":"are you crying"}, tamilWordMap: {"ஏன்":"why","அழுகிறாய்":"are you crying"}, spanishWordMap: {"Por":"why","qué":"what","lloras":"you cry"}, translitMap: {"ఎందుకు":"enduku","ఏడుస్తున్నావు":"edusthunnaavu"}, tamilTranslitMap: {"ஏன்":"yen","அழுகிறாய்":"azhugiraai"}, spanishTranslitMap: {"Por":"por","qué":"keh","lloras":"yoh-rahs"} },
       { image: letterPlaceholder, audio: fas18, audioBySpeed: { "0.05": fas005_18, "0.45": fas045_18 }, telugu: "ఎప్పుడు వెళ్దాం?", english: "When shall we go?",
         tamil: "எப்போது போகலாம்?", tamilAudio: fasTa18, tamilAudioBySpeed: { "0.05": fasTa005_18, "0.45": fasTa045_18 },
         spanish: "¿Cuándo vamos?", spanishAudio: fasEs18, spanishAudioBySpeed: { "0.05": fasEs005_18, "0.45": fasEs045_18 },
-        wordMap: {"ఎప్పుడు":"when","వెళ్దాం":"shall we go"}, tamilWordMap: {"எப்போது":"when","போகலாம்":"shall we go"}, spanishWordMap: {"Cuándo":"when","vamos":"shall we go"} },
+        wordMap: {"ఎప్పుడు":"when","వెళ్దాం":"shall we go"}, tamilWordMap: {"எப்போது":"when","போகலாம்":"shall we go"}, spanishWordMap: {"Cuándo":"when","vamos":"shall we go"}, translitMap: {"ఎప్పుడు":"eppudu","వెళ్దాం":"veldaam"}, tamilTranslitMap: {"எப்போது":"eppodhu","போகலாம்":"pogalaam"}, spanishTranslitMap: {"Cuándo":"kwan-doh","vamos":"vah-mohs"} },
       { image: letterPlaceholder, audio: fas19, audioBySpeed: { "0.05": fas005_19, "0.45": fas045_19 }, telugu: "అతని బ్యాగ్ ఇది.", english: "This is his bag.",
         tamil: "இது அவனுடைய பை.", tamilAudio: fasTa19, tamilAudioBySpeed: { "0.05": fasTa005_19, "0.45": fasTa045_19 },
         spanish: "Esta es su mochila.", spanishAudio: fasEs19, spanishAudioBySpeed: { "0.05": fasEs005_19, "0.45": fasEs045_19 },
-        wordMap: {"అతని":"his","బ్యాగ్":"bag","ఇది":"this is"}, tamilWordMap: {"இது":"this is","அவனுடைய":"his","பை":"bag"}, spanishWordMap: {"Esta":"this","es":"is","su":"his","mochila":"bag"} },
+        wordMap: {"అతని":"his","బ్యాగ్":"bag","ఇది":"this is"}, tamilWordMap: {"இது":"this is","அவனுடைய":"his","பை":"bag"}, spanishWordMap: {"Esta":"this","es":"is","su":"his","mochila":"bag"}, translitMap: {"అతని":"athani","బ్యాగ్":"byaag","ఇది":"idi"}, tamilTranslitMap: {"இது":"idhu","அவனுடைய":"avanudaiya","பை":"pai"}, spanishTranslitMap: {"Esta":"es-tah","es":"es","su":"soo","mochila":"moh-chee-lah"} },
       { image: letterPlaceholder, audio: fas20, audioBySpeed: { "0.05": fas005_20, "0.45": fas045_20 }, telugu: "ఆమె నా అక్క.", english: "She is my elder sister.",
         tamil: "அவள் என் அக்கா.", tamilAudio: fasTa20, tamilAudioBySpeed: { "0.05": fasTa005_20, "0.45": fasTa045_20 },
         spanish: "Ella es mi hermana mayor.", spanishAudio: fasEs20, spanishAudioBySpeed: { "0.05": fasEs005_20, "0.45": fasEs045_20 },
-        wordMap: {"ఆమె":"she","నా":"my","అక్క":"elder sister"}, tamilWordMap: {"அவள்":"she","என்":"my","அக்கா":"elder sister"}, spanishWordMap: {"Ella":"she","es":"is","mi":"my","hermana":"sister","mayor":"elder"} },
+        wordMap: {"ఆమె":"she","నా":"my","అక్క":"elder sister"}, tamilWordMap: {"அவள்":"she","என்":"my","அக்கா":"elder sister"}, spanishWordMap: {"Ella":"she","es":"is","mi":"my","hermana":"sister","mayor":"elder"}, translitMap: {"ఆమె":"aame","నా":"naa","అక్క":"akka"}, tamilTranslitMap: {"அவள்":"aval","என்":"en","அக்கா":"akkaa"}, spanishTranslitMap: {"Ella":"eh-yah","es":"es","mi":"mee","hermana":"er-mah-nah","mayor":"mah-yor"} },
     ],
   },
   // ─────────── ANIMAL STORIES ───────────
