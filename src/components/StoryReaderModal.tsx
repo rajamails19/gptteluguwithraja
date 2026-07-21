@@ -7,7 +7,6 @@ import { ProgressDots } from "./ProgressDots";
 import { getCachedAudio, putCachedAudio } from "@/lib/ttsCache";
 import { StoryCelebration } from "./StoryCelebration";
 import { MeenuCharacter, type MeenuExpression } from "./MeenuCharacter";
-import yourTurnCue from "@/assets/audio/ui/your-turn.mp3";
 
 interface Props {
   story: Story | null;
@@ -204,7 +203,6 @@ export function StoryReaderModal({ story, onClose }: Props) {
   const audioPlaybackRateRef = useRef<number>(1);
   const audioPreloadRef = useRef<HTMLAudioElement[]>([]);
   const audioRepeatTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const promptAudioRef = useRef<HTMLAudioElement | null>(null);
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
   const cacheRef = useRef<Map<string, string>>(new Map());
   const [audioState, setAudioState] = useState<"idle" | "loading" | "playing">("idle");
@@ -320,8 +318,6 @@ export function StoryReaderModal({ story, onClose }: Props) {
     }
     const a = audioRef.current;
     if (a) { a.pause(); a.currentTime = 0; a.onended = null; a.onerror = null; }
-    const prompt = promptAudioRef.current;
-    if (prompt) { prompt.pause(); prompt.onended = null; prompt.onerror = null; promptAudioRef.current = null; }
     if (supportsBrowserSpeech()) {
       window.speechSynthesis.cancel();
     }
@@ -991,8 +987,63 @@ export function StoryReaderModal({ story, onClose }: Props) {
             const cleanWord = word.replace(/^[¿¡"']+/, "").replace(/[.,!?।"']+$/, "");
             const meaning = wordMap?.[cleanWord] ?? wordMap?.[word];
             const translit = translitMap?.[cleanWord] ?? translitMap?.[word];
+            const hasLabel = Boolean(meaning || translit);
+            // Each word is a centered column: the (romanization — meaning) label
+            // sits in normal flow above the word, so its width is reserved and
+            // neighbouring words are pushed apart — no overlap on long labels.
             return (
-              <span key={i}>
+              <span
+                key={i}
+                style={{
+                  display: "inline-flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  verticalAlign: "bottom",
+                  margin: "0 0.28em",
+                }}
+              >
+                {hasLabel && (
+                  <span
+                    aria-hidden
+                    style={{
+                      fontSize: "0.42em",
+                      lineHeight: 1,
+                      whiteSpace: "nowrap",
+                      pointerEvents: "none",
+                      marginBottom: "0.35em",
+                      paddingInline: "0.4em",
+                    }}
+                  >
+                    <span style={{ color: "oklch(0.5 0.12 145)" }}>(</span>
+                    {translit && (
+                      <span
+                        style={{
+                          fontFamily: "'Trebuchet MS', 'Segoe UI', system-ui, sans-serif",
+                          color: "oklch(0.55 0.22 25)",
+                          fontWeight: 600,
+                          letterSpacing: "0.01em",
+                        }}
+                      >
+                        {translit}
+                      </span>
+                    )}
+                    {translit && meaning && (
+                      <span style={{ color: "oklch(0.5 0.05 90)" }}> — </span>
+                    )}
+                    {meaning && (
+                      <span
+                        style={{
+                          fontFamily: "var(--font-display, serif)",
+                          color: "oklch(0.5 0.12 145)",
+                          fontStyle: "italic",
+                        }}
+                      >
+                        {meaning}
+                      </span>
+                    )}
+                    <span style={{ color: "oklch(0.5 0.12 145)" }}>)</span>
+                  </span>
+                )}
                 <span
                   ref={isCurrentPage ? (el) => { wordSpanRefs.current[i] = el; } : undefined}
                   onClick={() => isCurrentPage && handleWordTap(word)}
@@ -1005,59 +1056,15 @@ export function StoryReaderModal({ story, onClose }: Props) {
                           padding: "2px 6px",
                           borderRadius: "8px",
                           display: "inline-block",
-                          position: "relative",
                         }
                       : {
                           padding: "2px 6px",
                           display: "inline-block",
-                          position: "relative",
                         }
                   }
                 >
-                  {meaning && (
-                    <span
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        bottom: "100%",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        fontSize: "0.42em",
-                        fontFamily: "var(--font-display, serif)",
-                        color: "oklch(0.5 0.12 145)",
-                        fontStyle: "italic",
-                        lineHeight: 1,
-                        whiteSpace: "nowrap",
-                        pointerEvents: "none",
-                      }}
-                    >
-                      ({meaning})
-                    </span>
-                  )}
                   {word}
-                  {translit && (
-                    <span
-                      aria-hidden
-                      style={{
-                        position: "absolute",
-                        top: "100%",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        fontSize: "0.42em",
-                        fontFamily: "var(--font-display, serif)",
-                        color: "oklch(0.55 0.02 60)",
-                        fontStyle: "italic",
-                        lineHeight: 1,
-                        whiteSpace: "nowrap",
-                        pointerEvents: "none",
-                        marginTop: "2px",
-                      }}
-                    >
-                      ({translit})
-                    </span>
-                  )}
                 </span>
-                {i < words.length - 1 ? " " : ""}
               </span>
             );
           })}
@@ -1128,10 +1135,10 @@ export function StoryReaderModal({ story, onClose }: Props) {
               )}
             </button>
           )}
+          <p className="reader-english-text max-w-[15rem] text-left font-display text-[15px] italic leading-snug text-muted-foreground sm:text-lg">
+            {p.english}
+          </p>
         </div>
-        <p className="reader-english-text mx-auto mt-3 max-w-[19rem] font-display text-[15px] italic leading-snug text-muted-foreground sm:max-w-none sm:text-lg">
-          {p.english}
-        </p>
         {withButton && audioError && (
           <p className="mt-2 text-xs text-destructive">{audioError}</p>
         )}
@@ -1139,20 +1146,6 @@ export function StoryReaderModal({ story, onClose }: Props) {
     </div>
   );
 
-  // Play the "now you repeat that" cue between slides, then run onEnded.
-  // Falls through immediately if the clip can't play so auto-read never stalls.
-  const playRepeatPrompt = (onEnded: () => void) => {
-    try {
-      const clip = new Audio(yourTurnCue);
-      promptAudioRef.current = clip;
-      const done = () => { promptAudioRef.current = null; onEnded(); };
-      clip.onended = done;
-      clip.onerror = done;
-      clip.play().catch(done);
-    } catch {
-      onEnded();
-    }
-  };
 
   const playAutoForPage = (pageIndex: number) => {
     const storyPage = pagesForLang(story, langRef.current)[pageIndex];
@@ -1164,7 +1157,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
         setDir(1);
         setPage(nextIndex);
         playAutoForPage(nextIndex);
-      }, 3500); // quiet time for the child to repeat after the cue
+      }, 600); // brief transition after the cue, then move on
     };
     const onDone = () => {
       if (autoPlayRef.current !== "playing") return;
@@ -1178,15 +1171,11 @@ export function StoryReaderModal({ story, onClose }: Props) {
         }, 800);
         return;
       }
-      // Wait 2s after the sentence, gently say "your turn", then advance
-      // after a quiet gap so the child has time to repeat.
+      // Quiet pause after the sentence (time for the child to repeat), then advance.
       advanceTimerRef.current = setTimeout(() => {
         if (autoPlayRef.current !== "playing") return;
-        playRepeatPrompt(() => {
-          if (autoPlayRef.current !== "playing") return;
-          advanceToNext();
-        });
-      }, 2000);
+        advanceToNext();
+      }, 2500);
     };
 
     if (langRef.current === "tamil" && storyPage.tamilAudio) {
