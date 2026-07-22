@@ -35,7 +35,8 @@ export function Index() {
   const libraryRef = useRef<HTMLDivElement>(null);
 
   const filtered = useMemo(
-    () => (active === "All" ? stories : stories.filter((s) => s.category === active)),
+    () =>
+      active === "All" ? stories : stories.filter((s) => s.category === active),
     [active],
   );
 
@@ -56,7 +57,10 @@ export function Index() {
             </span>
           </a>
           <nav className="hidden items-center gap-7 text-sm text-foreground/70 sm:flex">
-            <a href="#library" className="hover:text-foreground transition-colors">
+            <a
+              href="#library"
+              className="hover:text-foreground transition-colors"
+            >
               Library
             </a>
             <Link
@@ -65,7 +69,10 @@ export function Index() {
             >
               Young Readers
             </Link>
-            <Link to="/about" className="hover:text-foreground transition-colors">
+            <Link
+              to="/about"
+              className="hover:text-foreground transition-colors"
+            >
               About
             </Link>
           </nav>
@@ -81,7 +88,10 @@ export function Index() {
 
       <main>
         <section className="mx-auto max-w-7xl px-5 pt-5 sm:px-8">
-          <Link to="/about" className="block transition-transform hover:-translate-y-0.5">
+          <Link
+            to="/about"
+            className="block transition-transform hover:-translate-y-0.5"
+          >
             <MadeWithLove />
           </Link>
         </section>
@@ -139,7 +149,12 @@ export function Index() {
       <footer className="border-t border-border/60 py-10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-5 text-sm text-muted-foreground sm:flex-row sm:px-8">
           <p>© {new Date().getFullYear()} Telugu Tales. Made with care.</p>
-          <p className="font-telugu">తెలుగు కథలు</p>
+          <div className="flex items-center gap-5">
+            <Link to="/privacy" className="hover:text-foreground">
+              Privacy
+            </Link>
+            <p className="font-telugu">తెలుగు కథలు</p>
+          </div>
         </div>
       </footer>
 

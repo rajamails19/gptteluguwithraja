@@ -76,11 +76,31 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Lovable App" },
       { property: "og:title", content: "Lovable App" },
       { name: "twitter:title", content: "Lovable App" },
-      { name: "description", content: "Telugu Tales Library offers an immersive digital experience for reading illustrated Telugu storybooks." },
-      { property: "og:description", content: "Telugu Tales Library offers an immersive digital experience for reading illustrated Telugu storybooks." },
-      { name: "twitter:description", content: "Telugu Tales Library offers an immersive digital experience for reading illustrated Telugu storybooks." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e742f8f3-b473-42c4-be62-acbf8b12db82/id-preview-2a1c776f--4b3f353f-4919-4287-90d7-3ecd2816dd47.lovable.app-1779585783658.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e742f8f3-b473-42c4-be62-acbf8b12db82/id-preview-2a1c776f--4b3f353f-4919-4287-90d7-3ecd2816dd47.lovable.app-1779585783658.png" },
+      {
+        name: "description",
+        content:
+          "Telugu Tales Library offers an immersive digital experience for reading illustrated Telugu storybooks.",
+      },
+      {
+        property: "og:description",
+        content:
+          "Telugu Tales Library offers an immersive digital experience for reading illustrated Telugu storybooks.",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Telugu Tales Library offers an immersive digital experience for reading illustrated Telugu storybooks.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e742f8f3-b473-42c4-be62-acbf8b12db82/id-preview-2a1c776f--4b3f353f-4919-4287-90d7-3ecd2816dd47.lovable.app-1779585783658.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e742f8f3-b473-42c4-be62-acbf8b12db82/id-preview-2a1c776f--4b3f353f-4919-4287-90d7-3ecd2816dd47.lovable.app-1779585783658.png",
+      },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
     ],

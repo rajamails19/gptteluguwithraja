@@ -17,7 +17,8 @@ const env = Object.fromEntries(
 const apiKey = process.env.ELEVENLABS_API_KEY || env.ELEVENLABS_API_KEY;
 // Male voice — Liam
 const voiceId = process.env.ELEVENLABS_VOICE_LIA || env.ELEVENLABS_VOICE_LIA;
-if (!apiKey || !voiceId) throw new Error("Missing ELEVENLABS creds (need ELEVENLABS_VOICE_LIA)");
+if (!apiKey || !voiceId)
+  throw new Error("Missing ELEVENLABS creds (need ELEVENLABS_VOICE_LIA)");
 
 const sentences = [
   "నాకు సంతోషంగా ఉంది.",
@@ -46,7 +47,7 @@ const sentences = [
 // toddler can hear one word, then repeat it, then hear the next.
 function toUltraSlow(sentence) {
   const words = sentence
-    .replace(/[.?!]+$/g, "")   // drop the final mark
+    .replace(/[.?!]+$/g, "") // drop the final mark
     .split(/\s+/)
     .filter(Boolean)
     .map((w) => w.replace(/[,]+$/g, "")); // drop trailing commas on words
@@ -57,19 +58,38 @@ function toUltraSlow(sentence) {
 for (let i = 0; i < sentences.length; i++) {
   const pageNumber = i + 1;
   const text = toUltraSlow(sentences[i]);
-  const outputPath = resolve(root, `src/assets/audio/first-action-sentences/slow-005/page-${pageNumber}.mp3`);
+  const outputPath = resolve(
+    root,
+    `src/assets/audio/first-action-sentences/slow-005/page-${pageNumber}.mp3`,
+  );
   await mkdir(dirname(outputPath), { recursive: true });
   console.log(`page ${pageNumber}: ${sentences[i]}`);
-  const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
-    method: "POST",
-    headers: { "xi-api-key": apiKey, "Content-Type": "application/json", Accept: "audio/mpeg" },
-    body: JSON.stringify({
-      text,
-      model_id: "eleven_v3",
-      voice_settings: { stability: 0.5, similarity_boost: 0.85, style: 0.3, use_speaker_boost: true, speed: 0.45 },
-    }),
-  });
-  if (!response.ok) throw new Error(`page ${pageNumber} failed: ${response.status} ${await response.text()}`);
+  const response = await fetch(
+    `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+    {
+      method: "POST",
+      headers: {
+        "xi-api-key": apiKey,
+        "Content-Type": "application/json",
+        Accept: "audio/mpeg",
+      },
+      body: JSON.stringify({
+        text,
+        model_id: "eleven_v3",
+        voice_settings: {
+          stability: 0.5,
+          similarity_boost: 0.85,
+          style: 0.3,
+          use_speaker_boost: true,
+          speed: 0.45,
+        },
+      }),
+    },
+  );
+  if (!response.ok)
+    throw new Error(
+      `page ${pageNumber} failed: ${response.status} ${await response.text()}`,
+    );
   await writeFile(outputPath, Buffer.from(await response.arrayBuffer()));
   console.log(`  ✓ slow-005/page-${pageNumber}.mp3`);
 }

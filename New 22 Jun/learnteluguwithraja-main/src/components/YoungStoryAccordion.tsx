@@ -53,42 +53,39 @@ export function YoungStoryAccordion({ story, isOpen, onToggle, index }: Props) {
     };
   }, []);
 
-  const playText = useCallback(
-    async (text: string, onEnded?: () => void) => {
-      try {
-        let url = cacheRef.current.get(text);
-        if (!url) {
-          setAudioState("loading");
-          let blob = await getCachedAudio(text);
-          if (!blob) {
-            const res = await fetch("/api/tts", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ text }),
-            });
-            if (!res.ok) throw new Error(`TTS failed (${res.status})`);
-            blob = await res.blob();
-            await putCachedAudio(text, blob);
-          }
-          url = URL.createObjectURL(blob);
-          cacheRef.current.set(text, url);
+  const playText = useCallback(async (text: string, onEnded?: () => void) => {
+    try {
+      let url = cacheRef.current.get(text);
+      if (!url) {
+        setAudioState("loading");
+        let blob = await getCachedAudio(text);
+        if (!blob) {
+          const res = await fetch("/api/tts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text }),
+          });
+          if (!res.ok) throw new Error(`TTS failed (${res.status})`);
+          blob = await res.blob();
+          await putCachedAudio(text, blob);
         }
-        const audio = new Audio(url);
-        audioRef.current = audio;
-        audio.onended = () => {
-          setAudioState("idle");
-          onEnded?.();
-        };
-        audio.onerror = () => setAudioState("idle");
-        await audio.play();
-        setAudioState("playing");
-      } catch (err) {
-        console.error(err);
-        setAudioState("idle");
+        url = URL.createObjectURL(blob);
+        cacheRef.current.set(text, url);
       }
-    },
-    [],
-  );
+      const audio = new Audio(url);
+      audioRef.current = audio;
+      audio.onended = () => {
+        setAudioState("idle");
+        onEnded?.();
+      };
+      audio.onerror = () => setAudioState("idle");
+      await audio.play();
+      setAudioState("playing");
+    } catch (err) {
+      console.error(err);
+      setAudioState("idle");
+    }
+  }, []);
 
   const handleChapterPlay = (i: number) => {
     if (activeChapter === i && audioState === "playing") {
@@ -168,9 +165,7 @@ export function YoungStoryAccordion({ story, isOpen, onToggle, index }: Props) {
               {story.title}
             </h3>
           </div>
-          <div className="mb-5 text-[10px] uppercase tracking-[0.2em] text-cream/80">
-            Tap
-          </div>
+          <div className="mb-5 text-[10px] uppercase tracking-[0.2em] text-cream/80">Tap</div>
         </motion.div>
       )}
 
@@ -186,7 +181,9 @@ export function YoungStoryAccordion({ story, isOpen, onToggle, index }: Props) {
             className="absolute inset-0 flex flex-col bg-cream/85 backdrop-blur-md"
           >
             {/* Header band with cover thumb */}
-            <div className={`relative flex items-stretch border-b border-border/40 bg-gradient-to-br ${story.accent}`}>
+            <div
+              className={`relative flex items-stretch border-b border-border/40 bg-gradient-to-br ${story.accent}`}
+            >
               <div className="relative h-32 w-28 shrink-0 overflow-hidden sm:h-36 sm:w-36">
                 <img
                   src={story.cover}
@@ -235,7 +232,11 @@ export function YoungStoryAccordion({ story, isOpen, onToggle, index }: Props) {
                   onClick={handleReadAll}
                   className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-soft transition-all hover:brightness-110"
                 >
-                  {autoPlay ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4 translate-x-[1px]" />}
+                  {autoPlay ? (
+                    <Pause className="h-4 w-4" />
+                  ) : (
+                    <Play className="h-4 w-4 translate-x-[1px]" />
+                  )}
                   <span>{autoPlay ? "Stop reading" : "Read whole story"}</span>
                 </button>
               </div>

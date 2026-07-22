@@ -15,16 +15,19 @@ const env = Object.fromEntries(
 );
 
 const apiKey = process.env.ELEVENLABS_API_KEY || env.ELEVENLABS_API_KEY;
-const voiceId = process.env.ELEVENLABS_VOICE_SAANVIK || env.ELEVENLABS_VOICE_SAANVIK;
+const voiceId =
+  process.env.ELEVENLABS_VOICE_SAANVIK || env.ELEVENLABS_VOICE_SAANVIK;
 
-if (!apiKey) throw new Error("Missing ELEVENLABS_API_KEY in environment or .env");
-if (!voiceId) throw new Error("Missing ELEVENLABS_VOICE_SAANVIK in environment or .env");
+if (!apiKey)
+  throw new Error("Missing ELEVENLABS_API_KEY in environment or .env");
+if (!voiceId)
+  throw new Error("Missing ELEVENLABS_VOICE_SAANVIK in environment or .env");
 
 const chapters = [
-  "అర్జున్ ఒక చిన్న గ్రామంలో నివసిస్తాడు. అతని ఇల్లు పర్వతాల పక్కన ఉంది. ప్రతిరోజూ ఉదయాన్నే అతను తల్లికి సహాయం చేస్తాడు. కానీ అతని మనసు మాత్రం ఎప్పుడూ అడవి వైపే వెళ్తుంది. ఒక రోజు ఉదయం, తాత చెప్పిన పాత కథ గుర్తొచ్చింది. \"మన అడవిలో ఒక మాయా జంతువు ఉంది,\" అన్నాడు తాత.",
-  "అర్జున్ ధైర్యం చేసి అడవిలోకి అడుగు పెట్టాడు. అక్కడ చెట్లు చాలా పెద్దవిగా ఉన్నాయి. మిణుగురులు చిన్న చిన్న దీపాల్లా మెరుస్తున్నాయి. గులాబీ రంగు పుట్టగొడుగులు దారిని చూపిస్తున్నాయి. \"ఇది నిజంగానే మాయా అడవి!\" అని అర్జున్ గుసగుసలాడాడు. అతని గుండె వేగంగా కొట్టుకుంది.",
-  "హఠాత్తుగా ఒక పెద్ద తెల్లని పులి కనిపించింది. దాని కళ్ళు చంద్రుని వెలుగులా మెరుస్తున్నాయి. అర్జున్ భయపడలేదు, నిలబడ్డాడు. \"నీవు ఎవరు, చిన్నారీ?\" అని పులి మృదువుగా అడిగింది. \"నేను అర్జున్. మీ స్నేహితుడిని కావాలనుకుంటున్నాను,\" అని ధైర్యంగా చెప్పాడు. పులి నవ్వింది.",
-  "పులి అర్జున్‌ని తన వీపు మీద కూర్చోబెట్టింది. ఇద్దరూ కలిసి ఆకాశంలోకి ఎగిరారు. నక్షత్రాలు చేతికి అందినట్లు దగ్గరగా ఉన్నాయి. \"ధైర్యం ఉన్నవాడికే ఈ ప్రపంచం కనిపిస్తుంది,\" అని పులి చెప్పింది. అర్జున్ నవ్వుతూ గ్రామం వైపు తిరిగి వచ్చాడు. అతనికి ఇప్పుడు ఒక మాయా స్నేహితుడు ఉన్నాడు.",
+  'అర్జున్ ఒక చిన్న గ్రామంలో నివసిస్తాడు. అతని ఇల్లు పర్వతాల పక్కన ఉంది. ప్రతిరోజూ ఉదయాన్నే అతను తల్లికి సహాయం చేస్తాడు. కానీ అతని మనసు మాత్రం ఎప్పుడూ అడవి వైపే వెళ్తుంది. ఒక రోజు ఉదయం, తాత చెప్పిన పాత కథ గుర్తొచ్చింది. "మన అడవిలో ఒక మాయా జంతువు ఉంది," అన్నాడు తాత.',
+  'అర్జున్ ధైర్యం చేసి అడవిలోకి అడుగు పెట్టాడు. అక్కడ చెట్లు చాలా పెద్దవిగా ఉన్నాయి. మిణుగురులు చిన్న చిన్న దీపాల్లా మెరుస్తున్నాయి. గులాబీ రంగు పుట్టగొడుగులు దారిని చూపిస్తున్నాయి. "ఇది నిజంగానే మాయా అడవి!" అని అర్జున్ గుసగుసలాడాడు. అతని గుండె వేగంగా కొట్టుకుంది.',
+  'హఠాత్తుగా ఒక పెద్ద తెల్లని పులి కనిపించింది. దాని కళ్ళు చంద్రుని వెలుగులా మెరుస్తున్నాయి. అర్జున్ భయపడలేదు, నిలబడ్డాడు. "నీవు ఎవరు, చిన్నారీ?" అని పులి మృదువుగా అడిగింది. "నేను అర్జున్. మీ స్నేహితుడిని కావాలనుకుంటున్నాను," అని ధైర్యంగా చెప్పాడు. పులి నవ్వింది.',
+  'పులి అర్జున్‌ని తన వీపు మీద కూర్చోబెట్టింది. ఇద్దరూ కలిసి ఆకాశంలోకి ఎగిరారు. నక్షత్రాలు చేతికి అందినట్లు దగ్గరగా ఉన్నాయి. "ధైర్యం ఉన్నవాడికే ఈ ప్రపంచం కనిపిస్తుంది," అని పులి చెప్పింది. అర్జున్ నవ్వుతూ గ్రామం వైపు తిరిగి వచ్చాడు. అతనికి ఇప్పుడు ఒక మాయా స్నేహితుడు ఉన్నాడు.',
 ];
 
 const expressiveChapters = [
@@ -37,7 +40,7 @@ const expressiveChapters = [
     "కానీ... అతని మనసు మాత్రం... ఎప్పుడూ అడవి వైపే వెళ్తుంది.",
     "[curious hum]",
     "ఒక రోజు ఉదయం... తాత చెప్పిన పాత కథ గుర్తొచ్చింది.",
-    "\"మన అడవిలో... ఒక మాయా జంతువు ఉంది,\" అన్నాడు తాత.",
+    '"మన అడవిలో... ఒక మాయా జంతువు ఉంది," అన్నాడు తాత.',
     "[wonder gasp]",
   ].join("\n\n"),
   [
@@ -47,7 +50,7 @@ const expressiveChapters = [
     "మిణుగురులు... చిన్న చిన్న దీపాల్లా మెరుస్తున్నాయి.",
     "[delighted laugh]",
     "గులాబీ రంగు పుట్టగొడుగులు... దారిని చూపిస్తున్నాయి.",
-    "\"ఇది నిజంగానే మాయా అడవి!\" అని అర్జున్ గుసగుసలాడాడు.",
+    '"ఇది నిజంగానే మాయా అడవి!" అని అర్జున్ గుసగుసలాడాడు.',
     "[whispered wonder]",
     "అతని గుండె... వేగంగా కొట్టుకుంది.",
     "[heartbeat suspense]",
@@ -58,8 +61,8 @@ const expressiveChapters = [
     "దాని కళ్ళు... చంద్రుని వెలుగులా మెరుస్తున్నాయి.",
     "అర్జున్ భయపడలేదు... నిలబడ్డాడు.",
     "[proud smile]",
-    "\"నీవు ఎవరు, చిన్నారీ?\" అని పులి మృదువుగా అడిగింది.",
-    "\"నేను అర్జున్. మీ స్నేహితుడిని కావాలనుకుంటున్నాను,\" అని ధైర్యంగా చెప్పాడు.",
+    '"నీవు ఎవరు, చిన్నారీ?" అని పులి మృదువుగా అడిగింది.',
+    '"నేను అర్జున్. మీ స్నేహితుడిని కావాలనుకుంటున్నాను," అని ధైర్యంగా చెప్పాడు.',
     "[soft impressed laugh]",
     "పులి నవ్వింది.",
     "[gentle tiger-like chuckle]",
@@ -71,7 +74,7 @@ const expressiveChapters = [
     "[whoosh]",
     "నక్షత్రాలు... చేతికి అందినట్లు దగ్గరగా ఉన్నాయి.",
     "[soft wonder]",
-    "\"ధైర్యం ఉన్నవాడికే... ఈ ప్రపంచం కనిపిస్తుంది,\" అని పులి చెప్పింది.",
+    '"ధైర్యం ఉన్నవాడికే... ఈ ప్రపంచం కనిపిస్తుంది," అని పులి చెప్పింది.',
     "అర్జున్ నవ్వుతూ... గ్రామం వైపు తిరిగి వచ్చాడు.",
     "అతనికి ఇప్పుడు... ఒక మాయా స్నేహితుడు ఉన్నాడు.",
     "[warm closing smile]",
@@ -83,10 +86,12 @@ function normalizeText(text) {
 }
 
 function splitSentences(text) {
-  return normalizeText(text)
-    .match(/[^.!?"”]+(?:[.!?]+["”]?|$)/gu)
-    ?.map((sentence) => sentence.trim())
-    .filter(Boolean) ?? [normalizeText(text)];
+  return (
+    normalizeText(text)
+      .match(/[^.!?"”]+(?:[.!?]+["”]?|$)/gu)
+      ?.map((sentence) => sentence.trim())
+      .filter(Boolean) ?? [normalizeText(text)]
+  );
 }
 
 function words(sentence) {
@@ -111,7 +116,13 @@ function chunkWords(parts, pattern) {
   return chunks;
 }
 
-function pacedText(text, shortPattern, longPattern, phrasePause, sentencePause) {
+function pacedText(
+  text,
+  shortPattern,
+  longPattern,
+  phrasePause,
+  sentencePause,
+) {
   return text
     .split(/\n{2,}/)
     .flatMap((block) => {
@@ -128,7 +139,13 @@ function pacedText(text, shortPattern, longPattern, phrasePause, sentencePause) 
 }
 
 function ultraSlow(text) {
-  return pacedText(text, [1, 1], [1, 1, 2], ". ... ... ", "\n\n... ... ...\n\n");
+  return pacedText(
+    text,
+    [1, 1],
+    [1, 1, 2],
+    ". ... ... ",
+    "\n\n... ... ...\n\n",
+  );
 }
 
 function learningSlow(text) {
@@ -183,22 +200,27 @@ for (const variant of variants) {
     );
     await mkdir(dirname(outputPath), { recursive: true });
 
-    const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
-      method: "POST",
-      headers: {
-        "xi-api-key": apiKey,
-        "Content-Type": "application/json",
-        Accept: "audio/mpeg",
-      },
-      body: JSON.stringify({
-        text: variant.transform(variant.expressive ? expressiveChapters[index] : chapters[index]),
-        model_id: "eleven_v3",
-        voice_settings: {
-          ...voiceSettings,
-          speed: variant.speed,
+    const response = await fetch(
+      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+      {
+        method: "POST",
+        headers: {
+          "xi-api-key": apiKey,
+          "Content-Type": "application/json",
+          Accept: "audio/mpeg",
         },
-      }),
-    });
+        body: JSON.stringify({
+          text: variant.transform(
+            variant.expressive ? expressiveChapters[index] : chapters[index],
+          ),
+          model_id: "eleven_v3",
+          voice_settings: {
+            ...voiceSettings,
+            speed: variant.speed,
+          },
+        }),
+      },
+    );
 
     if (!response.ok) {
       const body = await response.text();
@@ -208,6 +230,8 @@ for (const variant of variants) {
     }
 
     await writeFile(outputPath, Buffer.from(await response.arrayBuffer()));
-    console.log(`brave-little-one chapter ${pageNumber} ${variant.label} Saanvik`);
+    console.log(
+      `brave-little-one chapter ${pageNumber} ${variant.label} Saanvik`,
+    );
   }
 }

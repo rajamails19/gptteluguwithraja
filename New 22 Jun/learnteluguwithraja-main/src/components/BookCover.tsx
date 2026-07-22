@@ -25,9 +25,7 @@ export function BookCover({ story, onOpen, index = 0 }: Props) {
       className="group relative block text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md"
       aria-label={`Open story: ${story.title}`}
     >
-      <div
-        className="book-cover shadow-book group-hover:shadow-book-hover transition-shadow duration-500 aspect-[3/4] w-full"
-      >
+      <div className="book-cover shadow-book group-hover:shadow-book-hover transition-shadow duration-500 aspect-[3/4] w-full">
         <img
           src={story.cover}
           alt={story.title}
@@ -42,9 +40,7 @@ export function BookCover({ story, onOpen, index = 0 }: Props) {
         <h3 className="font-display text-[17px] leading-tight text-foreground tracking-tight">
           {story.title}
         </h3>
-        <p className="font-telugu text-sm text-muted-foreground mt-0.5">
-          {story.teluguTitle}
-        </p>
+        <p className="font-telugu text-sm text-muted-foreground mt-0.5">{story.teluguTitle}</p>
         <div className="mt-2 flex items-center gap-2 text-[11px] uppercase tracking-wider text-muted-foreground">
           <span>Age {story.age}</span>
           <span className="h-1 w-1 rounded-full bg-muted-foreground/40" />

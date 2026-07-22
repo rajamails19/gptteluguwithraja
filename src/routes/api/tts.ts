@@ -18,10 +18,7 @@ function jsonError(body: Record<string, unknown>, status: number) {
   });
 }
 
-function audioResponse(
-  body: BodyInit,
-  headers: Record<string, string>,
-) {
+function audioResponse(body: BodyInit, headers: Record<string, string>) {
   return new Response(body, {
     status: 200,
     headers: {
@@ -42,31 +39,36 @@ async function sha256Hex(text: string): Promise<string> {
 export const Route = createFileRoute("/api/tts")({
   server: {
     handlers: {
-      GET: async () => Response.json(
-        {
-          error: "Method not allowed.",
-          message: "Use POST /api/tts with a JSON body: { \"text\": \"...\" }.",
-        },
-        {
-          status: 405,
+      GET: async () =>
+        Response.json(
+          {
+            error: "Method not allowed.",
+            message: 'Use POST /api/tts with a JSON body: { "text": "..." }.',
+          },
+          {
+            status: 405,
+            headers: {
+              ...CORS_HEADERS,
+              Allow: ALLOW_HEADER,
+            },
+          },
+        ),
+      OPTIONS: async () =>
+        new Response(null, {
+          status: 204,
           headers: {
             ...CORS_HEADERS,
             Allow: ALLOW_HEADER,
           },
-        },
-      ),
-      OPTIONS: async () => new Response(null, {
-        status: 204,
-        headers: {
-          ...CORS_HEADERS,
-          Allow: ALLOW_HEADER,
-        },
-      }),
+        }),
       POST: async ({ request }) => {
         const apiKey = process.env.SARVAM_API_KEY;
         if (!apiKey) {
           return jsonError(
-            { error: "Text-to-speech is not configured.", reason: "missing_api_key" },
+            {
+              error: "Text-to-speech is not configured.",
+              reason: "missing_api_key",
+            },
             500,
           );
         }
@@ -84,10 +86,7 @@ export const Route = createFileRoute("/api/tts")({
             : undefined;
 
         if (typeof text !== "string" || text.trim().length === 0) {
-          return jsonError(
-            { error: "Field 'text' is required." },
-            400,
-          );
+          return jsonError({ error: "Field 'text' is required." }, 400);
         }
         if (text.length > MAX_TEXT_LENGTH) {
           return jsonError(

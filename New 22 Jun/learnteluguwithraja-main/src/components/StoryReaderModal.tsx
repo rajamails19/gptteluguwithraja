@@ -16,9 +16,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
   const touchStart = useRef<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const cacheRef = useRef<Map<string, string>>(new Map());
-  const [audioState, setAudioState] = useState<"idle" | "loading" | "playing">(
-    "idle",
-  );
+  const [audioState, setAudioState] = useState<"idle" | "loading" | "playing">("idle");
   const [audioError, setAudioError] = useState<string | null>(null);
   const [autoPlay, setAutoPlay] = useState<"off" | "playing" | "paused">("off");
   const autoPlayRef = useRef<"off" | "playing" | "paused">("off");
@@ -104,52 +102,52 @@ export function StoryReaderModal({ story, onClose }: Props) {
     };
   }, [story, next, prev, onClose]);
 
-  const playText = useCallback(
-    async (text: string, onEnded?: () => void) => {
-      setAudioError(null);
-      try {
-        let url = cacheRef.current.get(text);
-        if (!url) {
-          setAudioState("loading");
-          let blob = await getCachedAudio(text);
-          if (!blob) {
-            const res = await fetch("/api/tts", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ text }),
-            });
-            if (!res.ok) throw new Error(`TTS failed (${res.status})`);
-            blob = await res.blob();
-            await putCachedAudio(text, blob);
-          }
-          url = URL.createObjectURL(blob);
-          cacheRef.current.set(text, url);
+  const playText = useCallback(async (text: string, onEnded?: () => void) => {
+    setAudioError(null);
+    try {
+      let url = cacheRef.current.get(text);
+      if (!url) {
+        setAudioState("loading");
+        let blob = await getCachedAudio(text);
+        if (!blob) {
+          const res = await fetch("/api/tts", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text }),
+          });
+          if (!res.ok) throw new Error(`TTS failed (${res.status})`);
+          blob = await res.blob();
+          await putCachedAudio(text, blob);
         }
-        const audio = new Audio(url);
-        audioRef.current = audio;
-        audio.onended = () => {
-          setAudioState("idle");
-          onEnded?.();
-        };
-        audio.onerror = () => {
-          setAudioState("idle");
-          setAudioError("Couldn't play audio.");
-        };
-        await audio.play();
-        setAudioState("playing");
-      } catch (err) {
-        console.error(err);
-        setAudioState("idle");
-        setAudioError("Couldn't load audio. Try again.");
+        url = URL.createObjectURL(blob);
+        cacheRef.current.set(text, url);
       }
-    },
-    [],
-  );
+      const audio = new Audio(url);
+      audioRef.current = audio;
+      audio.onended = () => {
+        setAudioState("idle");
+        onEnded?.();
+      };
+      audio.onerror = () => {
+        setAudioState("idle");
+        setAudioError("Couldn't play audio.");
+      };
+      await audio.play();
+      setAudioState("playing");
+    } catch (err) {
+      console.error(err);
+      setAudioState("idle");
+      setAudioError("Couldn't load audio. Try again.");
+    }
+  }, []);
 
   if (!story) return null;
   const current = story.pages[page];
 
-  const renderPage = (p: { telugu: string; english: string; image: string }, withButton: boolean) => (
+  const renderPage = (
+    p: { telugu: string; english: string; image: string },
+    withButton: boolean,
+  ) => (
     <div className="flex h-full w-full max-w-6xl flex-col items-center">
       <div className="relative w-full flex-1 overflow-hidden rounded-2xl bg-paper shadow-book">
         <img src={p.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
@@ -164,9 +162,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
               type="button"
               onClick={playTelugu}
               disabled={audioState === "loading"}
-              aria-label={
-                audioState === "playing" ? "Stop Telugu audio" : "Play Telugu audio"
-              }
+              aria-label={audioState === "playing" ? "Stop Telugu audio" : "Play Telugu audio"}
               className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground shadow-soft transition-all hover:enabled:brightness-110 disabled:opacity-60"
             >
               {audioState === "loading" ? (
@@ -182,9 +178,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
         <p className="mt-2 font-display text-base italic text-muted-foreground sm:text-lg">
           {p.english}
         </p>
-        {withButton && audioError && (
-          <p className="mt-2 text-xs text-destructive">{audioError}</p>
-        )}
+        {withButton && audioError && <p className="mt-2 text-xs text-destructive">{audioError}</p>}
       </div>
     </div>
   );
@@ -306,13 +300,13 @@ export function StoryReaderModal({ story, onClose }: Props) {
                 )}
               </button>
               <button
-              type="button"
-              onClick={onClose}
-              aria-label="Close story"
-              className="grid h-10 w-10 place-items-center rounded-full bg-foreground/5 text-foreground/70 transition-colors hover:bg-foreground/10 hover:text-foreground"
-            >
-              <X className="h-5 w-5" />
-            </button>
+                type="button"
+                onClick={onClose}
+                aria-label="Close story"
+                className="grid h-10 w-10 place-items-center rounded-full bg-foreground/5 text-foreground/70 transition-colors hover:bg-foreground/10 hover:text-foreground"
+              >
+                <X className="h-5 w-5" />
+              </button>
             </div>
           </div>
 

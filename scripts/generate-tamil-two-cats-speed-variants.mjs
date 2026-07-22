@@ -20,9 +20,12 @@ const voiceIds = {
   charlie: process.env.ELEVENLABS_VOICE_CHARLIE || env.ELEVENLABS_VOICE_CHARLIE,
 };
 
-if (!apiKey) throw new Error("Missing ELEVENLABS_API_KEY in environment or .env");
-if (!voiceIds.anvi) throw new Error("Missing ELEVENLABS_VOICE_ANVI in environment or .env");
-if (!voiceIds.charlie) throw new Error("Missing ELEVENLABS_VOICE_CHARLIE in environment or .env");
+if (!apiKey)
+  throw new Error("Missing ELEVENLABS_API_KEY in environment or .env");
+if (!voiceIds.anvi)
+  throw new Error("Missing ELEVENLABS_VOICE_ANVI in environment or .env");
+if (!voiceIds.charlie)
+  throw new Error("Missing ELEVENLABS_VOICE_CHARLIE in environment or .env");
 
 const pages = [
   "இரண்டு பூனைகள் ஒரு ரொட்டித் துண்டுக்காக சண்டை போட்டன.",
@@ -89,7 +92,14 @@ function normalPace(text) {
 }
 
 const variants = [
-  { key: "075", label: "0.75x", speed: 0.72, transform: storytellerPace, voice: "anvi", pages: [5] },
+  {
+    key: "075",
+    label: "0.75x",
+    speed: 0.72,
+    transform: storytellerPace,
+    voice: "anvi",
+    pages: [5],
+  },
 ];
 
 const baseSettings = {
@@ -105,28 +115,37 @@ for (const variant of variants) {
     if (variant.pages && !variant.pages.includes(pageNumber)) continue;
     const outputPath =
       variant.key === "base"
-        ? resolve(root, `src/assets/audio/tamil-two-cats-monkey/page-${pageNumber}.mp3`)
-        : resolve(root, `src/assets/audio/tamil-two-cats-monkey/slow-${variant.key}/page-${pageNumber}.mp3`);
+        ? resolve(
+            root,
+            `src/assets/audio/tamil-two-cats-monkey/page-${pageNumber}.mp3`,
+          )
+        : resolve(
+            root,
+            `src/assets/audio/tamil-two-cats-monkey/slow-${variant.key}/page-${pageNumber}.mp3`,
+          );
     await mkdir(dirname(outputPath), { recursive: true });
 
     const text = variant.transform(pages[index]);
     const voiceId = voiceIds[variant.voice];
-    const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
-      method: "POST",
-      headers: {
-        "xi-api-key": apiKey,
-        "Content-Type": "application/json",
-        Accept: "audio/mpeg",
-      },
-      body: JSON.stringify({
-        text,
-        model_id: "eleven_v3",
-        voice_settings: {
-          ...baseSettings,
-          speed: variant.speed,
+    const response = await fetch(
+      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+      {
+        method: "POST",
+        headers: {
+          "xi-api-key": apiKey,
+          "Content-Type": "application/json",
+          Accept: "audio/mpeg",
         },
-      }),
-    });
+        body: JSON.stringify({
+          text,
+          model_id: "eleven_v3",
+          voice_settings: {
+            ...baseSettings,
+            speed: variant.speed,
+          },
+        }),
+      },
+    );
 
     if (!response.ok) {
       const body = await response.text();
@@ -136,6 +155,8 @@ for (const variant of variants) {
     }
 
     await writeFile(outputPath, Buffer.from(await response.arrayBuffer()));
-    console.log(`tamil-two-cats-monkey page ${pageNumber} ${variant.label} ${variant.voice}`);
+    console.log(
+      `tamil-two-cats-monkey page ${pageNumber} ${variant.label} ${variant.voice}`,
+    );
   }
 }

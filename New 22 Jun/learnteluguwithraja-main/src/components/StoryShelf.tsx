@@ -19,12 +19,7 @@ export function StoryShelf({ stories, onOpen }: Props) {
         <div key={i}>
           <div className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 md:grid-cols-4 md:gap-x-10">
             {row.map((story, idx) => (
-              <BookCover
-                key={story.id}
-                story={story}
-                onOpen={onOpen}
-                index={idx}
-              />
+              <BookCover key={story.id} story={story} onOpen={onOpen} index={idx} />
             ))}
           </div>
           <div className="shelf-plank mt-6 h-3 w-full" />

@@ -44,19 +44,38 @@ const pages = [
 for (let i = 0; i < pages.length; i++) {
   const pageNumber = i + 1;
   const text = pages[i];
-  const outputPath = resolve(root, `src/assets/audio/first-action-sentences/page-${pageNumber}.mp3`);
+  const outputPath = resolve(
+    root,
+    `src/assets/audio/first-action-sentences/page-${pageNumber}.mp3`,
+  );
   await mkdir(dirname(outputPath), { recursive: true });
   console.log(`page ${pageNumber}: ${text}`);
-  const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
-    method: "POST",
-    headers: { "xi-api-key": apiKey, "Content-Type": "application/json", Accept: "audio/mpeg" },
-    body: JSON.stringify({
-      text,
-      model_id: "eleven_v3",
-      voice_settings: { stability: 0.55, similarity_boost: 0.88, style: 0.5, use_speaker_boost: true, speed: 0.9 },
-    }),
-  });
-  if (!response.ok) throw new Error(`page ${pageNumber} failed: ${response.status} ${await response.text()}`);
+  const response = await fetch(
+    `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+    {
+      method: "POST",
+      headers: {
+        "xi-api-key": apiKey,
+        "Content-Type": "application/json",
+        Accept: "audio/mpeg",
+      },
+      body: JSON.stringify({
+        text,
+        model_id: "eleven_v3",
+        voice_settings: {
+          stability: 0.55,
+          similarity_boost: 0.88,
+          style: 0.5,
+          use_speaker_boost: true,
+          speed: 0.9,
+        },
+      }),
+    },
+  );
+  if (!response.ok)
+    throw new Error(
+      `page ${pageNumber} failed: ${response.status} ${await response.text()}`,
+    );
   await writeFile(outputPath, Buffer.from(await response.arrayBuffer()));
   console.log(`  ✓ page-${pageNumber}.mp3`);
 }

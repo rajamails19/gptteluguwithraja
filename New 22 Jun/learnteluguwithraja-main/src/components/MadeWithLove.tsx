@@ -45,12 +45,22 @@ function FloatingTelugu({
   className = "",
   baseSize = 36,
 }: {
-  letters: { ch: string; left: string; top: string; delay?: number; size?: number; color?: string }[];
+  letters: {
+    ch: string;
+    left: string;
+    top: string;
+    delay?: number;
+    size?: number;
+    color?: string;
+  }[];
   className?: string;
   baseSize?: number;
 }) {
   return (
-    <div aria-hidden className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}>
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
+    >
       {letters.map((l, i) => (
         <motion.span
           key={i}
@@ -112,9 +122,8 @@ export function MadeWithLove({ variant = "ribbon" }: Props) {
               The Storyteller
             </span>
             <h2 className="mt-4 font-display text-4xl tracking-tight sm:text-5xl">
-              Made with{" "}
-              <span className="inline-block animate-pulse text-rose-500">❤</span>{" "}
-              by <span className="italic text-primary">Raja</span>
+              Made with <span className="inline-block animate-pulse text-rose-500">❤</span> by{" "}
+              <span className="italic text-primary">Raja</span>
             </h2>
             <p className="font-telugu mt-5 text-2xl font-bold leading-relaxed tracking-tight sm:text-3xl">
               <span className="bg-gradient-to-r from-rose-500 via-[var(--wood)] to-primary bg-clip-text text-transparent">
@@ -123,12 +132,9 @@ export function MadeWithLove({ variant = "ribbon" }: Props) {
               <span className="text-primary">.</span>
             </p>
             <p className="mt-3 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Crafting fun Telugu stories, games, and learning tools so kids can
-              proudly say,{" "}
-              <span className="font-telugu text-foreground">
-                “తెలుగు మాట్లాడగలను…”
-              </span>{" "}
-              and beam about it.
+              Crafting fun Telugu stories, games, and learning tools so kids can proudly say,{" "}
+              <span className="font-telugu text-foreground">“తెలుగు మాట్లాడగలను…”</span> and beam
+              about it.
             </p>
           </div>
         </div>
@@ -167,8 +173,7 @@ export function MadeWithLove({ variant = "ribbon" }: Props) {
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
             <p className="font-display text-lg leading-tight sm:text-xl">
-              Made with{" "}
-              <span className="text-rose-500">❤</span> by{" "}
+              Made with <span className="text-rose-500">❤</span> by{" "}
               <span className="italic text-primary">Raja</span>
             </p>
             <span className="font-telugu text-base font-bold sm:text-lg">
@@ -180,10 +185,7 @@ export function MadeWithLove({ variant = "ribbon" }: Props) {
           </div>
           <p className="mt-1 line-clamp-2 text-xs leading-snug text-muted-foreground sm:text-sm">
             Fun Telugu stories &amp; games so kids can proudly say{" "}
-            <span className="font-telugu text-foreground/90">
-              “తెలుగు మాట్లాడగలను”
-            </span>
-            .
+            <span className="font-telugu text-foreground/90">“తెలుగు మాట్లాడగలను”</span>.
           </p>
         </div>
       </div>

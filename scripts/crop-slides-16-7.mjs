@@ -35,7 +35,13 @@ try {
 }
 
 async function dims(file) {
-  const { stdout } = await run("sips", ["-g", "pixelWidth", "-g", "pixelHeight", file]);
+  const { stdout } = await run("sips", [
+    "-g",
+    "pixelWidth",
+    "-g",
+    "pixelHeight",
+    file,
+  ]);
   const w = Number(stdout.match(/pixelWidth:\s*(\d+)/)?.[1]);
   const h = Number(stdout.match(/pixelHeight:\s*(\d+)/)?.[1]);
   return { w, h };
@@ -83,4 +89,6 @@ for (const name of images) {
   cropped++;
 }
 
-console.log(`\n✅ Done. Cropped ${cropped}, already-16:7 ${skipped}. Folder: ${folder}`);
+console.log(
+  `\n✅ Done. Cropped ${cropped}, already-16:7 ${skipped}. Folder: ${folder}`,
+);

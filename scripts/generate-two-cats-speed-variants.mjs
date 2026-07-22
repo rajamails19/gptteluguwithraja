@@ -20,9 +20,12 @@ const voiceIds = {
   charlie: process.env.ELEVENLABS_VOICE_CHARLIE || env.ELEVENLABS_VOICE_CHARLIE,
 };
 
-if (!apiKey) throw new Error("Missing ELEVENLABS_API_KEY in environment or .env");
-if (!voiceIds.anvi) throw new Error("Missing ELEVENLABS_VOICE_ANVI in environment or .env");
-if (!voiceIds.charlie) throw new Error("Missing ELEVENLABS_VOICE_CHARLIE in environment or .env");
+if (!apiKey)
+  throw new Error("Missing ELEVENLABS_API_KEY in environment or .env");
+if (!voiceIds.anvi)
+  throw new Error("Missing ELEVENLABS_VOICE_ANVI in environment or .env");
+if (!voiceIds.charlie)
+  throw new Error("Missing ELEVENLABS_VOICE_CHARLIE in environment or .env");
 
 const pages = [
   "రెండు పిల్లులు ఒక రొట్టె ముక్క కోసం గొడవ పడ్డాయి.",
@@ -112,8 +115,20 @@ function finalPageStorytellerPace(text) {
 const variants = [
   { key: "025", label: "0.25x", speed: 0.72, transform: toddlerTeacherPace },
   { key: "05", label: "0.5x", speed: 0.66, transform: childTeacherPace },
-  { key: "075", label: "0.75x", speed: 0.74, transform: storytellerPace, pages: [1, 2, 3, 4] },
-  { key: "075", label: "0.75x page 5", speed: 0.72, transform: finalPageStorytellerPace, pages: [5] },
+  {
+    key: "075",
+    label: "0.75x",
+    speed: 0.74,
+    transform: storytellerPace,
+    pages: [1, 2, 3, 4],
+  },
+  {
+    key: "075",
+    label: "0.75x page 5",
+    speed: 0.72,
+    transform: finalPageStorytellerPace,
+    pages: [5],
+  },
 ];
 
 const baseSettings = {
@@ -129,28 +144,37 @@ for (const variant of variants) {
     if (variant.pages && !variant.pages.includes(pageNumber)) continue;
     const outputPath =
       variant.key === "base"
-        ? resolve(root, `src/assets/audio/two-cats-monkey/page-${pageNumber}.mp3`)
-        : resolve(root, `src/assets/audio/two-cats-monkey/slow-${variant.key}/page-${pageNumber}.mp3`);
+        ? resolve(
+            root,
+            `src/assets/audio/two-cats-monkey/page-${pageNumber}.mp3`,
+          )
+        : resolve(
+            root,
+            `src/assets/audio/two-cats-monkey/slow-${variant.key}/page-${pageNumber}.mp3`,
+          );
     await mkdir(dirname(outputPath), { recursive: true });
 
     const text = variant.transform(pages[index]);
     const voiceId = voiceIds[variant.voice ?? "anvi"];
-    const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
-      method: "POST",
-      headers: {
-        "xi-api-key": apiKey,
-        "Content-Type": "application/json",
-        Accept: "audio/mpeg",
-      },
-      body: JSON.stringify({
-        text,
-        model_id: "eleven_v3",
-        voice_settings: {
-          ...baseSettings,
-          speed: variant.speed,
+    const response = await fetch(
+      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+      {
+        method: "POST",
+        headers: {
+          "xi-api-key": apiKey,
+          "Content-Type": "application/json",
+          Accept: "audio/mpeg",
         },
-      }),
-    });
+        body: JSON.stringify({
+          text,
+          model_id: "eleven_v3",
+          voice_settings: {
+            ...baseSettings,
+            speed: variant.speed,
+          },
+        }),
+      },
+    );
 
     if (!response.ok) {
       const body = await response.text();
@@ -160,6 +184,8 @@ for (const variant of variants) {
     }
 
     await writeFile(outputPath, Buffer.from(await response.arrayBuffer()));
-    console.log(`two-cats-monkey page ${pageNumber} ${variant.label} ${variant.voice ?? "anvi"}`);
+    console.log(
+      `two-cats-monkey page ${pageNumber} ${variant.label} ${variant.voice ?? "anvi"}`,
+    );
   }
 }

@@ -91,26 +91,34 @@ for (const job of jobs) {
 
   for (let index = 0; index < job.pages.length; index += 1) {
     const pageNumber = index + 1;
-    const outputPath = resolve(root, `src/assets/audio/${job.story}/page-${pageNumber}.mp3`);
+    const outputPath = resolve(
+      root,
+      `src/assets/audio/${job.story}/page-${pageNumber}.mp3`,
+    );
     await mkdir(dirname(outputPath), { recursive: true });
 
-    const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
-      method: "POST",
-      headers: {
-        "xi-api-key": apiKey,
-        "Content-Type": "application/json",
-        Accept: "audio/mpeg",
+    const response = await fetch(
+      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+      {
+        method: "POST",
+        headers: {
+          "xi-api-key": apiKey,
+          "Content-Type": "application/json",
+          Accept: "audio/mpeg",
+        },
+        body: JSON.stringify({
+          text: job.pages[index],
+          model_id: "eleven_v3",
+          voice_settings: settings,
+        }),
       },
-      body: JSON.stringify({
-        text: job.pages[index],
-        model_id: "eleven_v3",
-        voice_settings: settings,
-      }),
-    });
+    );
 
     if (!response.ok) {
       const body = await response.text();
-      throw new Error(`${job.story} page ${pageNumber} failed: ${response.status} ${body}`);
+      throw new Error(
+        `${job.story} page ${pageNumber} failed: ${response.status} ${body}`,
+      );
     }
 
     await writeFile(outputPath, Buffer.from(await response.arrayBuffer()));

@@ -58,19 +58,38 @@ const spanishNew = {
 
 async function generate(lang, map) {
   for (const [pageNumber, text] of Object.entries(map)) {
-    const outputPath = resolve(root, `src/assets/audio/telugu-letters/${lang}/page-${pageNumber}.mp3`);
+    const outputPath = resolve(
+      root,
+      `src/assets/audio/telugu-letters/${lang}/page-${pageNumber}.mp3`,
+    );
     await mkdir(dirname(outputPath), { recursive: true });
     console.log(`[${lang}] page ${pageNumber}: ${text}`);
-    const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
-      method: "POST",
-      headers: { "xi-api-key": apiKey, "Content-Type": "application/json", Accept: "audio/mpeg" },
-      body: JSON.stringify({
-        text,
-        model_id: "eleven_v3",
-        voice_settings: { stability: 0.55, similarity_boost: 0.88, style: 0.5, use_speaker_boost: true, speed: 0.82 },
-      }),
-    });
-    if (!response.ok) throw new Error(`[${lang}] ${pageNumber} failed: ${response.status} ${await response.text()}`);
+    const response = await fetch(
+      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+      {
+        method: "POST",
+        headers: {
+          "xi-api-key": apiKey,
+          "Content-Type": "application/json",
+          Accept: "audio/mpeg",
+        },
+        body: JSON.stringify({
+          text,
+          model_id: "eleven_v3",
+          voice_settings: {
+            stability: 0.55,
+            similarity_boost: 0.88,
+            style: 0.5,
+            use_speaker_boost: true,
+            speed: 0.82,
+          },
+        }),
+      },
+    );
+    if (!response.ok)
+      throw new Error(
+        `[${lang}] ${pageNumber} failed: ${response.status} ${await response.text()}`,
+      );
     await writeFile(outputPath, Buffer.from(await response.arrayBuffer()));
     console.log(`  ✓ ${lang}/page-${pageNumber}.mp3`);
   }

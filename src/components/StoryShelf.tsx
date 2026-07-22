@@ -21,11 +21,7 @@ export function StoryShelf({ stories, onOpen }: Props) {
           <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-8 md:grid-cols-4 md:gap-x-10">
             {row.map((story, idx) => (
               <ErrorBoundary key={story.id} fallback={null}>
-                <BookCover
-                  story={story}
-                  onOpen={onOpen}
-                  index={idx}
-                />
+                <BookCover story={story} onOpen={onOpen} index={idx} />
               </ErrorBoundary>
             ))}
           </div>

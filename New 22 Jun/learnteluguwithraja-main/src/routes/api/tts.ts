@@ -37,10 +37,7 @@ export const Route = createFileRoute("/api/tts")({
             : undefined;
 
         if (typeof text !== "string" || text.trim().length === 0) {
-          return Response.json(
-            { error: "Field 'text' is required." },
-            { status: 400 },
-          );
+          return Response.json({ error: "Field 'text' is required." }, { status: 400 });
         }
         if (text.length > MAX_TEXT_LENGTH) {
           return Response.json(
@@ -134,9 +131,7 @@ export const Route = createFileRoute("/api/tts")({
 
         const audios = json.audios;
         const b64 =
-          Array.isArray(audios) && typeof audios[0] === "string"
-            ? (audios[0] as string)
-            : null;
+          Array.isArray(audios) && typeof audios[0] === "string" ? (audios[0] as string) : null;
         if (!b64) {
           console.error("Sarvam response missing audios[0]:", json);
           return Response.json(

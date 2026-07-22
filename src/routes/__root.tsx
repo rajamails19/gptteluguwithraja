@@ -15,7 +15,9 @@ function NotFoundComponent() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">
+          Page not found
+        </h2>
         <p className="mt-2 text-sm text-muted-foreground">
           The page you're looking for doesn't exist or has been moved.
         </p>
@@ -43,7 +45,8 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           This page didn't load
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+          Something went wrong on our end. You can try refreshing or head back
+          home.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -67,42 +70,65 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#f5f0e1" },
-      { title: "Lovable App" },
-      { property: "og:title", content: "Lovable App" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "description", content: "Telugu Tales Library offers an immersive digital experience for reading illustrated Telugu storybooks." },
-      { property: "og:description", content: "Telugu Tales Library offers an immersive digital experience for reading illustrated Telugu storybooks." },
-      { name: "twitter:description", content: "Telugu Tales Library offers an immersive digital experience for reading illustrated Telugu storybooks." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e742f8f3-b473-42c4-be62-acbf8b12db82/id-preview-2a1c776f--4b3f353f-4919-4287-90d7-3ecd2816dd47.lovable.app-1779585783658.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e742f8f3-b473-42c4-be62-acbf8b12db82/id-preview-2a1c776f--4b3f353f-4919-4287-90d7-3ecd2816dd47.lovable.app-1779585783658.png" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:type", content: "website" },
-    ],
-    links: [
-      { rel: "stylesheet", href: appCss },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossOrigin: "anonymous",
-      },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=Noto+Sans+Telugu:wght@400;500;600;700&family=Noto+Serif+Telugu:wght@400;500;600;700&family=Tiro+Telugu&display=swap",
-      },
-    ],
-  }),
-  shellComponent: RootShell,
-  component: RootComponent,
-  notFoundComponent: NotFoundComponent,
-  errorComponent: ErrorComponent,
-});
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
+  {
+    head: () => ({
+      meta: [
+        { charSet: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { name: "theme-color", content: "#f5f0e1" },
+        { title: "Telugu Tales — Illustrated stories & first words for kids" },
+        { property: "og:title", content: "Telugu Tales" },
+        { name: "twitter:title", content: "Telugu Tales" },
+        {
+          name: "description",
+          content:
+            "Telugu Tales is a beautifully illustrated library where children learn Telugu (plus Tamil & Spanish) through stories, first words and gentle read-aloud audio.",
+        },
+        {
+          property: "og:description",
+          content:
+            "Beautifully illustrated Telugu stories and first words for children, with read-aloud audio in Telugu, Tamil and Spanish.",
+        },
+        {
+          name: "twitter:description",
+          content:
+            "Beautifully illustrated Telugu stories and first words for children, with read-aloud audio in Telugu, Tamil and Spanish.",
+        },
+        {
+          property: "og:image",
+          content: "https://gptteluguwithraja.vercel.app/og-image.jpg",
+        },
+        {
+          name: "twitter:image",
+          content: "https://gptteluguwithraja.vercel.app/og-image.jpg",
+        },
+        { name: "twitter:card", content: "summary_large_image" },
+        { property: "og:type", content: "website" },
+      ],
+      links: [
+        { rel: "stylesheet", href: appCss },
+        { rel: "icon", type: "image/png", href: "/favicon.png" },
+        { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+        { rel: "manifest", href: "/site.webmanifest" },
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        {
+          rel: "preconnect",
+          href: "https://fonts.gstatic.com",
+          crossOrigin: "anonymous",
+        },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=Noto+Sans+Telugu:wght@400;500;600;700&family=Noto+Serif+Telugu:wght@400;500;600;700&family=Tiro+Telugu&display=swap",
+        },
+      ],
+    }),
+    shellComponent: RootShell,
+    component: RootComponent,
+    notFoundComponent: NotFoundComponent,
+    errorComponent: ErrorComponent,
+  },
+);
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (

@@ -25,9 +25,7 @@ export function BookCover({ story, onOpen, index = 0 }: Props) {
       className="group relative block text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md"
       aria-label={`Open story: ${story.title}`}
     >
-      <div
-        className="book-cover shadow-book group-hover:shadow-book-hover transition-shadow duration-500 aspect-[3/4] w-full"
-      >
+      <div className="book-cover shadow-book group-hover:shadow-book-hover transition-shadow duration-500 aspect-[3/4] w-full">
         <img
           src={story.cover}
           alt={story.title}

@@ -25,10 +25,7 @@ async function hashKey(input: string): Promise<string> {
     .join("");
 }
 
-export async function getCachedAudio(
-  text: string,
-  voice = "default",
-): Promise<Blob | null> {
+export async function getCachedAudio(text: string, voice = "default"): Promise<Blob | null> {
   try {
     const key = await hashKey(`${voice}::${text}`);
     const db = await openDb();
@@ -44,11 +41,7 @@ export async function getCachedAudio(
   }
 }
 
-export async function putCachedAudio(
-  text: string,
-  blob: Blob,
-  voice = "default",
-): Promise<void> {
+export async function putCachedAudio(text: string, blob: Blob, voice = "default"): Promise<void> {
   try {
     const key = await hashKey(`${voice}::${text}`);
     const db = await openDb();

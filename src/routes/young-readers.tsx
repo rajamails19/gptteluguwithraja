@@ -8,7 +8,9 @@ import { youngStories } from "@/data/youngStories";
 export const Route = createFileRoute("/young-readers")({
   head: () => ({
     meta: [
-      { title: "Young Readers — Telugu comic-style stories for 8–10 year olds" },
+      {
+        title: "Young Readers — Telugu comic-style stories for 8–10 year olds",
+      },
       {
         name: "description",
         content:
@@ -83,7 +85,9 @@ function YoungReadersPage() {
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground font-display text-lg">
               త
             </span>
-            <span className="font-display text-lg tracking-tight">Telugu Tales</span>
+            <span className="font-display text-lg tracking-tight">
+              Telugu Tales
+            </span>
           </Link>
           <nav className="hidden items-center gap-7 text-sm text-foreground/70 sm:flex">
             <Link to="/" className="hover:text-foreground transition-colors">
@@ -96,7 +100,10 @@ function YoungReadersPage() {
             >
               Young Readers
             </Link>
-            <Link to="/about" className="hover:text-foreground transition-colors">
+            <Link
+              to="/about"
+              className="hover:text-foreground transition-colors"
+            >
               About
             </Link>
           </nav>
@@ -123,7 +130,9 @@ function YoungReadersPage() {
             style={{
               left: `${(i * 13 + 5) % 95}%`,
               top: `${(i * 19 + 10) % 85}%`,
-              fontSize: hasOpenStory ? `${18 + (i % 4) * 8}px` : `${40 + (i % 4) * 20}px`,
+              fontSize: hasOpenStory
+                ? `${18 + (i % 4) * 8}px`
+                : `${40 + (i % 4) * 20}px`,
             }}
             animate={{
               y: [-5, 7, -5],
@@ -180,8 +189,9 @@ function YoungReadersPage() {
                 transition={{ duration: 0.7, delay: 0.3 }}
                 className="mx-auto mt-2 max-w-2xl text-sm text-foreground/60"
               >
-                Comic-book style mini adventures — four chapters, painterly art, and warm
-                Telugu read-aloud for kids who are ready for longer stories.
+                Comic-book style mini adventures — four chapters, painterly art,
+                and warm Telugu read-aloud for kids who are ready for longer
+                stories.
               </motion.p>
             </>
           )}

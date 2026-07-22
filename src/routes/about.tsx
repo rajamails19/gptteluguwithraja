@@ -98,10 +98,7 @@ function AboutPage() {
             >
               Young Readers
             </Link>
-            <Link
-              to="/about"
-              className="text-foreground transition-colors"
-            >
+            <Link to="/about" className="text-foreground transition-colors">
               About
             </Link>
           </nav>
@@ -237,8 +234,8 @@ function AboutPage() {
             More coming soon — team, story &amp; mobile app.
           </h3>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            The people behind Telugu Tales, the journey so far, and where
-            we're headed next.
+            The people behind Telugu Tales, the journey so far, and where we're
+            headed next.
           </p>
           <Link
             to="/"

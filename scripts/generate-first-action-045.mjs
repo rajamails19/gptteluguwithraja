@@ -16,8 +16,10 @@ const env = Object.fromEntries(
 
 const apiKey = process.env.ELEVENLABS_API_KEY || env.ELEVENLABS_API_KEY;
 // Male voice — Charlie
-const voiceId = process.env.ELEVENLABS_VOICE_CHARLIE || env.ELEVENLABS_VOICE_CHARLIE;
-if (!apiKey || !voiceId) throw new Error("Missing ELEVENLABS creds (need ELEVENLABS_VOICE_CHARLIE)");
+const voiceId =
+  process.env.ELEVENLABS_VOICE_CHARLIE || env.ELEVENLABS_VOICE_CHARLIE;
+if (!apiKey || !voiceId)
+  throw new Error("Missing ELEVENLABS creds (need ELEVENLABS_VOICE_CHARLIE)");
 
 const sentences = [
   "నాకు సంతోషంగా ఉంది.",
@@ -57,19 +59,38 @@ function toKidSlow(sentence) {
 for (let i = 0; i < sentences.length; i++) {
   const pageNumber = i + 1;
   const text = toKidSlow(sentences[i]);
-  const outputPath = resolve(root, `src/assets/audio/first-action-sentences/slow-045/page-${pageNumber}.mp3`);
+  const outputPath = resolve(
+    root,
+    `src/assets/audio/first-action-sentences/slow-045/page-${pageNumber}.mp3`,
+  );
   await mkdir(dirname(outputPath), { recursive: true });
   console.log(`page ${pageNumber}: ${sentences[i]}`);
-  const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
-    method: "POST",
-    headers: { "xi-api-key": apiKey, "Content-Type": "application/json", Accept: "audio/mpeg" },
-    body: JSON.stringify({
-      text,
-      model_id: "eleven_v3",
-      voice_settings: { stability: 0.5, similarity_boost: 0.85, style: 0.35, use_speaker_boost: true, speed: 0.72 },
-    }),
-  });
-  if (!response.ok) throw new Error(`page ${pageNumber} failed: ${response.status} ${await response.text()}`);
+  const response = await fetch(
+    `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+    {
+      method: "POST",
+      headers: {
+        "xi-api-key": apiKey,
+        "Content-Type": "application/json",
+        Accept: "audio/mpeg",
+      },
+      body: JSON.stringify({
+        text,
+        model_id: "eleven_v3",
+        voice_settings: {
+          stability: 0.5,
+          similarity_boost: 0.85,
+          style: 0.35,
+          use_speaker_boost: true,
+          speed: 0.72,
+        },
+      }),
+    },
+  );
+  if (!response.ok)
+    throw new Error(
+      `page ${pageNumber} failed: ${response.status} ${await response.text()}`,
+    );
   await writeFile(outputPath, Buffer.from(await response.arrayBuffer()));
   console.log(`  ✓ slow-045/page-${pageNumber}.mp3`);
 }

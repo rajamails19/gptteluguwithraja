@@ -40,12 +40,11 @@ export function Hero({ onBrowse, onStart }: Props) {
             Telugu Tales
           </span>
           <h1 className="mt-5 font-display text-[44px] leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-[68px]">
-            Learn Telugu through{" "}
-            <span className="italic text-primary">beautiful stories</span>.
+            Learn Telugu through <span className="italic text-primary">beautiful stories</span>.
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-            Illustrated Telugu stories, fables and mini adventures children
-            actually enjoy reading. Made by storytellers, not a curriculum.
+            Illustrated Telugu stories, fables and mini adventures children actually enjoy reading.
+            Made by storytellers, not a curriculum.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <button
@@ -97,9 +96,7 @@ export function Hero({ onBrowse, onStart }: Props) {
             <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
               Story of the day
             </p>
-            <p className="mt-1 font-display text-base">
-              The Rat & the Tortoise
-            </p>
+            <p className="mt-1 font-display text-base">The Rat & the Tortoise</p>
           </motion.div>
         </motion.div>
       </div>

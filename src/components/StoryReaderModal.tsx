@@ -1,7 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Capacitor } from "@capacitor/core";
 import { AnimatePresence, motion } from "motion/react";
-import { ChevronLeft, ChevronRight, Loader2, Pause, Play, RotateCcw, X } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Loader2,
+  Pause,
+  Play,
+  RotateCcw,
+  X,
+} from "lucide-react";
 import type { Story } from "@/data/stories";
 import { ProgressDots } from "./ProgressDots";
 import { getCachedAudio, putCachedAudio } from "@/lib/ttsCache";
@@ -13,9 +21,13 @@ interface Props {
   onClose: () => void;
 }
 
-type AudioSequenceSegment = NonNullable<Story["pages"][number]["audioSequence"]>[number];
+type AudioSequenceSegment = NonNullable<
+  Story["pages"][number]["audioSequence"]
+>[number];
 type HighlightBySpeed = NonNullable<Story["pages"][number]["highlightBySpeed"]>;
-type HighlightTimingProfile = NonNullable<HighlightBySpeed[keyof HighlightBySpeed]>;
+type HighlightTimingProfile = NonNullable<
+  HighlightBySpeed[keyof HighlightBySpeed]
+>;
 
 type GuidePosition = {
   left: number;
@@ -36,7 +48,8 @@ const RAINBOW = [
   { bg: "#FD79A8", text: "#6b0030" },
 ];
 
-const TTS_API_ORIGIN = import.meta.env.VITE_TTS_API_ORIGIN?.replace(/\/$/, "") ?? "";
+const TTS_API_ORIGIN =
+  import.meta.env.VITE_TTS_API_ORIGIN?.replace(/\/$/, "") ?? "";
 const OFFLINE_ERROR = "OFFLINE";
 const CAPACITOR_TTS_CONFIG_ERROR = "CAPACITOR_TTS_CONFIG";
 const DEBUG_NATIVE_TTS_TRACKING = true;
@@ -84,7 +97,9 @@ function getWordTimingIndex(
     const useLongPattern =
       timingProfile.longChunkPattern &&
       words.length > (timingProfile.longWordThreshold ?? 7);
-    const chunkPattern = useLongPattern ? timingProfile.longChunkPattern! : timingProfile.chunkPattern;
+    const chunkPattern = useLongPattern
+      ? timingProfile.longChunkPattern!
+      : timingProfile.chunkPattern;
     const wordBaseUnits = timingProfile.wordBaseUnits ?? 0.55;
     const wordLengthUnits = timingProfile.wordLengthUnits ?? 0.16;
     const pauseUnits = timingProfile.pauseUnits ?? 1.15;
@@ -92,29 +107,45 @@ function getWordTimingIndex(
     const finalPauseUnits = timingProfile.finalPauseUnits ?? 0.25;
 
     const units = words.map((word, index) => {
-      const cleanLength = Math.max(1, word.replace(/[.,!?'"“”‘’—-]/g, "").length);
+      const cleanLength = Math.max(
+        1,
+        word.replace(/[.,!?'"“”‘’—-]/g, "").length,
+      );
       const isLast = index === words.length - 1;
       let chunkCursor = 0;
       let patternIndex = 0;
 
       while (chunkCursor <= index) {
         const chunkSize = chunkPattern[patternIndex % chunkPattern.length];
-        const chunkEnd = Math.min(words.length - 1, chunkCursor + chunkSize - 1);
+        const chunkEnd = Math.min(
+          words.length - 1,
+          chunkCursor + chunkSize - 1,
+        );
         if (index <= chunkEnd) {
           const isChunkEnd = index === chunkEnd;
           return {
             wordUnits: wordBaseUnits + cleanLength * wordLengthUnits,
-            holdUnits: isLast ? finalPauseUnits : isChunkEnd ? pauseUnits : innerWordPauseUnits,
+            holdUnits: isLast
+              ? finalPauseUnits
+              : isChunkEnd
+                ? pauseUnits
+                : innerWordPauseUnits,
           };
         }
         chunkCursor += chunkSize;
         patternIndex += 1;
       }
 
-      return { wordUnits: wordBaseUnits + cleanLength * wordLengthUnits, holdUnits: finalPauseUnits };
+      return {
+        wordUnits: wordBaseUnits + cleanLength * wordLengthUnits,
+        holdUnits: finalPauseUnits,
+      };
     });
 
-    const totalUnits = units.reduce((sum, unit) => sum + unit.wordUnits + unit.holdUnits, 0);
+    const totalUnits = units.reduce(
+      (sum, unit) => sum + unit.wordUnits + unit.holdUnits,
+      0,
+    );
     const target = progress * totalUnits;
     let cursor = 0;
 
@@ -151,7 +182,10 @@ function getWordTimingIndex(
     };
   });
 
-  const totalUnits = units.reduce((sum, unit) => sum + unit.wordUnits + unit.holdUnits, 0);
+  const totalUnits = units.reduce(
+    (sum, unit) => sum + unit.wordUnits + unit.holdUnits,
+    0,
+  );
   const target = progress * totalUnits;
   let cursor = 0;
 
@@ -196,16 +230,22 @@ export function StoryReaderModal({ story, onClose }: Props) {
   const [voiceSpeed, setVoiceSpeed] = useState<VoiceSpeed>(() => {
     if (typeof window === "undefined") return 1;
     const saved = Number(window.localStorage.getItem(VOICE_SPEED_STORAGE_KEY));
-    return VOICE_SPEED_OPTIONS.includes(saved as VoiceSpeed) ? (saved as VoiceSpeed) : 1;
+    return VOICE_SPEED_OPTIONS.includes(saved as VoiceSpeed)
+      ? (saved as VoiceSpeed)
+      : 1;
   });
   const touchStart = useRef<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const audioPlaybackRateRef = useRef<number>(1);
   const audioPreloadRef = useRef<HTMLAudioElement[]>([]);
-  const audioRepeatTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const audioRepeatTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
   const cacheRef = useRef<Map<string, string>>(new Map());
-  const [audioState, setAudioState] = useState<"idle" | "loading" | "playing">("idle");
+  const [audioState, setAudioState] = useState<"idle" | "loading" | "playing">(
+    "idle",
+  );
   const [audioError, setAudioError] = useState<string | null>(null);
   const [autoPlay, setAutoPlay] = useState<"off" | "playing" | "paused">("off");
   const autoPlayRef = useRef<"off" | "playing" | "paused">("off");
@@ -220,7 +260,8 @@ export function StoryReaderModal({ story, onClose }: Props) {
 
   // Reading guide position (relative to the Telugu text container)
   const [readingGuideLeft, setReadingGuideLeft] = useState<number | null>(null);
-  const [nativeGuidePosition, setNativeGuidePosition] = useState<GuidePosition | null>(null);
+  const [nativeGuidePosition, setNativeGuidePosition] =
+    useState<GuidePosition | null>(null);
   const wordSpanRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const textContainerRef = useRef<HTMLDivElement>(null);
 
@@ -238,8 +279,12 @@ export function StoryReaderModal({ story, onClose }: Props) {
     walkTimerRef.current = setTimeout(() => setIsPageTurning(false), 1100);
   }, []);
 
-  useEffect(() => { autoPlayRef.current = autoPlay; }, [autoPlay]);
-  useEffect(() => { langRef.current = lang; }, [lang]);
+  useEffect(() => {
+    autoPlayRef.current = autoPlay;
+  }, [autoPlay]);
+  useEffect(() => {
+    langRef.current = lang;
+  }, [lang]);
 
   useEffect(() => {
     window.localStorage.setItem(VOICE_SPEED_STORAGE_KEY, String(voiceSpeed));
@@ -317,7 +362,12 @@ export function StoryReaderModal({ story, onClose }: Props) {
       audioRepeatTimerRef.current = null;
     }
     const a = audioRef.current;
-    if (a) { a.pause(); a.currentTime = 0; a.onended = null; a.onerror = null; }
+    if (a) {
+      a.pause();
+      a.currentTime = 0;
+      a.onended = null;
+      a.onerror = null;
+    }
     if (supportsBrowserSpeech()) {
       window.speechSynthesis.cancel();
     }
@@ -424,11 +474,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
   }, [story, next, prev, onClose]);
 
   useEffect(() => {
-    if (
-      !story ||
-      typeof window === "undefined" ||
-      !isCapacitorRuntime()
-    ) {
+    if (!story || typeof window === "undefined" || !isCapacitorRuntime()) {
       return;
     }
 
@@ -473,86 +519,105 @@ export function StoryReaderModal({ story, onClose }: Props) {
     story,
   ]);
 
-  const startWordHighlight = useCallback((
-    audio: HTMLAudioElement,
-    text: string,
-    timingMode: HighlightTimingMode = "character",
-    timingProfile?: HighlightTimingProfile,
-  ) => {
-    if (isTapPlayRef.current) return; // no highlight for word taps
-    if (highlightRafRef.current !== null) {
-      cancelAnimationFrame(highlightRafRef.current);
-      highlightRafRef.current = null;
-    }
-
-    const isNative = isCapacitorRuntime();
-    const words = getWords(text);
-    if (words.length === 0) return;
-    const estimatedDuration = estimateSpeechDurationSeconds(text, words.length);
-    const startedAt = performance.now();
-    let lastLoggedAt = 0;
-    let lastIndex = -1;
-
-    logNativeTracking("word tracking started", {
-      isNativePlatform: isNative,
-      wordCount: words.length,
-      audioDuration: audio.duration,
-      estimatedDuration,
-      usingEstimatedTimingFallback: !isUsableDuration(audio.duration),
-    });
-
-    const tick = () => {
-      if (!audio || audio.paused || audio.ended) { setActiveWordIndex(-1); return; }
-      const dur = audio.duration;
-      const hasRealDuration = isUsableDuration(dur);
-      const elapsed = (performance.now() - startedAt) / 1000;
-      const timingDuration = hasRealDuration ? dur : estimatedDuration;
-      const currentTime =
-        audio.currentTime > 0
-          ? audio.currentTime
-          : isNative
-            ? elapsed
-            : audio.currentTime;
-      const progress = Math.max(0, Math.min(1, currentTime / timingDuration));
-      const idx = getWordTimingIndex(words, progress, timingMode, timingProfile);
-
-      setActiveWordIndex(idx);
-
-      const now = performance.now();
-      if (isNative && (idx !== lastIndex || now - lastLoggedAt > 700)) {
-        lastIndex = idx;
-        lastLoggedAt = now;
-        logNativeTracking("word tracking tick", {
-          isNativePlatform: isNative,
-          audioDuration: dur,
-          currentTime: audio.currentTime,
-          elapsed,
-          activeWordIndex: idx,
-          usingEstimatedTimingFallback: !hasRealDuration,
-        });
+  const startWordHighlight = useCallback(
+    (
+      audio: HTMLAudioElement,
+      text: string,
+      timingMode: HighlightTimingMode = "character",
+      timingProfile?: HighlightTimingProfile,
+    ) => {
+      if (isTapPlayRef.current) return; // no highlight for word taps
+      if (highlightRafRef.current !== null) {
+        cancelAnimationFrame(highlightRafRef.current);
+        highlightRafRef.current = null;
       }
+
+      const isNative = isCapacitorRuntime();
+      const words = getWords(text);
+      if (words.length === 0) return;
+      const estimatedDuration = estimateSpeechDurationSeconds(
+        text,
+        words.length,
+      );
+      const startedAt = performance.now();
+      let lastLoggedAt = 0;
+      let lastIndex = -1;
+
+      logNativeTracking("word tracking started", {
+        isNativePlatform: isNative,
+        wordCount: words.length,
+        audioDuration: audio.duration,
+        estimatedDuration,
+        usingEstimatedTimingFallback: !isUsableDuration(audio.duration),
+      });
+
+      const tick = () => {
+        if (!audio || audio.paused || audio.ended) {
+          setActiveWordIndex(-1);
+          return;
+        }
+        const dur = audio.duration;
+        const hasRealDuration = isUsableDuration(dur);
+        const elapsed = (performance.now() - startedAt) / 1000;
+        const timingDuration = hasRealDuration ? dur : estimatedDuration;
+        const currentTime =
+          audio.currentTime > 0
+            ? audio.currentTime
+            : isNative
+              ? elapsed
+              : audio.currentTime;
+        const progress = Math.max(0, Math.min(1, currentTime / timingDuration));
+        const idx = getWordTimingIndex(
+          words,
+          progress,
+          timingMode,
+          timingProfile,
+        );
+
+        setActiveWordIndex(idx);
+
+        const now = performance.now();
+        if (isNative && (idx !== lastIndex || now - lastLoggedAt > 700)) {
+          lastIndex = idx;
+          lastLoggedAt = now;
+          logNativeTracking("word tracking tick", {
+            isNativePlatform: isNative,
+            audioDuration: dur,
+            currentTime: audio.currentTime,
+            elapsed,
+            activeWordIndex: idx,
+            usingEstimatedTimingFallback: !hasRealDuration,
+          });
+        }
+
+        highlightRafRef.current = requestAnimationFrame(tick);
+      };
+      highlightRafRef.current = requestAnimationFrame(tick);
+    },
+    [],
+  );
+
+  const startEstimatedWordHighlight = useCallback(
+    (text: string, durationMs: number) => {
+      if (isTapPlayRef.current) return;
+      const words = getWords(text);
+      if (words.length === 0) return;
+
+      const start = performance.now();
+      const tick = () => {
+        const progress = Math.min(1, (performance.now() - start) / durationMs);
+        setActiveWordIndex(
+          Math.min(words.length - 1, Math.floor(progress * words.length)),
+        );
+        if (progress < 1) {
+          highlightRafRef.current = requestAnimationFrame(tick);
+        }
+      };
 
       highlightRafRef.current = requestAnimationFrame(tick);
-    };
-    highlightRafRef.current = requestAnimationFrame(tick);
-  }, []);
-
-  const startEstimatedWordHighlight = useCallback((text: string, durationMs: number) => {
-    if (isTapPlayRef.current) return;
-    const words = getWords(text);
-    if (words.length === 0) return;
-
-    const start = performance.now();
-    const tick = () => {
-      const progress = Math.min(1, (performance.now() - start) / durationMs);
-      setActiveWordIndex(Math.min(words.length - 1, Math.floor(progress * words.length)));
-      if (progress < 1) {
-        highlightRafRef.current = requestAnimationFrame(tick);
-      }
-    };
-
-    highlightRafRef.current = requestAnimationFrame(tick);
-  }, []);
+    },
+    [],
+  );
 
   const speakWithDeviceVoice = useCallback(
     (text: string, onEnded?: () => void) => {
@@ -639,10 +704,13 @@ export function StoryReaderModal({ story, onClose }: Props) {
 
               if (segmentIndex < audioSequence.length) {
                 setAudioState("loading");
-                audioRepeatTimerRef.current = setTimeout(() => {
-                  audioRepeatTimerRef.current = null;
-                  void playSegment();
-                }, Math.max(0, segment.pauseAfterMs ?? 0));
+                audioRepeatTimerRef.current = setTimeout(
+                  () => {
+                    audioRepeatTimerRef.current = null;
+                    void playSegment();
+                  },
+                  Math.max(0, segment.pauseAfterMs ?? 0),
+                );
                 return;
               }
 
@@ -658,7 +726,12 @@ export function StoryReaderModal({ story, onClose }: Props) {
             };
             await audio.play();
             setAudioState("playing");
-            startWordHighlight(audio, text, highlightTimingMode, highlightTimingProfile);
+            startWordHighlight(
+              audio,
+              text,
+              highlightTimingMode,
+              highlightTimingProfile,
+            );
           };
 
           await playSegment();
@@ -696,15 +769,16 @@ export function StoryReaderModal({ story, onClose }: Props) {
         }
 
         let remainingPlays =
-          audioSrc && audioRepeat
-            ? Math.max(1, audioRepeat.count)
-            : 1;
+          audioSrc && audioRepeat ? Math.max(1, audioRepeat.count) : 1;
         const pauseMs = Math.max(0, audioRepeat?.pauseMs ?? 0);
 
         const playOnce = async () => {
           const audio = new Audio(url);
           audio.preload = "auto";
-          audioPlaybackRateRef.current = Math.max(0.0625, Math.min(16, audioPlaybackRate));
+          audioPlaybackRateRef.current = Math.max(
+            0.0625,
+            Math.min(16, audioPlaybackRate),
+          );
           audio.playbackRate = audioPlaybackRateRef.current;
           audioRef.current = audio;
           audio.onended = () => {
@@ -732,7 +806,12 @@ export function StoryReaderModal({ story, onClose }: Props) {
           };
           await audio.play();
           setAudioState("playing");
-          startWordHighlight(audio, text, highlightTimingMode, highlightTimingProfile);
+          startWordHighlight(
+            audio,
+            text,
+            highlightTimingMode,
+            highlightTimingProfile,
+          );
         };
 
         await playOnce();
@@ -755,7 +834,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
             ? "You're offline. Connect to hear this page."
             : err instanceof Error && err.message === CAPACITOR_TTS_CONFIG_ERROR
               ? "Android audio needs VITE_TTS_API_ORIGIN set to your Vercel app URL."
-            : "Couldn't load audio. Try again.",
+              : "Couldn't load audio. Try again.",
         );
       }
     },
@@ -768,12 +847,18 @@ export function StoryReaderModal({ story, onClose }: Props) {
       let speedAudio: string | undefined;
       if (bySpeed) {
         const keys = Object.keys(bySpeed).map(Number).filter(isFinite);
-        const nearest = keys.reduce((a, b) =>
-          Math.abs(b - voiceSpeed) < Math.abs(a - voiceSpeed) ? b : a, keys[0]);
+        const nearest = keys.reduce(
+          (a, b) =>
+            Math.abs(b - voiceSpeed) < Math.abs(a - voiceSpeed) ? b : a,
+          keys[0],
+        );
         // Only snap to a pre-generated variant when it's close to the requested
         // speed; otherwise prefer the base audio played at the chosen rate.
         // (Avoids e.g. playing a 0.05x file when the user picked 1x.)
-        if (nearest !== undefined && (Math.abs(nearest - voiceSpeed) <= 0.12 || !storyPage.audio)) {
+        if (
+          nearest !== undefined &&
+          (Math.abs(nearest - voiceSpeed) <= 0.12 || !storyPage.audio)
+        ) {
           speedAudio = bySpeed[String(nearest) as keyof typeof bySpeed];
         }
       }
@@ -781,10 +866,16 @@ export function StoryReaderModal({ story, onClose }: Props) {
       return {
         audioSrc: speedAudio ?? storyPage.audio,
         audioPlaybackRate: speedAudio ? 1 : voiceSpeed,
-        highlightTimingMode: speedAudio && voiceSpeed <= 0.5 ? "paced-word" as const : "character" as const,
-        highlightTimingProfile: storyPage.highlightBySpeed?.[
-          String(voiceSpeed) as keyof NonNullable<typeof storyPage.highlightBySpeed>
-        ],
+        highlightTimingMode:
+          speedAudio && voiceSpeed <= 0.5
+            ? ("paced-word" as const)
+            : ("character" as const),
+        highlightTimingProfile:
+          storyPage.highlightBySpeed?.[
+            String(voiceSpeed) as keyof NonNullable<
+              typeof storyPage.highlightBySpeed
+            >
+          ],
       };
     },
     [voiceSpeed],
@@ -792,15 +883,22 @@ export function StoryReaderModal({ story, onClose }: Props) {
 
   // Pick the Tamil/Spanish audio for the current speed selector. Falls back to
   // the base (1x) clip when no close-enough slow variant exists.
-  const langSpeedAudio = (p: Story["pages"][number], l: "tamil" | "spanish") => {
+  const langSpeedAudio = (
+    p: Story["pages"][number],
+    l: "tamil" | "spanish",
+  ) => {
     const bySpeed = l === "tamil" ? p.tamilAudioBySpeed : p.spanishAudioBySpeed;
     const base = l === "tamil" ? p.tamilAudio : p.spanishAudio;
     if (bySpeed) {
       const keys = Object.keys(bySpeed).map(Number).filter(isFinite);
       if (keys.length) {
-        const nearest = keys.reduce((a, b) =>
-          Math.abs(b - voiceSpeed) < Math.abs(a - voiceSpeed) ? b : a, keys[0]);
-        if (Math.abs(nearest - voiceSpeed) <= 0.12 || !base) return bySpeed[String(nearest)];
+        const nearest = keys.reduce(
+          (a, b) =>
+            Math.abs(b - voiceSpeed) < Math.abs(a - voiceSpeed) ? b : a,
+          keys[0],
+        );
+        if (Math.abs(nearest - voiceSpeed) <= 0.12 || !base)
+          return bySpeed[String(nearest)];
       }
     }
     return base;
@@ -817,14 +915,23 @@ export function StoryReaderModal({ story, onClose }: Props) {
     if (showCelebration) return "celebrate";
     if (isPageTurning) return "walking";
     if (audioState === "playing" || audioState === "loading") return "reading";
-    if (story.id === "moonlight-rhymes" || story.id === "gorumuddha") return "sleepy";
+    if (story.id === "moonlight-rhymes" || story.id === "gorumuddha")
+      return "sleepy";
     return "listening";
   })();
 
   const playTelugu = async () => {
-    if (audioState === "playing") { stopAudio(); return; }
+    if (audioState === "playing") {
+      stopAudio();
+      return;
+    }
     isTapPlayRef.current = false;
-    const { audioSrc, audioPlaybackRate, highlightTimingMode, highlightTimingProfile } = getAudioForSpeed(current);
+    const {
+      audioSrc,
+      audioPlaybackRate,
+      highlightTimingMode,
+      highlightTimingProfile,
+    } = getAudioForSpeed(current);
     await playText(
       current.telugu,
       undefined,
@@ -837,8 +944,15 @@ export function StoryReaderModal({ story, onClose }: Props) {
     );
   };
 
-  const playTamilAudio = (src: string, tamilText: string, onDone?: () => void) => {
-    if (audioState === "playing") { stopAudio(); return; }
+  const playTamilAudio = (
+    src: string,
+    tamilText: string,
+    onDone?: () => void,
+  ) => {
+    if (audioState === "playing") {
+      stopAudio();
+      return;
+    }
     isTapPlayRef.current = false;
     const audio = new Audio(src);
     audioRef.current = audio;
@@ -846,7 +960,10 @@ export function StoryReaderModal({ story, onClose }: Props) {
     const startPlay = () => {
       const durationMs = (isFinite(audio.duration) ? audio.duration : 3) * 1000;
       startEstimatedWordHighlight(tamilText, durationMs);
-      audio.play().catch(() => { setAudioState("idle"); setActiveWordIndex(-1); });
+      audio.play().catch(() => {
+        setAudioState("idle");
+        setActiveWordIndex(-1);
+      });
     };
     if (isFinite(audio.duration)) {
       startPlay();
@@ -854,7 +971,11 @@ export function StoryReaderModal({ story, onClose }: Props) {
       audio.addEventListener("loadedmetadata", startPlay, { once: true });
       audio.load();
     }
-    audio.onended = () => { setAudioState("idle"); setActiveWordIndex(-1); onDone?.(); };
+    audio.onended = () => {
+      setAudioState("idle");
+      setActiveWordIndex(-1);
+      onDone?.();
+    };
   };
 
   const handleWordTap = (word: string) => {
@@ -871,7 +992,13 @@ export function StoryReaderModal({ story, onClose }: Props) {
       ].join(" ")}
       aria-label="Voice speed"
     >
-      <span className={compact ? "text-[10px] font-medium text-muted-foreground" : "text-xs font-medium text-muted-foreground"}>
+      <span
+        className={
+          compact
+            ? "text-[10px] font-medium text-muted-foreground"
+            : "text-xs font-medium text-muted-foreground"
+        }
+      >
         Speed
       </span>
       <div className="flex items-center gap-1">
@@ -885,7 +1012,9 @@ export function StoryReaderModal({ story, onClose }: Props) {
             }}
             className={[
               "grid place-items-center rounded-full font-medium leading-none transition-all",
-              compact ? "h-7 min-w-8 px-1.5 text-[11px]" : "h-8 min-w-10 px-2 text-xs",
+              compact
+                ? "h-7 min-w-8 px-1.5 text-[11px]"
+                : "h-8 min-w-10 px-2 text-xs",
               voiceSpeed === speed
                 ? "bg-primary text-primary-foreground shadow-soft"
                 : "text-foreground/60 hover:bg-foreground/5 hover:text-foreground",
@@ -924,7 +1053,12 @@ export function StoryReaderModal({ story, onClose }: Props) {
     </motion.div>
   );
 
-  const renderTeluguWords = (text: string, isCurrentPage: boolean, wordMap?: Record<string, string>, translitMap?: Record<string, string>) => {
+  const renderTeluguWords = (
+    text: string,
+    isCurrentPage: boolean,
+    wordMap?: Record<string, string>,
+    translitMap?: Record<string, string>,
+  ) => {
     const words = text.split(/\s+/).filter(Boolean);
     // Reset refs array length
     wordSpanRefs.current = wordSpanRefs.current.slice(0, words.length);
@@ -982,9 +1116,12 @@ export function StoryReaderModal({ story, onClose }: Props) {
 
         <p className="reader-telugu-text font-telugu text-[clamp(1.65rem,7vw,2.15rem)] leading-[1.2] text-foreground sm:text-[32px] sm:leading-snug">
           {words.map((word, i) => {
-            const isActive = isCurrentPage && !isTapPlayRef.current && activeWordIndex === i;
+            const isActive =
+              isCurrentPage && !isTapPlayRef.current && activeWordIndex === i;
             const color = RAINBOW[i % RAINBOW.length];
-            const cleanWord = word.replace(/^[¿¡"']+/, "").replace(/[.,!?।"']+$/, "");
+            const cleanWord = word
+              .replace(/^[¿¡"']+/, "")
+              .replace(/[.,!?।"']+$/, "");
             const meaning = wordMap?.[cleanWord] ?? wordMap?.[word];
             const translit = translitMap?.[cleanWord] ?? translitMap?.[word];
             const hasLabel = Boolean(meaning || translit);
@@ -1018,7 +1155,8 @@ export function StoryReaderModal({ story, onClose }: Props) {
                     {translit && (
                       <span
                         style={{
-                          fontFamily: "'Trebuchet MS', 'Segoe UI', system-ui, sans-serif",
+                          fontFamily:
+                            "'Trebuchet MS', 'Segoe UI', system-ui, sans-serif",
                           color: "oklch(0.55 0.22 25)",
                           fontWeight: 600,
                           letterSpacing: "0.01em",
@@ -1045,7 +1183,13 @@ export function StoryReaderModal({ story, onClose }: Props) {
                   </span>
                 )}
                 <span
-                  ref={isCurrentPage ? (el) => { wordSpanRefs.current[i] = el; } : undefined}
+                  ref={
+                    isCurrentPage
+                      ? (el) => {
+                          wordSpanRefs.current[i] = el;
+                        }
+                      : undefined
+                  }
                   onClick={() => isCurrentPage && handleWordTap(word)}
                   className="cursor-pointer rounded-lg transition-all duration-100"
                   style={
@@ -1073,7 +1217,25 @@ export function StoryReaderModal({ story, onClose }: Props) {
     );
   };
 
-  const renderPage = (p: { telugu: string; english: string; tamil?: string; tamilAudio?: string; spanish?: string; spanishAudio?: string; wordMap?: Record<string, string>; tamilWordMap?: Record<string, string>; spanishWordMap?: Record<string, string>; translitMap?: Record<string, string>; tamilTranslitMap?: Record<string, string>; spanishTranslitMap?: Record<string, string>; image: string }, withButton: boolean, isCurrentPage = false) => (
+  const renderPage = (
+    p: {
+      telugu: string;
+      english: string;
+      tamil?: string;
+      tamilAudio?: string;
+      spanish?: string;
+      spanishAudio?: string;
+      wordMap?: Record<string, string>;
+      tamilWordMap?: Record<string, string>;
+      spanishWordMap?: Record<string, string>;
+      translitMap?: Record<string, string>;
+      tamilTranslitMap?: Record<string, string>;
+      spanishTranslitMap?: Record<string, string>;
+      image: string;
+    },
+    withButton: boolean,
+    isCurrentPage = false,
+  ) => (
     <div className="flex w-full max-w-6xl flex-col items-center">
       {/* Image */}
       <div className="reader-scene-media relative aspect-[16/8.2] w-full sm:aspect-[16/7]">
@@ -1105,36 +1267,56 @@ export function StoryReaderModal({ story, onClose }: Props) {
       <div className="reader-copy mt-4 w-full max-w-3xl text-center sm:mt-6">
         <div className="grid grid-cols-[1fr_auto] items-center gap-2 sm:flex sm:justify-center sm:gap-3">
           {lang === "telugu"
-            ? renderTeluguWords(p.telugu, isCurrentPage, p.wordMap, p.translitMap)
+            ? renderTeluguWords(
+                p.telugu,
+                isCurrentPage,
+                p.wordMap,
+                p.translitMap,
+              )
             : renderTeluguWords(
-                lang === "tamil" ? (p.tamil ?? p.telugu) : (p.spanish ?? p.telugu),
+                lang === "tamil"
+                  ? (p.tamil ?? p.telugu)
+                  : (p.spanish ?? p.telugu),
                 isCurrentPage,
                 lang === "tamil" ? p.tamilWordMap : p.spanishWordMap,
                 lang === "tamil" ? p.tamilTranslitMap : p.spanishTranslitMap,
               )}
-          {withButton && (lang === "telugu" || (lang === "tamil" && p.tamilAudio) || (lang === "spanish" && p.spanishAudio)) && (
-            <button
-              type="button"
-              onClick={
-                lang === "tamil" && p.tamilAudio
-                  ? () => playTamilAudio(langSpeedAudio(p, "tamil")!, p.tamil ?? p.telugu)
-                  : lang === "spanish" && p.spanishAudio
-                    ? () => playTamilAudio(langSpeedAudio(p, "spanish")!, p.spanish ?? p.telugu)
-                    : playTelugu
-              }
-              disabled={audioState === "loading"}
-              aria-label={audioState === "playing" ? "Stop audio" : "Play audio"}
-              className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground shadow-soft transition-all hover:enabled:brightness-110 disabled:opacity-60 sm:h-11 sm:w-11"
-            >
-              {audioState === "loading" ? (
-                <Loader2 className="h-5 w-5 animate-spin" />
-              ) : audioState === "playing" ? (
-                <Pause className="h-5 w-5" />
-              ) : (
-                <Play className="h-5 w-5 translate-x-[1px]" />
-              )}
-            </button>
-          )}
+          {withButton &&
+            (lang === "telugu" ||
+              (lang === "tamil" && p.tamilAudio) ||
+              (lang === "spanish" && p.spanishAudio)) && (
+              <button
+                type="button"
+                onClick={
+                  lang === "tamil" && p.tamilAudio
+                    ? () =>
+                        playTamilAudio(
+                          langSpeedAudio(p, "tamil")!,
+                          p.tamil ?? p.telugu,
+                        )
+                    : lang === "spanish" && p.spanishAudio
+                      ? () =>
+                          playTamilAudio(
+                            langSpeedAudio(p, "spanish")!,
+                            p.spanish ?? p.telugu,
+                          )
+                      : playTelugu
+                }
+                disabled={audioState === "loading"}
+                aria-label={
+                  audioState === "playing" ? "Stop audio" : "Play audio"
+                }
+                className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground shadow-soft transition-all hover:enabled:brightness-110 disabled:opacity-60 sm:h-11 sm:w-11"
+              >
+                {audioState === "loading" ? (
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                ) : audioState === "playing" ? (
+                  <Pause className="h-5 w-5" />
+                ) : (
+                  <Play className="h-5 w-5 translate-x-[1px]" />
+                )}
+              </button>
+            )}
           <p className="reader-english-text max-w-[15rem] text-left font-display text-[15px] italic leading-snug text-muted-foreground sm:text-lg">
             {p.english}
           </p>
@@ -1145,7 +1327,6 @@ export function StoryReaderModal({ story, onClose }: Props) {
       </div>
     </div>
   );
-
 
   const playAutoForPage = (pageIndex: number) => {
     const storyPage = pagesForLang(story, langRef.current)[pageIndex];
@@ -1179,12 +1360,34 @@ export function StoryReaderModal({ story, onClose }: Props) {
     };
 
     if (langRef.current === "tamil" && storyPage.tamilAudio) {
-      playTamilAudio(langSpeedAudio(storyPage, "tamil")!, storyPage.tamil ?? storyPage.telugu, onDone);
+      playTamilAudio(
+        langSpeedAudio(storyPage, "tamil")!,
+        storyPage.tamil ?? storyPage.telugu,
+        onDone,
+      );
     } else if (langRef.current === "spanish" && storyPage.spanishAudio) {
-      playTamilAudio(langSpeedAudio(storyPage, "spanish")!, storyPage.spanish ?? storyPage.telugu, onDone);
+      playTamilAudio(
+        langSpeedAudio(storyPage, "spanish")!,
+        storyPage.spanish ?? storyPage.telugu,
+        onDone,
+      );
     } else {
-      const { audioSrc, audioPlaybackRate, highlightTimingMode, highlightTimingProfile } = getAudioForSpeed(storyPage);
-      void playText(storyPage.telugu, onDone, audioSrc, storyPage.audioRepeat, storyPage.audioSequence, audioPlaybackRate, highlightTimingMode, highlightTimingProfile);
+      const {
+        audioSrc,
+        audioPlaybackRate,
+        highlightTimingMode,
+        highlightTimingProfile,
+      } = getAudioForSpeed(storyPage);
+      void playText(
+        storyPage.telugu,
+        onDone,
+        audioSrc,
+        storyPage.audioRepeat,
+        storyPage.audioSequence,
+        audioPlaybackRate,
+        highlightTimingMode,
+        highlightTimingProfile,
+      );
     }
   };
 
@@ -1307,7 +1510,11 @@ export function StoryReaderModal({ story, onClose }: Props) {
                         : "border border-border bg-paper text-muted-foreground hover:bg-foreground/5"
                     }`}
                   >
-                    {l === "telugu" ? "తెలుగు" : l === "tamil" ? "தமிழ்" : "Español"}
+                    {l === "telugu"
+                      ? "తెలుగు"
+                      : l === "tamil"
+                        ? "தமிழ்"
+                        : "Español"}
                   </button>
                 ))}
               </div>
@@ -1319,13 +1526,25 @@ export function StoryReaderModal({ story, onClose }: Props) {
                 onClick={handleAutoPlay}
                 className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-primary px-3 py-2 text-xs font-medium leading-tight text-primary-foreground shadow-soft transition-all hover:brightness-110"
                 aria-label={
-                  autoPlay === "playing" ? "Pause reading" : autoPlay === "paused" ? "Resume reading" : "Read to me"
+                  autoPlay === "playing"
+                    ? "Pause reading"
+                    : autoPlay === "paused"
+                      ? "Resume reading"
+                      : "Read to me"
                 }
               >
                 {autoPlay === "playing" ? (
-                  <><Pause className="h-3.5 w-3.5" /><span>Pause</span></>
+                  <>
+                    <Pause className="h-3.5 w-3.5" />
+                    <span>Pause</span>
+                  </>
                 ) : (
-                  <><Play className="h-3.5 w-3.5 translate-x-[1px]" /><span>{autoPlay === "paused" ? "Resume" : "Read to me"}</span></>
+                  <>
+                    <Play className="h-3.5 w-3.5 translate-x-[1px]" />
+                    <span>
+                      {autoPlay === "paused" ? "Resume" : "Read to me"}
+                    </span>
+                  </>
                 )}
               </button>
             </div>
@@ -1417,7 +1636,11 @@ export function StoryReaderModal({ story, onClose }: Props) {
                           : "border border-border bg-paper text-muted-foreground hover:bg-foreground/5"
                       }`}
                     >
-                      {l === "telugu" ? "తెలుగు" : l === "tamil" ? "தமிழ்" : "Español"}
+                      {l === "telugu"
+                        ? "తెలుగు"
+                        : l === "tamil"
+                          ? "தமிழ்"
+                          : "Español"}
                     </button>
                   ))}
                 </div>
@@ -1430,13 +1653,25 @@ export function StoryReaderModal({ story, onClose }: Props) {
                 onClick={handleAutoPlay}
                 className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium leading-tight text-primary-foreground shadow-soft transition-all hover:brightness-110"
                 aria-label={
-                  autoPlay === "playing" ? "Pause reading" : autoPlay === "paused" ? "Resume reading" : "Read to me"
+                  autoPlay === "playing"
+                    ? "Pause reading"
+                    : autoPlay === "paused"
+                      ? "Resume reading"
+                      : "Read to me"
                 }
               >
                 {autoPlay === "playing" ? (
-                  <><Pause className="h-3.5 w-3.5" /><span>Pause</span></>
+                  <>
+                    <Pause className="h-3.5 w-3.5" />
+                    <span>Pause</span>
+                  </>
                 ) : (
-                  <><Play className="h-3.5 w-3.5 translate-x-[1px]" /><span>{autoPlay === "paused" ? "Resume" : "Read to me"}</span></>
+                  <>
+                    <Play className="h-3.5 w-3.5 translate-x-[1px]" />
+                    <span>
+                      {autoPlay === "paused" ? "Resume" : "Read to me"}
+                    </span>
+                  </>
                 )}
               </button>
               <button

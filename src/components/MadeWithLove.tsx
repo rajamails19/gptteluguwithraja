@@ -15,7 +15,8 @@ const sparkle = (
 );
 
 function AvatarHalo({ size = "md" }: { size?: "md" | "lg" }) {
-  const dim = size === "lg" ? "h-36 w-36 sm:h-44 sm:w-44" : "h-16 w-16 sm:h-20 sm:w-20";
+  const dim =
+    size === "lg" ? "h-36 w-36 sm:h-44 sm:w-44" : "h-16 w-16 sm:h-20 sm:w-20";
   return (
     <div className="relative flex-shrink-0">
       <span
@@ -45,12 +46,22 @@ function FloatingTelugu({
   className = "",
   baseSize = 36,
 }: {
-  letters: { ch: string; left: string; top: string; delay?: number; size?: number; color?: string }[];
+  letters: {
+    ch: string;
+    left: string;
+    top: string;
+    delay?: number;
+    size?: number;
+    color?: string;
+  }[];
   className?: string;
   baseSize?: number;
 }) {
   return (
-    <div aria-hidden className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}>
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
+    >
       {letters.map((l, i) => (
         <motion.span
           key={i}
@@ -95,12 +106,48 @@ export function MadeWithLove({ variant = "ribbon" }: Props) {
         </span>
         <FloatingTelugu
           letters={[
-            { ch: "అ", left: "6%", top: "18%", size: 34, color: "text-primary/25" },
-            { ch: "ఆ", left: "18%", top: "70%", size: 28, color: "text-rose-400/30" },
-            { ch: "క", left: "42%", top: "8%", size: 30, color: "text-[var(--wood)]/25" },
-            { ch: "మ", left: "62%", top: "78%", size: 36, color: "text-primary/25" },
-            { ch: "ర", left: "84%", top: "62%", size: 32, color: "text-amber-500/30" },
-            { ch: "ల", left: "92%", top: "20%", size: 28, color: "text-primary/20" },
+            {
+              ch: "అ",
+              left: "6%",
+              top: "18%",
+              size: 34,
+              color: "text-primary/25",
+            },
+            {
+              ch: "ఆ",
+              left: "18%",
+              top: "70%",
+              size: 28,
+              color: "text-rose-400/30",
+            },
+            {
+              ch: "క",
+              left: "42%",
+              top: "8%",
+              size: 30,
+              color: "text-[var(--wood)]/25",
+            },
+            {
+              ch: "మ",
+              left: "62%",
+              top: "78%",
+              size: 36,
+              color: "text-primary/25",
+            },
+            {
+              ch: "ర",
+              left: "84%",
+              top: "62%",
+              size: 32,
+              color: "text-amber-500/30",
+            },
+            {
+              ch: "ల",
+              left: "92%",
+              top: "20%",
+              size: 28,
+              color: "text-primary/20",
+            },
           ]}
         />
 
@@ -113,7 +160,9 @@ export function MadeWithLove({ variant = "ribbon" }: Props) {
             </span>
             <h2 className="mt-4 font-display text-4xl tracking-tight sm:text-5xl">
               Made with{" "}
-              <span className="inline-block animate-pulse text-rose-500">❤</span>{" "}
+              <span className="inline-block animate-pulse text-rose-500">
+                ❤
+              </span>{" "}
               by <span className="italic text-primary">Raja</span>
             </h2>
             <p className="font-telugu mt-5 text-2xl font-bold leading-relaxed tracking-tight sm:text-3xl">
@@ -154,12 +203,48 @@ export function MadeWithLove({ variant = "ribbon" }: Props) {
       {/* Floating Telugu letters */}
       <FloatingTelugu
         letters={[
-          { ch: "అ", left: "32%", top: "8%", size: 22, color: "text-primary/30" },
-          { ch: "క", left: "48%", top: "62%", size: 20, color: "text-rose-400/35" },
-          { ch: "మ", left: "66%", top: "10%", size: 24, color: "text-[var(--wood)]/35" },
-          { ch: "ర", left: "78%", top: "58%", size: 22, color: "text-amber-500/35" },
-          { ch: "ల", left: "88%", top: "20%", size: 20, color: "text-primary/25" },
-          { ch: "ఆ", left: "58%", top: "78%", size: 18, color: "text-primary/25" },
+          {
+            ch: "అ",
+            left: "32%",
+            top: "8%",
+            size: 22,
+            color: "text-primary/30",
+          },
+          {
+            ch: "క",
+            left: "48%",
+            top: "62%",
+            size: 20,
+            color: "text-rose-400/35",
+          },
+          {
+            ch: "మ",
+            left: "66%",
+            top: "10%",
+            size: 24,
+            color: "text-[var(--wood)]/35",
+          },
+          {
+            ch: "ర",
+            left: "78%",
+            top: "58%",
+            size: 22,
+            color: "text-amber-500/35",
+          },
+          {
+            ch: "ల",
+            left: "88%",
+            top: "20%",
+            size: 20,
+            color: "text-primary/25",
+          },
+          {
+            ch: "ఆ",
+            left: "58%",
+            top: "78%",
+            size: 18,
+            color: "text-primary/25",
+          },
         ]}
       />
       <div className="relative flex items-center gap-4 sm:gap-5">
@@ -167,8 +252,7 @@ export function MadeWithLove({ variant = "ribbon" }: Props) {
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
             <p className="font-display text-lg leading-tight sm:text-xl">
-              Made with{" "}
-              <span className="text-rose-500">❤</span> by{" "}
+              Made with <span className="text-rose-500">❤</span> by{" "}
               <span className="italic text-primary">Raja</span>
             </p>
             <span className="font-telugu text-base font-bold sm:text-lg">

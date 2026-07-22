@@ -8,14 +8,12 @@ export const Route = createFileRoute("/about")({
       { title: "About — Telugu Tales" },
       {
         name: "description",
-        content:
-          "Made with love by Raja — fun Telugu stories, games and learning tools for kids.",
+        content: "Made with love by Raja — fun Telugu stories, games and learning tools for kids.",
       },
       { property: "og:title", content: "About — Telugu Tales" },
       {
         property: "og:description",
-        content:
-          "A small fatherly effort to help kids learn Telugu through stories and play.",
+        content: "A small fatherly effort to help kids learn Telugu through stories and play.",
       },
     ],
   }),
@@ -84,24 +82,16 @@ function AboutPage() {
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground font-display text-lg">
               త
             </span>
-            <span className="font-display text-lg tracking-tight">
-              Telugu Tales
-            </span>
+            <span className="font-display text-lg tracking-tight">Telugu Tales</span>
           </Link>
           <nav className="hidden items-center gap-7 text-sm text-foreground/70 sm:flex">
             <Link to="/" className="hover:text-foreground transition-colors">
               Library
             </Link>
-            <Link
-              to="/young-readers"
-              className="hover:text-foreground transition-colors"
-            >
+            <Link to="/young-readers" className="hover:text-foreground transition-colors">
               Young Readers
             </Link>
-            <Link
-              to="/about"
-              className="text-foreground transition-colors"
-            >
+            <Link to="/about" className="text-foreground transition-colors">
               About
             </Link>
           </nav>
@@ -127,12 +117,12 @@ function AboutPage() {
             Our little world
           </span>
           <h1 className="mt-5 font-display text-4xl tracking-tight sm:text-6xl">
-            A cozy corner of the internet for{" "}
-            <span className="italic text-primary">తెలుగు</span> kids.
+            A cozy corner of the internet for <span className="italic text-primary">తెలుగు</span>{" "}
+            kids.
           </h1>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Telugu Tales started at bedtime — a dad, a sleepy kid, and a wish
-            that the next generation grows up loving the language too.
+            Telugu Tales started at bedtime — a dad, a sleepy kid, and a wish that the next
+            generation grows up loving the language too.
           </p>
         </motion.div>
 
@@ -161,9 +151,7 @@ function AboutPage() {
                 }}
                 className="flex flex-col items-center gap-1"
               >
-                <span className="text-4xl sm:text-5xl drop-shadow-sm">
-                  {m.emoji}
-                </span>
+                <span className="text-4xl sm:text-5xl drop-shadow-sm">{m.emoji}</span>
                 <span className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
                   {m.label}
                 </span>
@@ -175,9 +163,7 @@ function AboutPage() {
         {/* What we believe */}
         <section className="mt-20">
           <div className="text-center">
-            <p className="text-[11px] uppercase tracking-[0.18em] text-primary">
-              What we believe
-            </p>
+            <p className="text-[11px] uppercase tracking-[0.18em] text-primary">What we believe</p>
             <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-4xl">
               Small stories. Big roots.
             </h2>
@@ -197,12 +183,8 @@ function AboutPage() {
                     {p.emoji}
                   </span>
                   <div>
-                    <h3 className="font-display text-lg tracking-tight">
-                      {p.title}
-                    </h3>
-                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                      {p.body}
-                    </p>
+                    <h3 className="font-display text-lg tracking-tight">{p.title}</h3>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
                   </div>
                 </div>
               </motion.div>
@@ -230,15 +212,12 @@ function AboutPage() {
 
         {/* Coming soon */}
         <section className="mx-auto mt-16 max-w-2xl rounded-3xl border border-dashed border-foreground/15 bg-paper/60 p-8 text-center sm:p-12">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-primary">
-            On the workbench
-          </p>
+          <p className="text-[11px] uppercase tracking-[0.18em] text-primary">On the workbench</p>
           <h3 className="mt-3 font-display text-2xl tracking-tight sm:text-3xl">
             More coming soon — team, story &amp; mobile app.
           </h3>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            The people behind Telugu Tales, the journey so far, and where
-            we're headed next.
+            The people behind Telugu Tales, the journey so far, and where we're headed next.
           </p>
           <Link
             to="/"

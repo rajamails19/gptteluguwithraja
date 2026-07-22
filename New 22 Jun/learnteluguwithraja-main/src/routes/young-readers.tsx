@@ -126,8 +126,8 @@ function YoungReadersPage() {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="mx-auto mt-3 max-w-2xl text-sm text-foreground/60 sm:text-base"
           >
-            Comic-book style mini adventures — four chapters, painterly art, and warm
-            Telugu read-aloud for kids who are ready for longer stories.
+            Comic-book style mini adventures — four chapters, painterly art, and warm Telugu
+            read-aloud for kids who are ready for longer stories.
           </motion.p>
         </div>
       </section>
@@ -141,9 +141,7 @@ function YoungReadersPage() {
               story={story}
               index={i}
               isOpen={openId === story.id}
-              onToggle={() =>
-                setOpenId((cur) => (cur === story.id ? null : story.id))
-              }
+              onToggle={() => setOpenId((cur) => (cur === story.id ? null : story.id))}
             />
           ))}
         </div>

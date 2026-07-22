@@ -50,18 +50,13 @@ function Index() {
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground font-display text-lg">
               త
             </span>
-            <span className="font-display text-lg tracking-tight">
-              Telugu Tales
-            </span>
+            <span className="font-display text-lg tracking-tight">Telugu Tales</span>
           </a>
           <nav className="hidden items-center gap-7 text-sm text-foreground/70 sm:flex">
             <a href="#library" className="hover:text-foreground transition-colors">
               Library
             </a>
-            <Link
-              to="/young-readers"
-              className="hover:text-foreground transition-colors"
-            >
+            <Link to="/young-readers" className="hover:text-foreground transition-colors">
               Young Readers
             </Link>
             <Link to="/about" className="hover:text-foreground transition-colors">
@@ -87,23 +82,17 @@ function Index() {
 
         <Hero onBrowse={scrollToLibrary} onStart={() => setOpen(stories[0])} />
 
-        <section
-          id="library"
-          ref={libraryRef}
-          className="mx-auto max-w-7xl px-5 pb-24 sm:px-8"
-        >
+        <section id="library" ref={libraryRef} className="mx-auto max-w-7xl px-5 pb-24 sm:px-8">
           <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-[11px] uppercase tracking-[0.18em] text-primary">
-                The Library
-              </p>
+              <p className="text-[11px] uppercase tracking-[0.18em] text-primary">The Library</p>
               <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-4xl">
                 Open a book. Begin a small adventure.
               </h2>
             </div>
             <p className="max-w-sm text-sm text-muted-foreground">
-              Tap any cover to enter an immersive reading view. Swipe or use
-              arrow keys to turn the page.
+              Tap any cover to enter an immersive reading view. Swipe or use arrow keys to turn the
+              page.
             </p>
           </div>
 
@@ -114,22 +103,16 @@ function Index() {
           <StoryShelf stories={filtered} onOpen={setOpen} />
         </section>
 
-        <section
-          id="about"
-          className="border-t border-border/60 bg-paper/60 py-20"
-        >
+        <section id="about" className="border-t border-border/60 bg-paper/60 py-20">
           <div className="mx-auto max-w-3xl px-5 text-center sm:px-8">
-            <p className="text-[11px] uppercase tracking-[0.18em] text-primary">
-              Why Telugu Tales
-            </p>
+            <p className="text-[11px] uppercase tracking-[0.18em] text-primary">Why Telugu Tales</p>
             <h3 className="mt-3 font-display text-3xl tracking-tight sm:text-4xl">
               A calm, beautiful place for a child to read.
             </h3>
             <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
-              No streaks. No badges. No noise. Just warm illustrations, gentle
-              Telugu sentences, and an English line for the family to read
-              together. Every story is paced like turning the pages of a real
-              picture book.
+              No streaks. No badges. No noise. Just warm illustrations, gentle Telugu sentences, and
+              an English line for the family to read together. Every story is paced like turning the
+              pages of a real picture book.
             </p>
           </div>
         </section>
