@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { BookOpen, Loader2, Pause, Play, Sparkles, X } from "lucide-react";
 import type { YoungStory, YoungChapter } from "@/data/youngStories";
+import { youngTranslit } from "@/data/youngStories";
 import { getCachedAudio, putCachedAudio } from "@/lib/ttsCache";
 import bravePageArt from "@/assets/young/page-art/brave-sunset.jpg";
 import forestPageArt from "@/assets/young/page-art/forest-glow.jpg";
@@ -24,6 +25,33 @@ type YoungVoiceSpeed = 0.05 | 0.45 | 1;
 
 const YOUNG_VOICE_SPEEDS: YoungVoiceSpeed[] = [0.05, 0.45, 1];
 const YOUNG_VOICE_SPEED_STORAGE_KEY = "telugu-tales-young-voice-speed";
+
+// Real 2-second pause after each spoken line at 1x. Stories with per-sentence
+// audio (below) play one line at a time so the pause is exact.
+const YOUNG_LINE_PAUSE_MS = 2000;
+
+// Per-sentence base audio, loaded via glob so a missing file just skips.
+// Keyed like "ch1-s1". Grouped by story id.
+const sentenceAudioModules = import.meta.glob(
+  "../assets/audio/young/*/base-sentences/*.mp3",
+  { eager: true, import: "default" },
+) as Record<string, string>;
+
+// storyId -> folder name that holds its base-sentences.
+const SENTENCE_AUDIO_FOLDER: Record<string, string> = {
+  "brave-little-one": "brave-little-one",
+};
+
+function getSentenceAudio(
+  storyId: string,
+  chapterIndex: number,
+  sentenceIndex: number,
+): string | undefined {
+  const folder = SENTENCE_AUDIO_FOLDER[storyId];
+  if (!folder) return undefined;
+  const key = `../assets/audio/young/${folder}/base-sentences/ch${chapterIndex + 1}-s${sentenceIndex + 1}.mp3`;
+  return sentenceAudioModules[key];
+}
 
 export function YoungStoryAccordion({
   story,
@@ -52,6 +80,18 @@ export function YoungStoryAccordion({
   const highlightFrameRef = useRef<number | null>(null);
   const cacheRef = useRef<Map<string, string>>(new Map());
   const autoPlayRef = useRef(false);
+  const sentenceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const sentenceRunRef = useRef(0);
+  // Where "Read whole story" was paused, so it resumes instead of restarting.
+  const resumeRef = useRef<{
+    chapter: number;
+    time: number;
+    sentence?: number;
+  } | null>(null);
+
+  // At 1x, every story plays one line at a time with a real 2s pause between
+  // lines. Uses pre-recorded per-sentence audio where available, else live TTS.
+  const useSentenceMode = voiceSpeed === 1;
   const pageTone = getPageTone(story.id);
   const isFeatured = display === "featured";
   const isHint = display === "hint";
@@ -89,6 +129,12 @@ export function YoungStoryAccordion({
     if (highlightFrameRef.current !== null) {
       cancelAnimationFrame(highlightFrameRef.current);
       highlightFrameRef.current = null;
+    }
+    // Cancel any in-flight sentence chain + its pending 2s pause.
+    sentenceRunRef.current += 1;
+    if (sentenceTimerRef.current) {
+      clearTimeout(sentenceTimerRef.current);
+      sentenceTimerRef.current = null;
     }
     setActiveSentenceIndex(-1);
     setAudioState("idle");
@@ -158,8 +204,33 @@ export function YoungStoryAccordion({
     [],
   );
 
+  // Resolve (and cache) an audio URL for a single line via the TTS endpoint.
+  const fetchLineAudio = useCallback(async (text: string) => {
+    const cached = cacheRef.current.get(text);
+    if (cached) return cached;
+    let blob = await getCachedAudio(text);
+    if (!blob) {
+      const res = await fetch("/api/tts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      });
+      if (!res.ok) throw new Error(`TTS failed (${res.status})`);
+      blob = await res.blob();
+      await putCachedAudio(text, blob);
+    }
+    const url = URL.createObjectURL(blob);
+    cacheRef.current.set(text, url);
+    return url;
+  }, []);
+
   const playText = useCallback(
-    async (text: string, audioSrc?: string, onEnded?: () => void) => {
+    async (
+      text: string,
+      audioSrc?: string,
+      onEnded?: () => void,
+      startTime = 0,
+    ) => {
       try {
         let url = audioSrc ?? cacheRef.current.get(text);
         if (!url) {
@@ -193,7 +264,17 @@ export function YoungStoryAccordion({
           setActiveSentenceIndex(-1);
           setAudioState("idle");
         };
+        // Start playback FIRST, then seek. Waiting on `loadedmetadata` before
+        // play() can hang forever if the event never fires, which silences
+        // audio entirely. Seeking after play is safe and never blocks it.
         await audio.play();
+        if (startTime > 0) {
+          try {
+            audio.currentTime = startTime;
+          } catch {
+            /* seeking unsupported — just continue from the start */
+          }
+        }
         setAudioState("playing");
         startSentenceHighlight(audio, text, voiceSpeed);
       } catch (err) {
@@ -205,6 +286,61 @@ export function YoungStoryAccordion({
     [startSentenceHighlight, voiceSpeed],
   );
 
+  // Play a chapter one line at a time, with a real 2s pause between lines.
+  // `onChapterEnd` fires after the last line's pause. Cancellable via stopAudio.
+  const playChapterSentences = (
+    chapterIndex: number,
+    startSentence: number,
+    onChapterEnd: () => void,
+  ) => {
+    const runId = ++sentenceRunRef.current;
+    const alive = () => sentenceRunRef.current === runId;
+    const sentences = splitIntoSentences(story.chapters[chapterIndex].telugu);
+
+    const playOne = async (si: number) => {
+      if (!alive()) return;
+      if (si >= sentences.length) {
+        onChapterEnd();
+        return;
+      }
+      setActiveSentenceIndex(si);
+      const afterLine = () => {
+        if (!alive()) return;
+        sentenceTimerRef.current = setTimeout(() => {
+          if (alive()) void playOne(si + 1);
+        }, YOUNG_LINE_PAUSE_MS);
+      };
+
+      // Pre-recorded file if we have one, otherwise synth this line via TTS.
+      let src = getSentenceAudio(story.id, chapterIndex, si);
+      if (!src) {
+        setAudioState("loading");
+        try {
+          src = await fetchLineAudio(sentences[si]);
+        } catch {
+          if (alive()) void playOne(si + 1); // skip a failed line, keep going
+          return;
+        }
+      }
+      if (!alive() || !src) return;
+
+      const audio = new Audio(src);
+      audioRef.current = audio;
+      audio.onended = afterLine;
+      audio.onerror = () => {
+        if (alive()) void playOne(si + 1);
+      };
+      try {
+        await audio.play();
+        if (alive()) setAudioState("playing");
+      } catch {
+        if (alive()) void playOne(si + 1);
+      }
+    };
+
+    void playOne(startSentence);
+  };
+
   const handleChapterPlay = (i: number) => {
     if (activeChapter === i && audioState === "playing") {
       stopAudio();
@@ -213,22 +349,40 @@ export function YoungStoryAccordion({
     }
     setAutoPlay(false);
     autoPlayRef.current = false;
+    resumeRef.current = null; // explicit chapter pick overrides any resume point
     stopAudio();
     setActiveChapter(i);
+    if (useSentenceMode) {
+      playChapterSentences(i, 0, () => {
+        setActiveSentenceIndex(-1);
+        setActiveChapter(null);
+        setAudioState("idle");
+      });
+      return;
+    }
     void playText(
       story.chapters[i].telugu,
       getChapterAudio(story.chapters[i], voiceSpeed),
     );
   };
 
-  const playChain = (from: number) => {
+  const playChain = (from: number, startTime = 0, startSentence = 0) => {
     if (from >= story.chapters.length) {
       setAutoPlay(false);
       autoPlayRef.current = false;
       setActiveChapter(null);
+      resumeRef.current = null; // finished — next play starts fresh
       return;
     }
     setActiveChapter(from);
+    if (useSentenceMode) {
+      // The 2s pause after the final line doubles as the chapter gap.
+      playChapterSentences(from, startSentence, () => {
+        if (!autoPlayRef.current) return;
+        playChain(from + 1);
+      });
+      return;
+    }
     void playText(
       story.chapters[from].telugu,
       getChapterAudio(story.chapters[from], voiceSpeed),
@@ -237,13 +391,23 @@ export function YoungStoryAccordion({
         setTimeout(() => {
           if (!autoPlayRef.current) return;
           playChain(from + 1);
-        }, 600);
+        }, 2000); // breathing room between chapters
       },
+      startTime,
     );
   };
 
   const handleReadAll = () => {
     if (autoPlay) {
+      // Remember where we stopped so we can pick up from here.
+      const current = audioRef.current;
+      if (activeChapter !== null) {
+        resumeRef.current = {
+          chapter: activeChapter,
+          time: current?.currentTime ?? 0,
+          sentence: activeSentenceIndex >= 0 ? activeSentenceIndex : 0,
+        };
+      }
       setAutoPlay(false);
       autoPlayRef.current = false;
       stopAudio();
@@ -251,7 +415,9 @@ export function YoungStoryAccordion({
     }
     setAutoPlay(true);
     autoPlayRef.current = true;
-    playChain(0);
+    const resume = resumeRef.current;
+    resumeRef.current = null;
+    playChain(resume?.chapter ?? 0, resume?.time ?? 0, resume?.sentence ?? 0);
   };
 
   return (
@@ -421,6 +587,7 @@ export function YoungStoryAccordion({
                     setAutoPlay(false);
                     autoPlayRef.current = false;
                     setActiveChapter(null);
+                    resumeRef.current = null; // different audio file for the new speed
                     setVoiceSpeed(speed);
                   }}
                 />
@@ -443,6 +610,26 @@ export function YoungStoryAccordion({
                   />
                 ))}
               </div>
+
+              {/* Floating read control — mirrors the "Read whole story" button
+                  above, so you can pause without scrolling back to the top. */}
+              <motion.button
+                type="button"
+                onClick={handleReadAll}
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                aria-label={autoPlay ? "Stop reading" : "Read whole story"}
+                title={autoPlay ? "Stop reading" : "Read whole story"}
+                className="fixed bottom-6 right-4 z-50 grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_10px_30px_oklch(0.3_0.05_60_/_0.28)] transition-all hover:brightness-110 sm:bottom-auto sm:right-6 sm:top-1/2 sm:-translate-y-1/2"
+              >
+                {audioState === "loading" ? (
+                  <Loader2 className="h-6 w-6 animate-spin" />
+                ) : autoPlay ? (
+                  <Pause className="h-6 w-6" />
+                ) : (
+                  <Play className="h-6 w-6 translate-x-[1px]" />
+                )}
+              </motion.button>
             </div>
           </motion.div>
         )}
@@ -452,9 +639,23 @@ export function YoungStoryAccordion({
 }
 
 function getChapterAudio(chapter: YoungChapter, speed: YoungVoiceSpeed) {
-  return chapter.audioBySpeed?.[
-    String(speed) as keyof NonNullable<YoungChapter["audioBySpeed"]>
-  ];
+  const bySpeed = chapter.audioBySpeed;
+  if (!bySpeed) return undefined;
+  // Exact match first, else fall back to the closest recorded speed (e.g. the
+  // 0.45x button uses the bundled 0.5x file). Without this the lookup misses
+  // and we'd fall through to live TTS — which sounds like "no audio".
+  const exact = bySpeed[String(speed) as keyof typeof bySpeed];
+  if (exact) return exact;
+  const available = Object.keys(bySpeed)
+    .map(Number)
+    .filter((n) => Number.isFinite(n) && bySpeed[String(n) as keyof typeof bySpeed]);
+  if (available.length === 0) return undefined;
+  const nearest = available.reduce((a, b) =>
+    Math.abs(b - speed) < Math.abs(a - speed) ? b : a,
+  );
+  // Only substitute when it's genuinely close, so 1x doesn't play a 0.05x clip.
+  if (Math.abs(nearest - speed) > 0.12) return undefined;
+  return bySpeed[String(nearest) as keyof typeof bySpeed];
 }
 
 function SpeedControl({
@@ -615,6 +816,7 @@ function ChapterBlock({
           </button>
         </div>
       </div>
+
     </motion.div>
   );
 }
@@ -626,6 +828,19 @@ function HighlightedSentences({
   sentences: string[];
   activeSentenceIndex: number;
 }) {
+  // One ref per sentence. (Sharing a single ref across siblings breaks: React
+  // nulls it when detaching the previous element.)
+  const sentenceRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+
+  // Keep the line being read aloud in view, so nobody has to chase it.
+  useEffect(() => {
+    if (activeSentenceIndex < 0) return;
+    sentenceRefs.current[activeSentenceIndex]?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }, [activeSentenceIndex]);
+
   return (
     <>
       {sentences.map((sentence, sentenceIndex) => {
@@ -634,6 +849,9 @@ function HighlightedSentences({
         return (
           <motion.p
             key={sentenceIndex}
+            ref={(el) => {
+              sentenceRefs.current[sentenceIndex] = el;
+            }}
             data-young-reader-sentence
             className={`relative isolate overflow-hidden rounded-xl px-3 py-1.5 [text-wrap:pretty] ${
               isActive ? "text-[oklch(0.17_0.025_65)]" : ""
@@ -676,7 +894,51 @@ function HighlightedSentences({
                 }}
               />
             )}
-            <span className="relative z-10">{sentence}</span>
+            <span className="relative z-10">
+              {sentence
+                .split(/\s+/)
+                .filter(Boolean)
+                .map((word, wordIndex) => {
+                  // Strip surrounding punctuation/quotes before looking up.
+                  const clean = word
+                    .replace(/^[“”"'(]+/, "")
+                    .replace(/[.,!?;:“”"')]+$/, "");
+                  const translit = youngTranslit[clean];
+                  return (
+                    <span
+                      key={wordIndex}
+                      style={{
+                        display: "inline-flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        verticalAlign: "bottom",
+                        margin: "0 0.16em",
+                      }}
+                    >
+                      {translit && (
+                        <span
+                          aria-hidden
+                          style={{
+                            fontSize: "0.58em",
+                            lineHeight: 1,
+                            whiteSpace: "nowrap",
+                            marginBottom: "0.32em",
+                            fontFamily:
+                              "'Trebuchet MS', 'Segoe UI', system-ui, sans-serif",
+                            color: "oklch(0.55 0.22 25)",
+                            fontWeight: 600,
+                            letterSpacing: "0.01em",
+                            pointerEvents: "none",
+                          }}
+                        >
+                          ({translit})
+                        </span>
+                      )}
+                      <span>{word}</span>
+                    </span>
+                  );
+                })}
+            </span>
           </motion.p>
         );
       })}
