@@ -383,6 +383,12 @@ import fas045_17 from "@/assets/audio/first-action-sentences/slow-045/page-17.mp
 import fas045_18 from "@/assets/audio/first-action-sentences/slow-045/page-18.mp3";
 import fas045_19 from "@/assets/audio/first-action-sentences/slow-045/page-19.mp3";
 import fas045_20 from "@/assets/audio/first-action-sentences/slow-045/page-20.mp3";
+import fasEng11 from "@/assets/audio/first-action-sentences/english/page-11.mp3";
+import fasEng16 from "@/assets/audio/first-action-sentences/english/page-16.mp3";
+import fasEng18 from "@/assets/audio/first-action-sentences/english/page-18.mp3";
+import fasEng6 from "@/assets/audio/first-action-sentences/english/page-6.mp3";
+import fasEng1 from "@/assets/audio/first-action-sentences/english/page-1.mp3";
+import fasEng2 from "@/assets/audio/first-action-sentences/english/page-2.mp3";
 import fasTa1 from "@/assets/audio/first-action-sentences/tamil/page-1.mp3";
 import fasTa005_1 from "@/assets/audio/first-action-sentences/tamil/slow-005/page-1.mp3";
 import fasTa045_1 from "@/assets/audio/first-action-sentences/tamil/slow-045/page-1.mp3";
@@ -757,6 +763,8 @@ export interface StoryPage {
   tamilAudioBySpeed?: Record<string, string>;
   spanish?: string;
   spanishAudio?: string;
+  // Optional English clip played BEFORE the selected-language audio.
+  englishAudio?: string;
   spanishAudioBySpeed?: Record<string, string>;
   wordMap?: Record<string, string>;
   tamilWordMap?: Record<string, string>;
@@ -1214,6 +1222,7 @@ export const stories: Story[] = [
         image: fasImg(11),
         audio: fas11,
         audioBySpeed: { "0.05": fas005_11, "0.45": fas045_11 },
+        englishAudio: fasEng11,
         telugu: "అది ఎవరిది?",
         english: "Whose is that?",
         tamil: "அது யாருடையது?",
@@ -1238,6 +1247,7 @@ export const stories: Story[] = [
         image: fasImg(16),
         audio: fas16,
         audioBySpeed: { "0.05": fas005_16, "0.45": fas045_16 },
+        englishAudio: fasEng16,
         telugu: "ఓహ్, భలే ఉంది!",
         english: "Oh, it's lovely!",
         tamil: "ஓ, அழகாக இருக்கிறது!",
@@ -1261,6 +1271,7 @@ export const stories: Story[] = [
         image: fasImg(18),
         audio: fas18,
         audioBySpeed: { "0.05": fas005_18, "0.45": fas045_18 },
+        englishAudio: fasEng18,
         telugu: "ఎప్పుడు వెళ్దాం?",
         english: "When shall we go?",
         tamil: "எப்போது போகலாம்?",
@@ -1280,6 +1291,7 @@ export const stories: Story[] = [
         image: fasImg(6),
         audio: fas6,
         audioBySpeed: { "0.05": fas005_6, "0.45": fas045_6 },
+        englishAudio: fasEng6,
         telugu: "ఆయనకి నమస్కారం చెప్పు.",
         english: "Say hello to him.",
         tamil: "அவருக்கு வணக்கம் சொல்லு.",
@@ -1307,6 +1319,7 @@ export const stories: Story[] = [
         image: fasImg(1),
         audio: fas1,
         audioBySpeed: { "0.05": fas005_1, "0.45": fas045_1 },
+        englishAudio: fasEng1,
         telugu: "నాకు సంతోషంగా ఉంది.",
         english: "I am happy.",
         tamil: "எனக்கு சந்தோஷமாக இருக்கிறது.",
@@ -1330,6 +1343,7 @@ export const stories: Story[] = [
         image: fasImg(2),
         audio: fas2,
         audioBySpeed: { "0.05": fas005_2, "0.45": fas045_2 },
+        englishAudio: fasEng2,
         telugu: "నీకు ఏం కావాలి?",
         english: "What do you want?",
         tamil: "உனக்கு என்ன வேண்டும்?",
