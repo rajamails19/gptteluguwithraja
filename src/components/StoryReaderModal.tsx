@@ -920,7 +920,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
     return "listening";
   })();
 
-  const playTelugu = async (fromChain = false) => {
+  const playTelugu = async (fromChain = false, onDone?: () => void) => {
     if (!fromChain && audioState === "playing") {
       stopAudio();
       return;
@@ -934,7 +934,7 @@ export function StoryReaderModal({ story, onClose }: Props) {
     } = getAudioForSpeed(current);
     await playText(
       current.telugu,
-      undefined,
+      onDone,
       audioSrc,
       current.audioRepeat,
       current.audioSequence,
@@ -980,17 +980,37 @@ export function StoryReaderModal({ story, onClose }: Props) {
   };
 
   // Play the selected-language audio for a page (Telugu / Tamil / Spanish).
-  const playSelectedLang = (p: (typeof activePages)[number]) => {
+  const playSelectedLang = (
+    p: (typeof activePages)[number],
+    onDone?: () => void,
+  ) => {
     if (lang === "tamil" && p.tamilAudio) {
-      playTamilAudio(langSpeedAudio(p, "tamil")!, p.tamil ?? p.telugu, undefined, true);
+      playTamilAudio(langSpeedAudio(p, "tamil")!, p.tamil ?? p.telugu, onDone, true);
     } else if (lang === "spanish" && p.spanishAudio) {
-      playTamilAudio(langSpeedAudio(p, "spanish")!, p.spanish ?? p.telugu, undefined, true);
+      playTamilAudio(
+        langSpeedAudio(p, "spanish")!,
+        p.spanish ?? p.telugu,
+        onDone,
+        true,
+      );
     } else {
-      void playTelugu(true);
+      void playTelugu(true, onDone);
     }
   };
 
-  // If the page has an English clip, read English first, then the language.
+  // Play the English clip, then call onEnded.
+  const playEnglishIntro = (src: string, onEnded: () => void) => {
+    const intro = new Audio(src);
+    intro.volume = 1;
+    audioRef.current = intro;
+    setAudioState("playing");
+    setActiveWordIndex(-1);
+    intro.onended = onEnded;
+    intro.onerror = onEnded;
+    intro.play().catch(onEnded);
+  };
+
+  // Sandwich: language → 1.5s → English (slow) → 1.5s → language again.
   const playLine = (p: (typeof activePages)[number]) => {
     if (audioState === "playing") {
       stopAudio();
@@ -1000,18 +1020,15 @@ export function StoryReaderModal({ story, onClose }: Props) {
       playSelectedLang(p);
       return;
     }
-    const intro = new Audio(p.englishAudio);
-    intro.volume = 1;
-    audioRef.current = intro;
-    setAudioState("playing");
-    setActiveWordIndex(-1);
-    // 1.5s pause after the English line, then read the language.
-    const afterIntro = () => {
-      audioRepeatTimerRef.current = setTimeout(() => playSelectedLang(p), 1500);
+    const gap = (next: () => void) => {
+      setAudioState("playing"); // keep the Pause button steady during the gap
+      audioRepeatTimerRef.current = setTimeout(next, 1500);
     };
-    intro.onended = afterIntro;
-    intro.onerror = () => playSelectedLang(p);
-    intro.play().catch(() => playSelectedLang(p));
+    playSelectedLang(p, () =>
+      gap(() =>
+        playEnglishIntro(p.englishAudio!, () => gap(() => playSelectedLang(p))),
+      ),
+    );
   };
 
   const handleWordTap = (word: string) => {

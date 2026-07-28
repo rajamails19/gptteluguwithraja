@@ -33,6 +33,7 @@ export function Index() {
   const [active, setActive] = useState<Category | "All">("All");
   const [open, setOpen] = useState<Story | null>(null);
   const libraryRef = useRef<HTMLDivElement>(null);
+  const wordsRef = useRef<HTMLDivElement>(null);
 
   const filtered = useMemo(
     () =>
@@ -40,8 +41,26 @@ export function Index() {
     [active],
   );
 
+  const wordPages = useMemo(
+    () =>
+      ["my-family", "my-body", "telugu-letters"].flatMap(
+        (storyId) =>
+          stories
+            .find((story) => story.id === storyId)
+            ?.pages.map((page, index) => ({
+              ...page,
+              albumKey: `${storyId}-${index}`,
+            })) ?? [],
+      ),
+    [],
+  );
+
   const scrollToLibrary = () => {
     libraryRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const scrollToWords = () => {
+    wordsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
@@ -57,6 +76,13 @@ export function Index() {
             </span>
           </a>
           <nav className="hidden items-center gap-7 text-sm text-foreground/70 sm:flex">
+            <button
+              type="button"
+              onClick={scrollToWords}
+              className="hover:text-foreground transition-colors"
+            >
+              Words
+            </button>
             <a
               href="#library"
               className="hover:text-foreground transition-colors"
@@ -97,6 +123,53 @@ export function Index() {
         </section>
 
         <Hero onBrowse={scrollToLibrary} onStart={() => setOpen(stories[0])} />
+
+        <section
+          id="words"
+          ref={wordsRef}
+          className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-20"
+        >
+          <div className="mb-6 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.18em] text-primary">
+                Words
+              </p>
+              <h2 className="mt-2 font-display text-3xl tracking-tight sm:text-4xl">
+                Everyday words to see, say, and remember.
+              </h2>
+            </div>
+            <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
+              Every picture from My Family in Telugu and My Body in Telugu. No
+              opening, no navigation, just quick word practice.
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            {wordPages.map((page) => (
+              <article
+                key={page.albumKey}
+                className="overflow-hidden rounded-[1.5rem] border border-border/70 bg-paper shadow-book"
+              >
+                <div className="aspect-[16/10] overflow-hidden bg-secondary">
+                  <img
+                    src={page.image}
+                    alt={page.telugu}
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div className="px-5 py-5 text-center">
+                  <p className="font-telugu text-4xl leading-none text-foreground">
+                    {page.telugu}
+                  </p>
+                  <p className="mt-2 font-display text-lg italic leading-tight text-muted-foreground">
+                    {page.english}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
 
         <section
           id="library"

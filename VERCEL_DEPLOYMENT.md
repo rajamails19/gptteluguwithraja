@@ -10,11 +10,18 @@ This app is a TanStack Start app, so it should deploy as a server-rendered app r
 
 ## Environment variables
 
-Set these in Vercel if you want Telugu read-aloud audio:
+Configure these server-side environment variables in Vercel:
 
-- `SARVAM_API_KEY`
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
+- `SARVAM_API_KEY`: Sarvam API subscription key.
+- `TTS_ALLOWED_ORIGINS`: Comma-separated additional website origins allowed
+  to call `/api/tts`. The deployed app's same origin and Capacitor's standard
+  local origins are accepted automatically.
+- `SUPABASE_URL`: Optional Supabase project URL for the shared audio cache.
+- `SUPABASE_SERVICE_ROLE_KEY`: Optional service-role key used only by the
+  server to populate the audio cache.
+
+The TTS endpoint limits each client IP to 20 requests per minute and allows at
+most three simultaneous uncached Sarvam generations per server instance.
 
 The site can still render without these variables, but `/api/tts` will return a configuration error until `SARVAM_API_KEY` is set.
 
