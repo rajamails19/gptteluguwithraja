@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Capacitor } from "@capacitor/core";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Pause, Play } from "lucide-react";
 import { Hero } from "@/components/Hero";
@@ -10,7 +11,12 @@ import { MadeWithLove } from "@/components/MadeWithLove";
 import { MeenuCharacter } from "@/components/MeenuCharacter";
 import { Link } from "@tanstack/react-router";
 import { stories, type Category, type Story } from "@/data/stories";
+import { getCachedAudio, putCachedAudio } from "@/lib/ttsCache";
 
+const WORD_PAUSE_MS = 1_500;
+const WORD_TTS_CACHE_VOICE = "album-words-roopa-v3";
+const WORD_TTS_API_ORIGIN =
+  import.meta.env.VITE_TTS_API_ORIGIN?.replace(/\/$/, "") ?? "";
 const WORD_HIGHLIGHT_COLORS = [
   { bg: "#FF6B6B", text: "#7a0000" },
   { bg: "#FF9F43", text: "#7a3800" },
@@ -20,6 +26,22 @@ const WORD_HIGHLIGHT_COLORS = [
   { bg: "#55EFC4", text: "#005a3e" },
   { bg: "#FD79A8", text: "#6b0030" },
 ];
+
+function jumbleAlbum<T>(items: T[]) {
+  const shuffled = [...items];
+  let seed = 0x5eed1234;
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    seed = (seed * 1_664_525 + 1_013_904_223) >>> 0;
+    const swapIndex = seed % (index + 1);
+    [shuffled[index], shuffled[swapIndex]] = [
+      shuffled[swapIndex],
+      shuffled[index],
+    ];
+  }
+
+  return shuffled;
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,10 +74,11 @@ export function Index() {
   const libraryRef = useRef<HTMLDivElement>(null);
   const wordsRef = useRef<HTMLDivElement>(null);
   const wordAudioRef = useRef<HTMLAudioElement | null>(null);
+  const wordAudioUrlRef = useRef<string | null>(null);
   const wordCardRefs = useRef<Array<HTMLElement | null>>([]);
   const wordPauseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const wordPauseEndsAtRef = useRef(0);
-  const wordPauseRemainingRef = useRef(2_000);
+  const wordPauseRemainingRef = useRef(WORD_PAUSE_MS);
   const nextWordIndexRef = useRef(0);
 
   const filtered = useMemo(
@@ -64,22 +87,163 @@ export function Index() {
     [active],
   );
 
-  const wordPages = useMemo(
-    () =>
-      ["my-family", "my-body", "telugu-letters"].flatMap(
-        (storyId) =>
-          stories
-            .find((story) => story.id === storyId)
-            ?.pages.map((page, index) => ({
-              ...page,
-              albumKey: `${storyId}-${index}`,
-            })) ?? [],
-      ),
-    [],
-  );
+  const wordPages = useMemo(() => {
+    const existingWordPages = [
+      "my-family",
+      "my-body",
+      "telugu-letters",
+    ].flatMap(
+      (storyId) =>
+        stories
+          .find((story) => story.id === storyId)
+          ?.pages.map((page, index) => ({
+            ...page,
+            albumKey: `${storyId}-${index}`,
+          })) ?? [],
+    );
+
+    const curatedWords = [
+      {
+        storyId: "naa-modati-vakyalu",
+        pageIndex: 2,
+        telugu: "ప్రయాణం",
+        english: "Prayaanam — Travel",
+      },
+      {
+        storyId: "naa-modati-vakyalu",
+        pageIndex: 4,
+        telugu: "అమ్మ ప్రేమ",
+        english: "Amma Prema — Mother's love",
+      },
+      {
+        storyId: "naa-modati-vakyalu",
+        pageIndex: 6,
+        telugu: "అక్కాచెల్లెళ్లు",
+        english: "Akkachellellu — Sisters",
+      },
+      {
+        storyId: "naa-modati-vakyalu",
+        pageIndex: 7,
+        telugu: "బొమ్మలు",
+        english: "Bommalu — Toys",
+      },
+      {
+        storyId: "first-action-sentences",
+        pageIndex: 9,
+        telugu: "యువరాణి",
+        english: "Yuvaraani — Princess",
+      },
+      {
+        storyId: "first-action-sentences",
+        pageIndex: 8,
+        telugu: "పువ్వు",
+        english: "Puvvu — Flower",
+      },
+      {
+        storyId: "first-action-sentences",
+        pageIndex: 11,
+        telugu: "నృత్యం",
+        english: "Nrutyam — Dance",
+      },
+      {
+        storyId: "first-action-sentences",
+        pageIndex: 12,
+        telugu: "పుస్తకం",
+        english: "Pusthakam — Book",
+      },
+      {
+        storyId: "first-action-sentences",
+        pageIndex: 13,
+        telugu: "బొమ్మ",
+        english: "Bomma — Doll",
+      },
+      {
+        storyId: "first-action-sentences",
+        pageIndex: 6,
+        telugu: "ఫుట్‌బాల్",
+        english: "Football — Soccer",
+      },
+      {
+        storyId: "two-cats-monkey",
+        pageIndex: 3,
+        telugu: "కోతి",
+        english: "Kothi — Monkey",
+      },
+      {
+        storyId: "two-cats-monkey",
+        pageIndex: 4,
+        telugu: "పిల్లులు",
+        english: "Pillulu — Cats",
+      },
+      {
+        storyId: "gorumuddha",
+        pageIndex: 0,
+        telugu: "ఇడ్లీ",
+        english: "Idli — Idli",
+      },
+      {
+        storyId: "lion-mouse",
+        pageIndex: 2,
+        telugu: "స్నేహం",
+        english: "Sneham — Friendship",
+      },
+      {
+        storyId: "lion-mouse",
+        pageIndex: 6,
+        telugu: "మంచి స్నేహితులు",
+        english: "Manchi Snehithulu — Good friends",
+      },
+      {
+        storyId: "woodcutter",
+        pageIndex: 2,
+        telugu: "బంగారు గొడ్డలి",
+        english: "Bangaaru Goddali — Golden axe",
+      },
+      {
+        storyId: "woodcutter",
+        pageIndex: 5,
+        telugu: "మూడు గొడ్డళ్లు",
+        english: "Moodu Goddallu — Three axes",
+      },
+      {
+        storyId: "greedy-dog",
+        pageIndex: 0,
+        telugu: "ఎముక",
+        english: "Emuka — Bone",
+      },
+      {
+        storyId: "greedy-dog",
+        pageIndex: 2,
+        telugu: "నీటి నీడ",
+        english: "Neeti Needa — Reflection",
+      },
+      {
+        storyId: "fox-grapes",
+        pageIndex: 0,
+        telugu: "ద్రాక్ష",
+        english: "Draaksha — Grapes",
+      },
+    ].flatMap((word, index) => {
+      const sourcePage = stories.find((story) => story.id === word.storyId)
+        ?.pages[word.pageIndex];
+      if (!sourcePage) return [];
+
+      return [
+        {
+          ...sourcePage,
+          audio: undefined,
+          telugu: word.telugu,
+          english: word.english,
+          albumKey: `curated-word-${index}`,
+        },
+      ];
+    });
+
+    return jumbleAlbum([...existingWordPages, ...curatedWords]);
+  }, []);
 
   const playWordAt = useCallback(
-    (index: number) => {
+    async (index: number) => {
       const page = wordPages[index];
       if (!page) {
         wordAudioRef.current = null;
@@ -89,37 +253,78 @@ export function Index() {
         return;
       }
 
-      if (!page.audio) {
-        playWordAt(index + 1);
-        return;
+      setActiveWordIndex(index);
+      setCurrentWordIndex(index);
+
+      let audioSource = page.audio;
+      if (!audioSource) {
+        try {
+          let audioBlob = await getCachedAudio(
+            page.telugu,
+            WORD_TTS_CACHE_VOICE,
+          );
+
+          if (!audioBlob) {
+            const endpoint =
+              Capacitor.isNativePlatform() && WORD_TTS_API_ORIGIN
+                ? `${WORD_TTS_API_ORIGIN}/api/tts`
+                : "/api/tts";
+            const response = await fetch(endpoint, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ text: page.telugu }),
+            });
+            if (!response.ok) {
+              throw new Error(`Word TTS failed with ${response.status}`);
+            }
+            audioBlob = await response.blob();
+            await putCachedAudio(page.telugu, audioBlob, WORD_TTS_CACHE_VOICE);
+          }
+
+          audioSource = URL.createObjectURL(audioBlob);
+          wordAudioUrlRef.current = audioSource;
+        } catch (error) {
+          console.error("Word read-aloud failed:", error);
+          setActiveWordIndex(null);
+          setCurrentWordIndex(null);
+          setWordAudioState("idle");
+          return;
+        }
       }
 
-      const audio = new Audio(page.audio);
+      const releaseObjectUrl = () => {
+        if (!wordAudioUrlRef.current) return;
+        URL.revokeObjectURL(wordAudioUrlRef.current);
+        wordAudioUrlRef.current = null;
+      };
+
+      const audio = new Audio(audioSource);
       audio.playbackRate = 1;
       audio.onended = () => {
         wordAudioRef.current = null;
+        releaseObjectUrl();
         setActiveWordIndex(null);
         nextWordIndexRef.current = index + 1;
-        wordPauseRemainingRef.current = 2_000;
-        wordPauseEndsAtRef.current = Date.now() + 2_000;
+        wordPauseRemainingRef.current = WORD_PAUSE_MS;
+        wordPauseEndsAtRef.current = Date.now() + WORD_PAUSE_MS;
         wordPauseTimerRef.current = setTimeout(() => {
           wordPauseTimerRef.current = null;
-          playWordAt(index + 1);
-        }, 2_000);
+          void playWordAt(index + 1);
+        }, WORD_PAUSE_MS);
       };
       audio.onerror = () => {
         wordAudioRef.current = null;
+        releaseObjectUrl();
         setActiveWordIndex(null);
-        playWordAt(index + 1);
+        void playWordAt(index + 1);
       };
       wordAudioRef.current = audio;
-      setActiveWordIndex(index);
-      setCurrentWordIndex(index);
 
       void audio.play().then(
         () => setWordAudioState("playing"),
         () => {
           wordAudioRef.current = null;
+          releaseObjectUrl();
           setActiveWordIndex(null);
           setCurrentWordIndex(null);
           setWordAudioState("idle");
@@ -156,13 +361,13 @@ export function Index() {
       wordPauseEndsAtRef.current = Date.now() + remaining;
       wordPauseTimerRef.current = setTimeout(() => {
         wordPauseTimerRef.current = null;
-        playWordAt(nextWordIndexRef.current);
+        void playWordAt(nextWordIndexRef.current);
       }, remaining);
       setWordAudioState("playing");
       return;
     }
 
-    playWordAt(0);
+    void playWordAt(0);
   };
 
   useEffect(
@@ -173,6 +378,10 @@ export function Index() {
         audio.onended = null;
         audio.onerror = null;
         wordAudioRef.current = null;
+      }
+      if (wordAudioUrlRef.current) {
+        URL.revokeObjectURL(wordAudioUrlRef.current);
+        wordAudioUrlRef.current = null;
       }
       if (wordPauseTimerRef.current) {
         clearTimeout(wordPauseTimerRef.current);
