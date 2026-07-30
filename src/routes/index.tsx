@@ -256,6 +256,23 @@ export function Index() {
       setActiveWordIndex(index);
       setCurrentWordIndex(index);
 
+      let hasAdvanced = false;
+      const advanceToNextWord = (pauseMs = 0) => {
+        if (hasAdvanced) return;
+        hasAdvanced = true;
+
+        wordAudioRef.current = null;
+        setActiveWordIndex(null);
+        nextWordIndexRef.current = index + 1;
+        wordPauseRemainingRef.current = pauseMs;
+        wordPauseEndsAtRef.current = Date.now() + pauseMs;
+
+        wordPauseTimerRef.current = setTimeout(() => {
+          wordPauseTimerRef.current = null;
+          void playWordAt(index + 1);
+        }, pauseMs);
+      };
+
       let audioSource = page.audio;
       if (!audioSource) {
         try {
@@ -284,10 +301,11 @@ export function Index() {
           audioSource = URL.createObjectURL(audioBlob);
           wordAudioUrlRef.current = audioSource;
         } catch (error) {
-          console.error("Word read-aloud failed:", error);
-          setActiveWordIndex(null);
-          setCurrentWordIndex(null);
-          setWordAudioState("idle");
+          console.error(
+            `Word read-aloud failed for "${page.telugu}"; skipping it:`,
+            error,
+          );
+          advanceToNextWord();
           return;
         }
       }
@@ -301,33 +319,26 @@ export function Index() {
       const audio = new Audio(audioSource);
       audio.playbackRate = 1;
       audio.onended = () => {
-        wordAudioRef.current = null;
         releaseObjectUrl();
-        setActiveWordIndex(null);
-        nextWordIndexRef.current = index + 1;
-        wordPauseRemainingRef.current = WORD_PAUSE_MS;
-        wordPauseEndsAtRef.current = Date.now() + WORD_PAUSE_MS;
-        wordPauseTimerRef.current = setTimeout(() => {
-          wordPauseTimerRef.current = null;
-          void playWordAt(index + 1);
-        }, WORD_PAUSE_MS);
+        advanceToNextWord(WORD_PAUSE_MS);
       };
       audio.onerror = () => {
-        wordAudioRef.current = null;
         releaseObjectUrl();
-        setActiveWordIndex(null);
-        void playWordAt(index + 1);
+        console.error(
+          `Word audio could not be played for "${page.telugu}"; skipping it.`,
+        );
+        advanceToNextWord();
       };
       wordAudioRef.current = audio;
 
       void audio.play().then(
         () => setWordAudioState("playing"),
         () => {
-          wordAudioRef.current = null;
           releaseObjectUrl();
-          setActiveWordIndex(null);
-          setCurrentWordIndex(null);
-          setWordAudioState("idle");
+          console.error(
+            `Word audio playback was rejected for "${page.telugu}"; skipping it.`,
+          );
+          advanceToNextWord();
         },
       );
     },
